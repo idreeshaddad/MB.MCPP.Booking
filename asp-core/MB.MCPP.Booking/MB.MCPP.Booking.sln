@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MB.MCPP.BK.WebApi", "MB.MCPP.Booking.WebApi\MB.MCPP.BK.WebApi.csproj", "{5FBCC78A-D8DC-4B57-8EF0-52D03C005281}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MB.MCPP.BK.WebApi", "MB.MCPP.Booking.WebApi\MB.MCPP.BK.WebApi.csproj", "{5FBCC78A-D8DC-4B57-8EF0-52D03C005281}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MB.MCPP.BK.Entities", "MB.MCPP.Booking.Entities\MB.MCPP.BK.Entities.csproj", "{E5994E3A-EFC3-4894-AD7F-9CBCEA831A31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MB.MCPP.BK.Entities", "MB.MCPP.Booking.Entities\MB.MCPP.BK.Entities.csproj", "{E5994E3A-EFC3-4894-AD7F-9CBCEA831A31}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MB.MCPP.BK.Utils", "MB.MCPP.Booking.Utils\MB.MCPP.BK.Utils.csproj", "{825C291F-47CE-41AC-B121-AAEFAAD12AB0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MB.MCPP.BK.EfCore", "MB.MCPP.BK.EfCore\MB.MCPP.BK.EfCore.csproj", "{789ECED8-CE04-474C-A778-0D87A8DA6B8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{E5994E3A-EFC3-4894-AD7F-9CBCEA831A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5994E3A-EFC3-4894-AD7F-9CBCEA831A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5994E3A-EFC3-4894-AD7F-9CBCEA831A31}.Release|Any CPU.Build.0 = Release|Any CPU
+		{825C291F-47CE-41AC-B121-AAEFAAD12AB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{825C291F-47CE-41AC-B121-AAEFAAD12AB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{825C291F-47CE-41AC-B121-AAEFAAD12AB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{825C291F-47CE-41AC-B121-AAEFAAD12AB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{789ECED8-CE04-474C-A778-0D87A8DA6B8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{789ECED8-CE04-474C-A778-0D87A8DA6B8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{789ECED8-CE04-474C-A778-0D87A8DA6B8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{789ECED8-CE04-474C-A778-0D87A8DA6B8B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

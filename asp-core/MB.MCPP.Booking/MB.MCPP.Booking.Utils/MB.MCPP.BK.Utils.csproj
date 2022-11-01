@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\MB.MCPP.Booking.Utils\MB.MCPP.BK.Utils.csproj" />
-  </ItemGroup>
-
 </Project>
