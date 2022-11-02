@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "MB.MCPP.Booking.WebApi": {
+    "MB.MCPP.BK.WebApi": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,

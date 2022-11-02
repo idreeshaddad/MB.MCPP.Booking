@@ -15,5 +15,6 @@ namespace MB.MCPP.BK.EfCore
             : base(options)
         {
         }
+
     }
 }

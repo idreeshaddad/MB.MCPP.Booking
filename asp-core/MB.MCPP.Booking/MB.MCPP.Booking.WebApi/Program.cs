@@ -1,7 +1,7 @@
 using MB.MCPP.BK.EfCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace MB.MCPP.Booking.WebApi
+namespace MB.MCPP.BK.WebApi
 {
     public class Program
     {

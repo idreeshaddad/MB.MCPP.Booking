@@ -46,7 +46,7 @@ namespace MB.MCPP.BK.EfCore.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Bookings");
+                    b.ToTable("Bookings", (string)null);
                 });
 
             modelBuilder.Entity("MB.MCPP.BK.Entities.Customer", b =>
@@ -74,7 +74,7 @@ namespace MB.MCPP.BK.EfCore.Migrations
 
                     b.HasIndex("RoomId");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("MB.MCPP.BK.Entities.Room", b =>
@@ -110,7 +110,7 @@ namespace MB.MCPP.BK.EfCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Rooms");
+                    b.ToTable("Rooms", (string)null);
                 });
 
             modelBuilder.Entity("MB.MCPP.BK.Entities.RoomService", b =>
@@ -130,7 +130,7 @@ namespace MB.MCPP.BK.EfCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RoomServices");
+                    b.ToTable("RoomServices", (string)null);
                 });
 
             modelBuilder.Entity("RoomRoomService", b =>
@@ -145,7 +145,7 @@ namespace MB.MCPP.BK.EfCore.Migrations
 
                     b.HasIndex("ServicesId");
 
-                    b.ToTable("RoomRoomService");
+                    b.ToTable("RoomRoomService", (string)null);
                 });
 
             modelBuilder.Entity("MB.MCPP.BK.Entities.Booking", b =>
