@@ -14,8 +14,8 @@ namespace MB.MCPP.Booking.WebApi
             builder.Services.AddSwaggerGen();
 
             builder.Services.AddDbContext<BookingDbContext>(options =>
-                    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            
+                    options.UseSqlServer(builder.Configuration.GetConnectionString("BookingAppConnection")));
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
