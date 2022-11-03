@@ -42,7 +42,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRoomService(int id, RoomService roomService)
+        public async Task<IActionResult> EditRoomService(int id, RoomService roomService)
         {
             if (id != roomService.Id)
             {
@@ -71,7 +71,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<RoomService>> PostRoomService(RoomService roomService)
+        public async Task<ActionResult<RoomService>> CreateRoomService(RoomService roomService)
         {
             _context.RoomServices.Add(roomService);
             await _context.SaveChangesAsync();

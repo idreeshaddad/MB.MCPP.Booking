@@ -42,7 +42,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> EditCustomer(int id, Customer customer)
         {
             if (id != customer.Id)
             {
@@ -71,7 +71,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<Customer>> CreateCustomer(Customer customer)
         {
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();
