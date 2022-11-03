@@ -7,13 +7,13 @@ namespace MB.MCPP.BK.WebApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class CustomersController : ControllerBase
+    public class RoomServicesController : ControllerBase
     {
         #region Data and Const
 
         private readonly BookingDbContext _context;
 
-        public CustomersController(BookingDbContext context)
+        public RoomServicesController(BookingDbContext context)
         {
             _context = context;
         }
@@ -23,33 +23,33 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #region Services
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<RoomService>>> GetRoomServices()
         {
-            return await _context.Customers.ToListAsync();
+            return await _context.RoomServices.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<RoomService>> GetRoomService(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var roomService = await _context.RoomServices.FindAsync(id);
 
-            if (customer == null)
+            if (roomService == null)
             {
                 return NotFound();
             }
 
-            return customer;
+            return roomService;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(int id, Customer customer)
+        public async Task<IActionResult> PutRoomService(int id, RoomService roomService)
         {
-            if (id != customer.Id)
+            if (id != roomService.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            _context.Entry(roomService).State = EntityState.Modified;
 
             try
             {
@@ -57,7 +57,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CustomerExists(id))
+                if (!RoomServiceExists(id))
                 {
                     return NotFound();
                 }
@@ -71,24 +71,24 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public async Task<ActionResult<RoomService>> PostRoomService(RoomService roomService)
         {
-            _context.Customers.Add(customer);
+            _context.RoomServices.Add(roomService);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+            return CreatedAtAction("GetRoomService", new { id = roomService.Id }, roomService);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(int id)
+        public async Task<IActionResult> DeleteRoomService(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-            if (customer == null)
+            var roomService = await _context.RoomServices.FindAsync(id);
+            if (roomService == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
+            _context.RoomServices.Remove(roomService);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -97,9 +97,9 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #endregion
 
         #region Private
-        private bool CustomerExists(int id)
+        private bool RoomServiceExists(int id)
         {
-            return _context.Customers.Any(e => e.Id == id);
+            return _context.RoomServices.Any(e => e.Id == id);
         }
 
         #endregion
