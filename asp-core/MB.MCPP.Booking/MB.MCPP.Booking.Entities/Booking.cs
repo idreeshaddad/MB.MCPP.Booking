@@ -12,6 +12,10 @@ namespace MB.MCPP.BK.Entities
         public int RoomId { get; set; }
         public Room Room { get; set; }
 
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
+
+        public int NumberOfOccupants { get; set; }
 
         [NotMapped]
         public int NumberOfDays

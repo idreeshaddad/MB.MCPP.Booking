@@ -18,8 +18,7 @@ namespace MB.MCPP.BK.Entities
         public string Name { get; set; }
         public string Address { get; set; }
         public double Rating { get; set; }
-        public int NumberOfAdults { get; set; }
-        public int NumberOfChildren { get; set; }
+        public int NumberOfOccupants { get; set; }
         public double Price { get; set; }
         public bool Occupied { get; set; }
 
