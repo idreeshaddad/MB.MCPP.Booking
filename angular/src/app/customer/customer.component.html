@@ -1,1 +1,20 @@
 <h2>Customers</h2>
+<hr>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Age</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let customer of customers">
+      <td>{{ customer.id }}</td>
+      <td>{{ customer.name }}</td>
+      <td>{{ customer.gender }}</td>
+      <td>{{ customer.age }}</td>
+    </tr>
+  </tbody>
+</table>

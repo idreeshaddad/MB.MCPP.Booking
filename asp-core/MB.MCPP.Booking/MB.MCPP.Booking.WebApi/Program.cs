@@ -16,6 +16,13 @@ namespace MB.MCPP.BK.WebApi
             builder.Services.AddDbContext<BookingDbContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("BookingAppConnection")));
 
+            builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
+            {
+                builder.WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            }));
+
             var app = builder.Build();
 
             if (app.Environment.IsDevelopment())
@@ -28,6 +35,7 @@ namespace MB.MCPP.BK.WebApi
 
             app.UseAuthorization();
 
+            app.UseCors("corsapp");
 
             app.MapControllers();
 

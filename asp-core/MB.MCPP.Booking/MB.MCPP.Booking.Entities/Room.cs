@@ -11,7 +11,6 @@ namespace MB.MCPP.BK.Entities
         public Room()
         {
             Services = new List<RoomService>();
-            Customers = new List<Customer>();
         }
 
         public int Id { get; set; }
@@ -23,8 +22,5 @@ namespace MB.MCPP.BK.Entities
         public bool Occupied { get; set; }
 
         public List<RoomService> Services { get; set; }
-
-        public List<Customer> Customers { get; set; }
-
     }
 }

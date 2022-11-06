@@ -11,6 +11,12 @@ namespace MB.MCPP.BK.Entities
         public DateTime DOB { get; set; }
 
         [NotMapped]
-        public int Age { get; set; }
+        public int Age
+        {
+            get
+            {
+                return DateTime.Now.Year - DOB.Year;
+            }
+        }
     }
 }
