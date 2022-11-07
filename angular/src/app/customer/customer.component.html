@@ -1,5 +1,7 @@
 <h2>Customers</h2>
 <hr>
+<a class="mb-3 btn btn-primary" [routerLink]="['/customer/create']">Create New Customer</a>
+
 <table class="table">
   <thead>
     <tr>
@@ -7,14 +9,24 @@
       <th>Name</th>
       <th>Gender</th>
       <th>Age</th>
+      <th>Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let customer of customers">
       <td>{{ customer.id }}</td>
       <td>{{ customer.name }}</td>
-      <td>{{ customer.gender }}</td>
+      <td>{{ gender[customer.gender] }}</td>
       <td>{{ customer.age }}</td>
+      <td>
+        <a [routerLink]="['/customer/details', customer.id]">
+          Details
+        </a>
+        |
+        <a [routerLink]="['/customer/edit', customer.id]">
+          Edit
+        </a>
+      </td>
     </tr>
   </tbody>
 </table>
