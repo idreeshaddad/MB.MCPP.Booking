@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CustomerDetailsComponent } from './customer/customer-details/customer-details.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
     AppRoutingModule,
     BrowserAnimationsModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]

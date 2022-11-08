@@ -22,4 +22,14 @@ export class CustomerService {
     return this.http.get<Customer>(`${this.apiUrl}/GetCustomer/${id}`);
   }
 
+  createCustomer(customer: Customer): Observable<Customer> {
+
+    return this.http.post<Customer>(`${this.apiUrl}/CreateCustomer`, customer)
+  }
+
+  editCustomer(id: number, customer: Customer): Observable<any> {
+
+    return this.http.put<Customer>(`${this.apiUrl}/EditCustomer/${id}`, customer)
+  }
+
 }

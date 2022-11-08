@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Gender } from 'src/app/enums/gender.enum';
@@ -30,15 +31,18 @@ export class CustomerDetailsComponent implements OnInit {
 
     if (customerId) {
 
-      this.CustomerSvc.getCustomer(customerId).subscribe(
-        customerFromApi => {
+      this.CustomerSvc.getCustomer(customerId).subscribe({
+        next: (customerFromApi) => {
           this.customer = customerFromApi;
         },
-        error => {
+        error: (e: HttpErrorResponse) => {
+          console.log(e);
           this.router.navigate(['not-found']);
+        },
+        complete: () => {
+          console.info('complete')
         }
-
-      );
+      });
     }
 
   }

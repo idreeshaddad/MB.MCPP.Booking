@@ -1,1 +1,14 @@
-<p>add-edit-customer works!</p>
+<h1>Add/Edit Customers</h1>
+<hr>
+<form [formGroup]="customerForm" (ngSubmit)="submitForm()">
+  <div class="">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput formControlname="name" required>
+      <mat-error>Name is required</mat-error>
+    </mat-form-field>
+  </div>
+  <div>
+    <button mat-flat-button color="primary" type="submit">Create</button>
+  </div>
+</form>
