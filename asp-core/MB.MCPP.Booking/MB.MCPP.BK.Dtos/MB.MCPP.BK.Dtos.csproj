@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Customers\" />
     <Folder Include="RoomServices\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MB.MCPP.Booking.Utils\MB.MCPP.BK.Utils.csproj" />
   </ItemGroup>
 
 </Project>

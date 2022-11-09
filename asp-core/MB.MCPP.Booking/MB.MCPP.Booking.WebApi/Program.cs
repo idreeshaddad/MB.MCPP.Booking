@@ -13,6 +13,8 @@ namespace MB.MCPP.BK.WebApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddAutoMapper(typeof(Program));
+
             builder.Services.AddDbContext<BookingDbContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("BookingAppConnection")));
 

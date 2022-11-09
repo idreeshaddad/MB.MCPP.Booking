@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.Entities;
+using AutoMapper;
+using MB.MCPP.BK.Dtos.Customers;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -12,10 +14,12 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #region Data and Const
 
         private readonly BookingDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CustomersController(BookingDbContext context)
+        public CustomersController(BookingDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         #endregion
@@ -23,9 +27,13 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #region Services
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public async Task<ActionResult<IEnumerable<CustomerListDto>>> GetCustomers()
         {
-            return await _context.Customers.ToListAsync();
+            var customers = await _context.Customers.ToListAsync();
+
+            var customerDtos = _mapper.Map<List<CustomerListDto>>(customers);
+
+            return customerDtos;
         }
 
         [HttpGet("{id}")]
