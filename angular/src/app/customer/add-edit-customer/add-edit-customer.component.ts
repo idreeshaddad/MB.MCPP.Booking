@@ -2,6 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Gender } from 'src/app/enums/gender.enum';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
 
@@ -15,6 +16,7 @@ export class AddEditCustomerComponent implements OnInit {
   customerId?: number;
   customer?: Customer;
   customerForm!: FormGroup;
+  genderEnum = Gender;
 
   constructor(
     private customerSvc: CustomerService,
@@ -25,10 +27,12 @@ export class AddEditCustomerComponent implements OnInit {
   ngOnInit(): void {
 
     this.setCustomerId();
+
     this.buildForm();
 
     if (this.customerId) {
-      // TODO this is EDIT mode => get the customer and PATCH the reactive form with the values
+
+      this.loadCustomer();
     }
   }
 
@@ -36,14 +40,27 @@ export class AddEditCustomerComponent implements OnInit {
 
     if (this.customerForm.valid) {
 
-      this.customerSvc.createCustomer(this.customerForm.value).subscribe({
-        next: (customerFromApi) => {
-          this.router.navigate(['/customers']);
-        },
-        error: (error: HttpErrorResponse) => {
-          console.log(error);
-        }
-      });
+      if (this.customerId) {
+
+        this.customerSvc.editCustomer(this.customerId!, this.customerForm.value).subscribe({
+          next: () => {
+            this.router.navigate(['/customers']);
+          },
+          error: (error: HttpErrorResponse) => {
+            console.log(error);
+          }
+        });
+      }
+      else {
+        this.customerSvc.createCustomer(this.customerForm.value).subscribe({
+          next: (customerFromApi) => {
+            this.router.navigate(['/customers']);
+          },
+          error: (error: HttpErrorResponse) => {
+            console.log(error);
+          }
+        });
+      }
     }
   }
 
@@ -52,7 +69,7 @@ export class AddEditCustomerComponent implements OnInit {
   private buildForm() {
 
     this.customerForm = this.fb.group({
-      id: [''],
+      id: [0],
       name: ['', Validators.required],
       gender: ['', Validators.required],
       dob: ['', Validators.required]
@@ -62,6 +79,28 @@ export class AddEditCustomerComponent implements OnInit {
   private setCustomerId(): void {
 
     this.customerId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+  }
+
+  private loadCustomer() {
+
+    this.customerSvc.getCustomer(this.customerId!).subscribe({
+      next: (customerFromApi) => {
+        this.patchForm(customerFromApi);
+      },
+      error: (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    });
+  }
+
+  private patchForm(customerFromApi: Customer) {
+
+    this.customerForm.patchValue({
+      id: customerFromApi.id,
+      name: customerFromApi.name,
+      gender: customerFromApi.gender,
+      dob: customerFromApi.dob
+    });
   }
 
   //#endregion

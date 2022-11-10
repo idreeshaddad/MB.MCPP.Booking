@@ -13,6 +13,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
+import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { SharedModule } from './shared/shared.module';
     HomeComponent,
     CustomerDetailsComponent,
     NotFoundComponent,
-    AddEditCustomerComponent
+    AddEditCustomerComponent,
+    EnumToArrayPipe
   ],
   imports: [
     BrowserModule,
