@@ -1,4 +1,10 @@
-<h1>Add/Edit Customers</h1>
+<h1>
+  <span *ngIf="pageMode == pageModeEnum.Create">Add Customer</span>
+  <span *ngIf="pageMode == pageModeEnum.Edit">
+    <span>Edit Customer </span>
+    <span class="text-primary">{{ customer?.name }}</span>
+  </span>
+</h1>
 <hr>
 
 <form [formGroup]="customerForm" (ngSubmit)="submitForm()">
@@ -28,6 +34,10 @@
     </mat-form-field>
   </div>
   <div>
-    <button mat-flat-button color="primary" type="submit">Create</button>
+    <button class="me-2" [routerLink]="['/customers']" mat-stroked-button color="basic">Cancel</button>
+    <button mat-flat-button color="primary" type="submit">
+      <span *ngIf="pageMode == pageModeEnum.Create">Create</span>
+      <span *ngIf="pageMode == pageModeEnum.Edit">Save</span>
+    </button>
   </div>
 </form>

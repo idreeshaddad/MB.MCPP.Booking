@@ -1,6 +1,6 @@
 <h2>Customers</h2>
 <hr>
-<a class="mb-3 btn btn-primary" [routerLink]="['/customer/create']">Create New Customer</a>
+<a class="mb-3 btn btn-primary" [routerLink]="['/customers/create']">Create New Customer</a>
 
 <table class="table">
   <thead>
@@ -19,11 +19,11 @@
       <td>{{ gender[customer.gender] }}</td>
       <td>{{ customer.age }}</td>
       <td>
-        <a [routerLink]="['/customer/details', customer.id]">
+        <a [routerLink]="['/customers/details', customer.id]">
           Details
         </a>
         |
-        <a [routerLink]="['/customer/edit', customer.id]">
+        <a [routerLink]="['/customers/edit', customer.id]">
           Edit
         </a>
       </td>

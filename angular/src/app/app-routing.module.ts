@@ -8,10 +8,13 @@ import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
   { path: "home", component: HomeComponent },
-  { path: "customer", component: CustomerComponent },
-  { path: "customer/details/:id", component: CustomerDetailsComponent },
-  { path: "customer/create", component: AddEditCustomerComponent },
-  { path: "customer/edit/:id", component: AddEditCustomerComponent },
+
+  // Customer Routes
+  { path: "customers", component: CustomerComponent },
+  { path: "customers/details/:id", component: CustomerDetailsComponent },
+  { path: "customers/create", component: AddEditCustomerComponent },
+  { path: "customers/edit/:id", component: AddEditCustomerComponent },
+
   { path: "not-found", component: NotFoundComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];

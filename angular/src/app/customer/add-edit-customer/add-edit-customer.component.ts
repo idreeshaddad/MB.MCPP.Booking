@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Gender } from 'src/app/enums/gender.enum';
+import { PageMode } from 'src/app/enums/pageMode.enum';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
 
@@ -17,6 +18,8 @@ export class AddEditCustomerComponent implements OnInit {
   customer?: Customer;
   customerForm!: FormGroup;
   genderEnum = Gender;
+  pageMode: PageMode = PageMode.Create;
+  pageModeEnum = PageMode;
 
   constructor(
     private customerSvc: CustomerService,
@@ -27,10 +30,11 @@ export class AddEditCustomerComponent implements OnInit {
   ngOnInit(): void {
 
     this.setCustomerId();
+    this.setPageMode();
 
     this.buildForm();
 
-    if (this.customerId) {
+    if (this.pageMode == PageMode.Edit) {
 
       this.loadCustomer();
     }
@@ -40,10 +44,10 @@ export class AddEditCustomerComponent implements OnInit {
 
     if (this.customerForm.valid) {
 
-      if (this.customerId) {
+      if (this.pageMode == PageMode.Create) {
 
-        this.customerSvc.editCustomer(this.customerId!, this.customerForm.value).subscribe({
-          next: () => {
+        this.customerSvc.createCustomer(this.customerForm.value).subscribe({
+          next: (customerFromApi) => {
             this.router.navigate(['/customers']);
           },
           error: (error: HttpErrorResponse) => {
@@ -52,8 +56,9 @@ export class AddEditCustomerComponent implements OnInit {
         });
       }
       else {
-        this.customerSvc.createCustomer(this.customerForm.value).subscribe({
-          next: (customerFromApi) => {
+
+        this.customerSvc.editCustomer(this.customerId!, this.customerForm.value).subscribe({
+          next: () => {
             this.router.navigate(['/customers']);
           },
           error: (error: HttpErrorResponse) => {
@@ -81,10 +86,19 @@ export class AddEditCustomerComponent implements OnInit {
     this.customerId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
   }
 
+  private setPageMode(): void {
+
+    if (this.customerId) {
+
+      this.pageMode = PageMode.Edit
+    }
+  }
+
   private loadCustomer() {
 
     this.customerSvc.getCustomer(this.customerId!).subscribe({
       next: (customerFromApi) => {
+        this.customer = customerFromApi;
         this.patchForm(customerFromApi);
       },
       error: (error: HttpErrorResponse) => {
