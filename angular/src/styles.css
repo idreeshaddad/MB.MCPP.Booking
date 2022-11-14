@@ -13,3 +13,7 @@ body {
 .logo {
   height: 40px;
 }
+
+.pointer {
+  cursor: pointer;
+}

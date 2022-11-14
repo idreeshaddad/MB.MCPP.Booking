@@ -19,12 +19,14 @@
       <td>{{ gender[customer.gender] }}</td>
       <td>{{ customer.age }}</td>
       <td>
-        <a [routerLink]="['/customers/details', customer.id]">
-          Details
+        <a class="me-2 text-info" [routerLink]="['/customers/details', customer.id]">
+          <mat-icon fontIcon="info_outline"></mat-icon>
         </a>
-        |
-        <a [routerLink]="['/customers/edit', customer.id]">
-          Edit
+        <a class="me-2" [routerLink]="['/customers/edit', customer.id]">
+          <mat-icon fontIcon="edit"></mat-icon>
+        </a>
+        <a class="pointer text-danger" (click)="deleteCustomer(customer.id)">
+          <mat-icon fontIcon="delete"></mat-icon>
         </a>
       </td>
     </tr>

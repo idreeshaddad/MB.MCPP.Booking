@@ -32,4 +32,9 @@ export class CustomerService {
     return this.http.put<Customer>(`${this.apiUrl}/EditCustomer/${id}`, customer)
   }
 
+  deleteCustomer(id: number): Observable<any> {
+
+    return this.http.delete<Customer>(`${this.apiUrl}/DeleteCustomer/${id}`)
+  }
+
 }

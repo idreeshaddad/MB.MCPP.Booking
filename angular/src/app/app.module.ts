@@ -14,6 +14,7 @@ import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
+import { DeleteCustomerComponent } from './customer/delete-customer/delete-customer.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
     CustomerDetailsComponent,
     NotFoundComponent,
     AddEditCustomerComponent,
-    EnumToArrayPipe
+    EnumToArrayPipe,
+    DeleteCustomerComponent
   ],
   imports: [
     BrowserModule,
