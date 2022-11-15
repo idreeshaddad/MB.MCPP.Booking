@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.Entities;
+using AutoMapper;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -12,10 +13,12 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #region Data and Const
 
         private readonly BookingDbContext _context;
+        private readonly IMapper _mapper;
 
-        public RoomServicesController(BookingDbContext context)
+        public RoomServicesController(BookingDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         #endregion

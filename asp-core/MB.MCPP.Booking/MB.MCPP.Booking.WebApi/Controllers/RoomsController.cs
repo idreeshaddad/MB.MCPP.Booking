@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.Entities;
+using AutoMapper;
+using MB.MCPP.BK.Dtos.Rooms;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -12,10 +14,12 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #region Data and Const
 
         private readonly BookingDbContext _context;
+        private readonly IMapper _mapper;
 
-        public RoomsController(BookingDbContext context)
+        public RoomsController(BookingDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         #endregion
@@ -23,22 +27,31 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #region Services
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
+        public async Task<ActionResult<IEnumerable<RoomDto>>> GetRooms()
         {
-            return await _context.Rooms.ToListAsync();
+            var rooms = await _context.Rooms.ToListAsync();
+
+            var roomDtos = _mapper.Map<List<RoomDto>>(rooms);
+
+            return roomDtos;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Room>> GetRoom(int id)
+        public async Task<ActionResult<RoomDto>> GetRoom(int id)
         {
-            var room = await _context.Rooms.FindAsync(id);
+            var room = await _context
+                                .Rooms
+                                .Include(room => room.Services)
+                                .SingleAsync(room => room.Id == id);
 
             if (room == null)
             {
                 return NotFound();
             }
 
-            return room;
+            var roomDto = _mapper.Map<RoomDto>(room);
+
+            return roomDto;
         }
 
         [HttpPut("{id}")]
@@ -68,15 +81,6 @@ namespace MB.MCPP.BK.WebApi.Controllers
             }
 
             return NoContent();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult<Room>> CreateRoom(Room room)
-        {
-            _context.Rooms.Add(room);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetRoom", new { id = room.Id }, room);
         }
 
         [HttpDelete("{id}")]
