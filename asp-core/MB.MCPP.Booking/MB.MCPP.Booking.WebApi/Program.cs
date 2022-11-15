@@ -1,5 +1,10 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using MB.MCPP.BK.Dtos.Customers;
 using MB.MCPP.BK.EfCore;
+using MB.MCPP.BK.WebApi.FluentValidations;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace MB.MCPP.BK.WebApi
 {
@@ -13,7 +18,15 @@ namespace MB.MCPP.BK.WebApi
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+
+            // Register all AutoMapper profiles
             builder.Services.AddAutoMapper(typeof(Program));
+
+
+            // Register all FluentValidation validator 
+            //builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddValidatorsFromAssemblyContaining<Program>();
+
 
             builder.Services.AddDbContext<BookingDbContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("BookingAppConnection")));
@@ -24,6 +37,8 @@ namespace MB.MCPP.BK.WebApi
                 .AllowAnyMethod()
                 .AllowAnyHeader();
             }));
+
+            //-------------------------------------------
 
             var app = builder.Build();
 

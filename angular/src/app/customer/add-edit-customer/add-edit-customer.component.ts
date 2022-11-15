@@ -1,3 +1,4 @@
+import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -75,7 +76,9 @@ export class AddEditCustomerComponent implements OnInit {
 
     this.customerForm = this.fb.group({
       id: [0],
-      name: ['', Validators.required],
+      name: ['', Validators.compose(
+        [Validators.required, Validators.minLength(3), Validators.maxLength(16)]
+      )],
       gender: ['', Validators.required],
       dob: ['', Validators.required]
     });

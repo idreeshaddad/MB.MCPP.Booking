@@ -4,6 +4,9 @@ using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.Entities;
 using AutoMapper;
 using MB.MCPP.BK.Dtos.Customers;
+using FluentValidation;
+using System;
+using FluentValidation.Results;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -15,11 +18,13 @@ namespace MB.MCPP.BK.WebApi.Controllers
 
         private readonly BookingDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IValidator<CustomerDto> _validator;
 
-        public CustomersController(BookingDbContext context, IMapper mapper)
+        public CustomersController(BookingDbContext context, IMapper mapper, IValidator<CustomerDto> validator)
         {
             _context = context;
             _mapper = mapper;
+            _validator = validator;
         }
 
         #endregion
@@ -79,12 +84,21 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Customer>> CreateCustomer(Customer customer)
+        public async Task<ActionResult> CreateCustomer(CustomerDto customerDto)
         {
-            _context.Customers.Add(customer);
-            await _context.SaveChangesAsync();
+            ValidationResult customerValidation = await _validator.ValidateAsync(customerDto);
 
-            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+            if (customerValidation.IsValid)
+            {
+                var customer = _mapper.Map<Customer>(customerDto);
+
+                _context.Customers.Add(customer);
+                await _context.SaveChangesAsync();
+
+                return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+            }
+
+            return BadRequest(customerValidation.Errors);
         }
 
         [HttpDelete("{id}")]
