@@ -1,0 +1,43 @@
+<h1>
+  <span *ngIf="pageMode == pageModeEnum.Create">Add Room</span>
+  <span *ngIf="pageMode == pageModeEnum.Edit">
+    <span>Edit Room </span>
+    <span class="text-primary">{{ room?.name }}</span>
+  </span>
+</h1>
+<hr>
+
+<form [formGroup]="roomForm" (ngSubmit)="submitForm()">
+
+  <div class="">
+    <mat-form-field appearance="outline" class="w-50">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error>Name is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="">
+    <mat-form-field appearance="outline" class="w-50">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address" required>
+      <mat-error>Address is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="">
+    <mat-form-field appearance="outline" class="w-50">
+      <mat-label>Rating</mat-label>
+      <input matInput formControlName="rating" required>
+      <mat-error>Rating is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <button class="me-2" [routerLink]="['/rooms']" mat-stroked-button color="basic">Cancel</button>
+    <button mat-flat-button color="primary" type="submit">
+      <span *ngIf="pageMode == pageModeEnum.Create">Create</span>
+      <span *ngIf="pageMode == pageModeEnum.Edit">Save</span>
+    </button>
+  </div>
+</form>

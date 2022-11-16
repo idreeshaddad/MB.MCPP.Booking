@@ -54,13 +54,26 @@ namespace MB.MCPP.BK.WebApi.Controllers
             return roomDto;
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> EditRoom(int id, Room room)
+        [HttpPost]
+        public async Task<ActionResult> CreateRoom(RoomDto roomDto)
         {
-            if (id != room.Id)
+            var room = _mapper.Map<Room>(roomDto);
+
+            _context.Rooms.Add(room);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetRoom", new { id = room.Id }, room);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> EditRoom(int id, RoomDto roomDto)
+        {
+            if (id != roomDto.Id)
             {
                 return BadRequest();
             }
+
+            var room = _mapper.Map<Room>(roomDto);
 
             _context.Entry(room).State = EntityState.Modified;
 
@@ -87,6 +100,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         public async Task<IActionResult> DeleteRoom(int id)
         {
             var room = await _context.Rooms.FindAsync(id);
+
             if (room == null)
             {
                 return NotFound();
