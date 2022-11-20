@@ -1,4 +1,4 @@
-﻿using MB.MCPP.BK.Dtos.Rooms;
+﻿using MB.MCPP.BK.Dtos.Villas;
 
 namespace MB.MCPP.BK.Dtos.Bookings
 {
@@ -8,8 +8,8 @@ namespace MB.MCPP.BK.Dtos.Bookings
         public DateTime BookingStart { get; set; }
         public DateTime BookingEnd { get; set; }
         public double TotalPrice { get; set; }
-        public int RoomId { get; set; }
-        public RoomDto Room { get; set; }
+        public int VillaId { get; set; }
+        public VillaDto Villa { get; set; }
         public int NumberOfDays { get; set; }
     }
 }

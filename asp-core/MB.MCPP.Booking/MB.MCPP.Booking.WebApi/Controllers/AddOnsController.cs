@@ -8,14 +8,14 @@ namespace MB.MCPP.BK.WebApi.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class RoomServicesController : ControllerBase
+    public class AddonsController : ControllerBase
     {
         #region Data and Const
 
         private readonly BookingDbContext _context;
         private readonly IMapper _mapper;
 
-        public RoomServicesController(BookingDbContext context, IMapper mapper)
+        public AddonsController(BookingDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -26,33 +26,33 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #region Services
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RoomService>>> GetRoomServices()
+        public async Task<ActionResult<IEnumerable<AddOn>>> GetAddons()
         {
-            return await _context.RoomServices.ToListAsync();
+            return await _context.AddOns.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<RoomService>> GetRoomService(int id)
+        public async Task<ActionResult<AddOn>> GetAddon(int id)
         {
-            var roomService = await _context.RoomServices.FindAsync(id);
+            var addon = await _context.AddOns.FindAsync(id);
 
-            if (roomService == null)
+            if (addon == null)
             {
                 return NotFound();
             }
 
-            return roomService;
+            return addon;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditRoomService(int id, RoomService roomService)
+        public async Task<IActionResult> EditAddon(int id, AddOn addon)
         {
-            if (id != roomService.Id)
+            if (id != addon.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(roomService).State = EntityState.Modified;
+            _context.Entry(addon).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RoomServiceExists(id))
+                if (!AddonExists(id))
                 {
                     return NotFound();
                 }
@@ -74,24 +74,24 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<RoomService>> CreateRoomService(RoomService roomService)
+        public async Task<ActionResult<AddOn>> CreateAddon(AddOn addon)
         {
-            _context.RoomServices.Add(roomService);
+            _context.AddOns.Add(addon);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRoomService", new { id = roomService.Id }, roomService);
+            return CreatedAtAction("GetAddon", new { id = addon.Id }, addon);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRoomService(int id)
+        public async Task<IActionResult> DeleteAddon(int id)
         {
-            var roomService = await _context.RoomServices.FindAsync(id);
-            if (roomService == null)
+            var addon = await _context.AddOns.FindAsync(id);
+            if (addon == null)
             {
                 return NotFound();
             }
 
-            _context.RoomServices.Remove(roomService);
+            _context.AddOns.Remove(addon);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -100,9 +100,9 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #endregion
 
         #region Private
-        private bool RoomServiceExists(int id)
+        private bool AddonExists(int id)
         {
-            return _context.RoomServices.Any(e => e.Id == id);
+            return _context.AddOns.Any(e => e.Id == id);
         }
 
         #endregion

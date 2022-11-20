@@ -1,6 +1,6 @@
 ﻿namespace MB.MCPP.BK.Utils.Enums
 {
-    public enum RoomView
+    public enum VillaView
     {
         Ocean,
         Garden

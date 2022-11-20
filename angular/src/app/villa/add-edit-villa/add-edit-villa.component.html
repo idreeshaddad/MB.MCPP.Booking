@@ -1,0 +1,72 @@
+<h1>
+  <span *ngIf="pageMode == pageModeEnum.Create">Add Villa</span>
+  <span *ngIf="pageMode == pageModeEnum.Edit">
+    <span>Edit Villa </span>
+    <span class="text-primary">{{ villa?.name }}</span>
+  </span>
+</h1>
+<hr>
+
+<form [formGroup]="villaForm" (ngSubmit)="submitForm()">
+
+  <div class="">
+    <mat-form-field appearance="outline" class="w-50">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" required>
+      <mat-error>Name is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="">
+    <mat-form-field appearance="outline" class="w-50">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address" required>
+      <mat-error>Address is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="">
+    <mat-form-field appearance="outline" class="w-50">
+      <mat-label>Rating</mat-label>
+      <input matInput formControlName="rating" required>
+      <mat-error>Rating is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="">
+    <mat-form-field appearance="outline" class="w-50">
+      <mat-label>Number of occupants</mat-label>
+      <input matInput formControlName="numberOfOccupants" required>
+      <mat-error>Number of occupants is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="">
+    <mat-form-field appearance="outline" class="w-50">
+      <mat-label>Price</mat-label>
+      <input matInput formControlName="price" required>
+      <mat-error>Price is required</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div appearance="outline" class="w-50 mb-4">
+    <mat-slide-toggle color="primary" formControlName="vacant">Vacant</mat-slide-toggle>
+    <!-- <mat-checkbox color="primary" formControlName="vacant">Vacant</mat-checkbox> -->
+  </div>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Add Ons</mat-label>
+    <mat-select formControlName="addOns" multiple>
+      <mat-option *ngFor="let addOn of addOns" [value]="addOn">{{addOn}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div>
+    <button class="me-2" [routerLink]="['/villas']" mat-stroked-button color="basic">Cancel</button>
+    <button mat-flat-button color="primary" type="submit">
+      <span *ngIf="pageMode == pageModeEnum.Create">Create</span>
+      <span *ngIf="pageMode == pageModeEnum.Edit">Save</span>
+    </button>
+  </div>
+
+</form>

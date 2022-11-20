@@ -1,6 +1,6 @@
 ﻿namespace MB.MCPP.BK.Utils.Enums
 {
-    public enum RoomType
+    public enum VillaType
     {
         Single,
         Double

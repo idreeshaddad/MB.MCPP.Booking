@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MB.MCPP.BK.Dtos.AddOns;
 
-namespace MB.MCPP.BK.Entities
+namespace MB.MCPP.BK.Dtos.Villas
 {
-    public class Room
+    public class VillaDto
     {
-        public Room()
+        public VillaDto()
         {
-            Services = new List<RoomService>();
+            AddOns = new List<AddOnDto>();
         }
 
         public int Id { get; set; }
@@ -21,6 +17,6 @@ namespace MB.MCPP.BK.Entities
         public double Price { get; set; }
         public bool Occupied { get; set; }
 
-        public List<RoomService> Services { get; set; }
+        public List<AddOnDto> AddOns { get; set; }
     }
 }

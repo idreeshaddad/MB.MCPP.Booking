@@ -22,6 +22,41 @@ namespace MB.MCPP.BK.EfCore.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("AddOnVilla", b =>
+                {
+                    b.Property<int>("AddOnsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VillasId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AddOnsId", "VillasId");
+
+                    b.HasIndex("VillasId");
+
+                    b.ToTable("AddOnVilla");
+                });
+
+            modelBuilder.Entity("MB.MCPP.BK.Entities.AddOn", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Price")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AddOns");
+                });
+
             modelBuilder.Entity("MB.MCPP.BK.Entities.Booking", b =>
                 {
                     b.Property<int>("Id")
@@ -42,17 +77,17 @@ namespace MB.MCPP.BK.EfCore.Migrations
                     b.Property<int>("NumberOfOccupants")
                         .HasColumnType("int");
 
-                    b.Property<int>("RoomId")
-                        .HasColumnType("int");
-
                     b.Property<double>("TotalPrice")
                         .HasColumnType("float");
+
+                    b.Property<int>("VillaId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
-                    b.HasIndex("RoomId");
+                    b.HasIndex("VillaId");
 
                     b.ToTable("Bookings");
                 });
@@ -80,7 +115,7 @@ namespace MB.MCPP.BK.EfCore.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("MB.MCPP.BK.Entities.Room", b =>
+            modelBuilder.Entity("MB.MCPP.BK.Entities.Villa", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -99,53 +134,33 @@ namespace MB.MCPP.BK.EfCore.Migrations
                     b.Property<int>("NumberOfOccupants")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Occupied")
-                        .HasColumnType("bit");
-
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Rooms");
-                });
-
-            modelBuilder.Entity("MB.MCPP.BK.Entities.RoomService", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<bool>("Vacant")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
-                    b.ToTable("RoomServices");
+                    b.ToTable("Villas");
                 });
 
-            modelBuilder.Entity("RoomRoomService", b =>
+            modelBuilder.Entity("AddOnVilla", b =>
                 {
-                    b.Property<int>("RoomsId")
-                        .HasColumnType("int");
+                    b.HasOne("MB.MCPP.BK.Entities.AddOn", null)
+                        .WithMany()
+                        .HasForeignKey("AddOnsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Property<int>("ServicesId")
-                        .HasColumnType("int");
-
-                    b.HasKey("RoomsId", "ServicesId");
-
-                    b.HasIndex("ServicesId");
-
-                    b.ToTable("RoomRoomService");
+                    b.HasOne("MB.MCPP.BK.Entities.Villa", null)
+                        .WithMany()
+                        .HasForeignKey("VillasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MB.MCPP.BK.Entities.Booking", b =>
@@ -156,30 +171,15 @@ namespace MB.MCPP.BK.EfCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MB.MCPP.BK.Entities.Room", "Room")
+                    b.HasOne("MB.MCPP.BK.Entities.Villa", "Villa")
                         .WithMany()
-                        .HasForeignKey("RoomId")
+                        .HasForeignKey("VillaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Customer");
 
-                    b.Navigation("Room");
-                });
-
-            modelBuilder.Entity("RoomRoomService", b =>
-                {
-                    b.HasOne("MB.MCPP.BK.Entities.Room", null)
-                        .WithMany()
-                        .HasForeignKey("RoomsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MB.MCPP.BK.Entities.RoomService", null)
-                        .WithMany()
-                        .HasForeignKey("ServicesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Villa");
                 });
 #pragma warning restore 612, 618
         }

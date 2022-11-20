@@ -9,8 +9,8 @@ namespace MB.MCPP.BK.Entities
         public DateTime BookingEnd { get; set; }
         public double TotalPrice { get; set; }
 
-        public int RoomId { get; set; }
-        public Room Room { get; set; }
+        public int VillaId { get; set; }
+        public Villa Villa { get; set; }
 
         public int CustomerId { get; set; }
         public Customer Customer { get; set; }

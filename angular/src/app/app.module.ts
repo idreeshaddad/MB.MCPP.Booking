@@ -15,8 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from './shared/shared.module';
 import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
 import { DeleteCustomerComponent } from './customer/delete-customer/delete-customer.component';
-import { RoomComponent } from './room/room.component';
-import { AddEditRoomComponent } from './room/add-edit-room/add-edit-room.component';
+import { VillaComponent } from './villa/villa.component';
+import { AddEditVillaComponent } from './villa/add-edit-villa/add-edit-villa.component';
 
 @NgModule({
   declarations: [
@@ -28,8 +28,8 @@ import { AddEditRoomComponent } from './room/add-edit-room/add-edit-room.compone
     AddEditCustomerComponent,
     EnumToArrayPipe,
     DeleteCustomerComponent,
-    RoomComponent,
-    AddEditRoomComponent
+    VillaComponent,
+    AddEditVillaComponent
   ],
   imports: [
     BrowserModule,

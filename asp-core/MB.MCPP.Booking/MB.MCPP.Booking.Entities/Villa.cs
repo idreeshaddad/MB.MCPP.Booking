@@ -1,12 +1,10 @@
-﻿using MB.MCPP.BK.Dtos.RoomServices;
-
-namespace MB.MCPP.BK.Dtos.Rooms
+﻿namespace MB.MCPP.BK.Entities
 {
-    public class RoomDto
+    public class Villa
     {
-        public RoomDto()
+        public Villa()
         {
-            Services = new List<RoomServiceDto>();
+            AddOns = new List<AddOn>();
         }
 
         public int Id { get; set; }
@@ -15,8 +13,8 @@ namespace MB.MCPP.BK.Dtos.Rooms
         public double Rating { get; set; }
         public int NumberOfOccupants { get; set; }
         public double Price { get; set; }
-        public bool Occupied { get; set; }
+        public bool Vacant { get; set; }
 
-        public List<RoomServiceDto> Services { get; set; }
+        public List<AddOn> AddOns { get; set; }
     }
 }

@@ -1,0 +1,36 @@
+<h2>Villas</h2>
+<hr>
+<a class="mb-3 btn btn-primary" [routerLink]="['/villas/create']">Create New Villa</a>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Rating</th>
+      <th>Price</th>
+      <th>Vacant</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let villa of villas">
+      <td>{{ villa.name }}</td>
+      <td>{{ villa.address }}</td>
+      <td>{{ villa.rating }}</td>
+      <td>{{ villa.price }}</td>
+      <td>{{ villa.vacant }}</td>
+      <td class="pb-0 mb-0">
+        <a class="me-2 text-info" [routerLink]="['/villas/details', villa.id]">
+          <mat-icon fontIcon="info_outline"></mat-icon>
+        </a>
+        <a class="me-2" [routerLink]="['/villas/edit', villa.id]">
+          <mat-icon fontIcon="edit"></mat-icon>
+        </a>
+        <a class="pointer text-danger" (click)="deleteVilla(villa.id)">
+          <mat-icon fontIcon="delete"></mat-icon>
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
