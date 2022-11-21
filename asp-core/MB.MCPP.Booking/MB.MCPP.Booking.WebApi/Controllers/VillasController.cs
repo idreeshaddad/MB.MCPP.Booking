@@ -57,6 +57,11 @@ namespace MB.MCPP.BK.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateVilla(VillaDto villaDto)
         {
+            if (VillaNameExists(villaDto.Name))
+            {
+                throw new ArgumentException($"A Villa with name: {villaDto.Name} already exists in the system");
+            }
+
             var villa = _mapper.Map<Villa>(villaDto);
 
             _context.Villas.Add(villa);
@@ -118,6 +123,11 @@ namespace MB.MCPP.BK.WebApi.Controllers
         private bool VillaExists(int id)
         {
             return _context.Villas.Any(e => e.Id == id);
+        }
+
+        private bool VillaNameExists(string villaName)
+        {
+            return _context.Villas.Any(v => v.Name == villaName);
         }
 
         #endregion

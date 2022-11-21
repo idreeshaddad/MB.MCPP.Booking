@@ -19,7 +19,10 @@ export class AddEditVillaComponent implements OnInit {
   villaForm!: FormGroup;
   pageMode: PageMode = PageMode.Create;
   pageModeEnum = PageMode;
-  addOns: string[] = ['WOW', 'MWAE'];
+  addOns: string[] = [];
+
+  villaNameExists: boolean = false;
+  villaNameExistsMessage: string = 'Villa name already exists';
 
   constructor(
     private villaSvc: VillaService,
@@ -52,7 +55,8 @@ export class AddEditVillaComponent implements OnInit {
             this.router.navigate(['/villas']);
           },
           error: (e: HttpErrorResponse) => {
-
+            // TODO of villa name alreadu exists show validation msg
+            // this.villaNameExists = true;
             console.log(`Error: ${e}`);
           }
         });
@@ -110,10 +114,10 @@ export class AddEditVillaComponent implements OnInit {
       rating: ['', Validators.required],
       numberOfOccupants: ['', Validators.required],
       price: ['', Validators.required],
-      vacant: ['', Validators.required],
-      addOns: this.fb.array([
-        this.fb.control('')
-      ])
+      vacant: [0, Validators.required],
+      // addOns: this.fb.array([
+      //   this.fb.control('')
+      // ])
     });
   }
 

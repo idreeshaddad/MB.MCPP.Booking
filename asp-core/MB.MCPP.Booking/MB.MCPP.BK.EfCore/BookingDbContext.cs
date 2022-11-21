@@ -1,5 +1,6 @@
 ﻿using MB.MCPP.BK.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Principal;
 
 namespace MB.MCPP.BK.EfCore
 {
@@ -14,6 +15,13 @@ namespace MB.MCPP.BK.EfCore
         public BookingDbContext(DbContextOptions<BookingDbContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Villa>()
+                        .HasIndex(v => v.Name)
+                        .IsUnique();
         }
 
     }
