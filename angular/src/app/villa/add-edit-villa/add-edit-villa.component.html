@@ -55,12 +55,12 @@
     <!-- <mat-checkbox color="primary" formControlName="vacant">Vacant</mat-checkbox> -->
   </div>
 
-  <!-- <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill">
     <mat-label>Add Ons</mat-label>
-    <mat-select formControlName="addOns" multiple>
-      <mat-option *ngFor="let addOn of addOns" [value]="addOn">{{addOn}}</mat-option>
+    <mat-select formArrayName="addOns" multiple>
+      <mat-option *ngFor="let addOn of addOnsLookup" [value]="addOn.id">{{addOn.name}}</mat-option>
     </mat-select>
-  </mat-form-field> -->
+  </mat-form-field>
 
   <div>
     <button class="me-2" [routerLink]="['/villas']" mat-stroked-button color="basic">Cancel</button>

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.Entities;
 using AutoMapper;
+using MB.MCPP.BK.Dtos.AddOns;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -26,9 +27,11 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #region Services
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AddOn>>> GetAddons()
+        public async Task<ActionResult<IEnumerable<AddOnDto>>> GetAddons()
         {
-            return await _context.AddOns.ToListAsync();
+            var addOns = await _context.AddOns.ToListAsync();
+            var addOnDtos = _mapper.Map<List<AddOnDto>>(addOns);
+            return addOnDtos;
         }
 
         [HttpGet("{id}")]

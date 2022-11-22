@@ -1,6 +1,4 @@
-﻿using MB.MCPP.BK.Dtos.Villas;
-
-namespace MB.MCPP.BK.Dtos.AddOns
+﻿namespace MB.MCPP.BK.Dtos.AddOns
 {
     public class AddOnDto
     {

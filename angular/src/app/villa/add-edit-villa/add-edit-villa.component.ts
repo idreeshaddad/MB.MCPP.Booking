@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/enums/pageMode.enum';
 import { AddOn } from 'src/app/models/addon.model';
 import { Villa } from 'src/app/models/villa.model';
+import { AddOnService } from 'src/app/services/addons.service';
 import { VillaService } from 'src/app/services/villa.service';
 
 @Component({
@@ -19,13 +20,14 @@ export class AddEditVillaComponent implements OnInit {
   villaForm!: FormGroup;
   pageMode: PageMode = PageMode.Create;
   pageModeEnum = PageMode;
-  addOns: string[] = [];
+  addOnsLookup: AddOn[] = [];
 
   villaNameExists: boolean = false;
   villaNameExistsMessage: string = 'Villa name already exists';
 
   constructor(
     private villaSvc: VillaService,
+    private addOnSvc: AddOnService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder) { }
@@ -36,6 +38,8 @@ export class AddEditVillaComponent implements OnInit {
     this.setPageMode();
 
     this.buildForm();
+
+    this.loadAddOnsLookup();
 
     if (this.pageMode == PageMode.Edit) {
 
@@ -115,9 +119,18 @@ export class AddEditVillaComponent implements OnInit {
       numberOfOccupants: ['', Validators.required],
       price: ['', Validators.required],
       vacant: [0, Validators.required],
-      // addOns: this.fb.array([
-      //   this.fb.control('')
-      // ])
+      addOns: this.fb.array([
+        this.fb.control('')
+      ])
+    });
+  }
+
+  private loadAddOnsLookup(): void {
+
+    this.addOnSvc.getAddOns().subscribe({
+      next: (addOnsFromApi) => {
+        this.addOnsLookup = addOnsFromApi;
+      }
     });
   }
 
@@ -131,7 +144,6 @@ export class AddEditVillaComponent implements OnInit {
       numberOfOccupants: villa.numberOfOccupants,
       price: villa.price,
       vacant: villa.vacant
-      //addOns: AddOn[],
     });
   }
 
