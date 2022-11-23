@@ -52,12 +52,11 @@
 
   <div appearance="outline" class="w-50 mb-4">
     <mat-slide-toggle color="primary" formControlName="vacant">Vacant</mat-slide-toggle>
-    <!-- <mat-checkbox color="primary" formControlName="vacant">Vacant</mat-checkbox> -->
   </div>
 
   <mat-form-field appearance="fill">
     <mat-label>Add Ons</mat-label>
-    <mat-select formArrayName="addOns" multiple>
+    <mat-select formControlName="addOnIds" multiple>
       <mat-option *ngFor="let addOn of addOnsLookup" [value]="addOn.id">{{addOn.name}}</mat-option>
     </mat-select>
   </mat-form-field>

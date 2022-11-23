@@ -5,6 +5,7 @@ using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.WebApi.FluentValidations;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Text.Json.Serialization;
 
 namespace MB.MCPP.BK.WebApi
 {
@@ -14,7 +15,9 @@ namespace MB.MCPP.BK.WebApi
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

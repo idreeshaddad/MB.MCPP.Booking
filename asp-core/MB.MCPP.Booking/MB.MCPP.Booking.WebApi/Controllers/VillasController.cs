@@ -50,6 +50,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
             }
 
             var villaDto = _mapper.Map<VillaDto>(villa);
+            villaDto.AddOnIds = villa.AddOns.Select(o => o.Id).ToList();
 
             return villaDto;
         }
@@ -57,17 +58,15 @@ namespace MB.MCPP.BK.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult> CreateVilla(VillaDto villaDto)
         {
-            if (VillaNameExists(villaDto.Name))
-            {
-                throw new ArgumentException($"A Villa with name: {villaDto.Name} already exists in the system");
-            }
-
             var villa = _mapper.Map<Villa>(villaDto);
+            await AddAddOnsToVilla(villaDto.AddOnIds, villa);
 
             _context.Villas.Add(villa);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetVilla", new { id = villa.Id }, villa);
+            villaDto.Id = villa.Id;
+
+            return CreatedAtAction("GetVilla", new { id = villa.Id }, villaDto);
         }
 
         [HttpPut("{id}")]
@@ -79,11 +78,13 @@ namespace MB.MCPP.BK.WebApi.Controllers
             }
 
             var villa = _mapper.Map<Villa>(villaDto);
-
             _context.Entry(villa).State = EntityState.Modified;
 
             try
             {
+                await _context.SaveChangesAsync();
+
+                await UpdateVillaAddOns(villaDto.AddOnIds, villaDto.Id);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -120,6 +121,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #endregion
 
         #region Private 
+
         private bool VillaExists(int id)
         {
             return _context.Villas.Any(e => e.Id == id);
@@ -129,6 +131,28 @@ namespace MB.MCPP.BK.WebApi.Controllers
         {
             return _context.Villas.Any(v => v.Name == villaName);
         }
+
+        private async Task AddAddOnsToVilla(List<int> addOnIds, Villa villa)
+        {
+            var addOns = await _context.AddOns.Where(a => addOnIds.Contains(a.Id)).ToListAsync();
+            if (addOns.Any())
+            {
+                villa.AddOns.AddRange(addOns);
+            }
+        }
+
+        private async Task UpdateVillaAddOns(List<int> addOnIds, int villaId)
+        {
+            var villa = await _context.Villas.Include(v => v.AddOns).SingleAsync(v => v.Id == villaId);
+            villa.AddOns.Clear();
+
+            var addOns = await _context.AddOns.Where(a => addOnIds.Contains(a.Id)).ToListAsync();
+            if (addOns.Any())
+            {
+                villa.AddOns.AddRange(addOns);
+            }
+        }
+
 
         #endregion
     }

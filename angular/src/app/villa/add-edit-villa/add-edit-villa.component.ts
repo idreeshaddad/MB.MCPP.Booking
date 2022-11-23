@@ -59,9 +59,7 @@ export class AddEditVillaComponent implements OnInit {
             this.router.navigate(['/villas']);
           },
           error: (e: HttpErrorResponse) => {
-            // TODO of villa name alreadu exists show validation msg
-            // this.villaNameExists = true;
-            console.log(`Error: ${e}`);
+            console.log(e.error);
           }
         });
       }
@@ -119,9 +117,7 @@ export class AddEditVillaComponent implements OnInit {
       numberOfOccupants: ['', Validators.required],
       price: ['', Validators.required],
       vacant: [0, Validators.required],
-      addOns: this.fb.array([
-        this.fb.control('')
-      ])
+      addOnIds: ['']
     });
   }
 
@@ -143,7 +139,8 @@ export class AddEditVillaComponent implements OnInit {
       rating: villa.rating,
       numberOfOccupants: villa.numberOfOccupants,
       price: villa.price,
-      vacant: villa.vacant
+      vacant: villa.vacant,
+      addOnIds: villa.addOnIds
     });
   }
 

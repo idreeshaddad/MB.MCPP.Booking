@@ -6,7 +6,7 @@ namespace MB.MCPP.BK.Dtos.Villas
     {
         public VillaDto()
         {
-            AddOns = new List<AddOnDto>();
+            AddOnIds = new List<int>();
         }
 
         public int Id { get; set; }
@@ -15,8 +15,8 @@ namespace MB.MCPP.BK.Dtos.Villas
         public double Rating { get; set; }
         public int NumberOfOccupants { get; set; }
         public double Price { get; set; }
-        public bool Occupied { get; set; }
+        public bool Vacant { get; set; }
 
-        public List<AddOnDto> AddOns { get; set; }
+        public List<int> AddOnIds { get; set; }
     }
 }
