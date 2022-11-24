@@ -14,6 +14,7 @@ export class CustomerComponent implements OnInit {
 
   customers: Customer[] = [];
   gender = Gender;
+  showSpinner: boolean = true;
 
   constructor(
     private customerSvc: CustomerService,
@@ -39,6 +40,8 @@ export class CustomerComponent implements OnInit {
 
       if (result == true) {
 
+        this.showSpinner = true;
+
         this.customerSvc.deleteCustomer(id).subscribe({
           next: () => {
             this.loadCustomers();
@@ -57,6 +60,7 @@ export class CustomerComponent implements OnInit {
     this.customerSvc.getCustomers().subscribe(
       customersFromApi => {
         this.customers = customersFromApi;
+        this.showSpinner = false;
       }
     );
   }
