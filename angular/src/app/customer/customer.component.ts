@@ -42,7 +42,6 @@ export class CustomerComponent implements OnInit {
         this.customerSvc.deleteCustomer(id).subscribe({
           next: () => {
             this.loadCustomers();
-            // this.router.navigate(['/customers']);
           }
         });
       }

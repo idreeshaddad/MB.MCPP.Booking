@@ -17,6 +17,7 @@ import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
 import { DeleteCustomerComponent } from './customer/delete-customer/delete-customer.component';
 import { VillaComponent } from './villa/villa.component';
 import { AddEditVillaComponent } from './villa/add-edit-villa/add-edit-villa.component';
+import { DeleteVillaComponent } from './villa/dialogs/delete-villa/delete-villa.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { AddEditVillaComponent } from './villa/add-edit-villa/add-edit-villa.com
     EnumToArrayPipe,
     DeleteCustomerComponent,
     VillaComponent,
-    AddEditVillaComponent
+    AddEditVillaComponent,
+    DeleteVillaComponent
   ],
   imports: [
     BrowserModule,

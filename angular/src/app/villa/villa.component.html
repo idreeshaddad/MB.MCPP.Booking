@@ -27,7 +27,7 @@
         <a class="me-2" [routerLink]="['/villas/edit', villa.id]">
           <mat-icon fontIcon="edit"></mat-icon>
         </a>
-        <a class="pointer text-danger" (click)="deleteVilla(villa.id)">
+        <a class="pointer text-danger" (click)="deleteVilla(villa.id, villa.name)">
           <mat-icon fontIcon="delete"></mat-icon>
         </a>
       </td>
