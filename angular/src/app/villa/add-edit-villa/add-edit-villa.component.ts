@@ -116,8 +116,8 @@ export class AddEditVillaComponent implements OnInit {
       rating: ['', Validators.required],
       numberOfOccupants: ['', Validators.required],
       price: ['', Validators.required],
-      vacant: [0, Validators.required],
-      addOnIds: ['']
+      vacant: [false, Validators.required],
+      addOnIds: [[]]
     });
   }
 

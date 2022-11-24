@@ -14,6 +14,7 @@ import { DeleteVillaComponent } from './dialogs/delete-villa/delete-villa.compon
 export class VillaComponent implements OnInit {
 
   villas: Villa[] = [];
+  showSpinner: boolean = true;
 
   constructor(
     private villaSvc: VillaService,
@@ -38,6 +39,8 @@ export class VillaComponent implements OnInit {
 
         if (answer) {
 
+          this.showSpinner = true;
+
           this.villaSvc.deleteVilla(id).subscribe({
             next: () => {
               this.loadVillas();
@@ -59,6 +62,7 @@ export class VillaComponent implements OnInit {
     this.villaSvc.getVillas().subscribe({
       next: (villasFromApi) => {
         this.villas = villasFromApi;
+        this.showSpinner = false;
       },
       error: (e: HttpErrorResponse) => {
         console.log(`Error ${e}`);
