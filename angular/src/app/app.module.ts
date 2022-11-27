@@ -18,6 +18,7 @@ import { DeleteCustomerComponent } from './customer/delete-customer/delete-custo
 import { VillaComponent } from './villa/villa.component';
 import { AddEditVillaComponent } from './villa/add-edit-villa/add-edit-villa.component';
 import { DeleteVillaComponent } from './villa/dialogs/delete-villa/delete-villa.component';
+import { VillaDetailsComponent } from './villa/villa-details/villa-details.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { DeleteVillaComponent } from './villa/dialogs/delete-villa/delete-villa.
     DeleteCustomerComponent,
     VillaComponent,
     AddEditVillaComponent,
-    DeleteVillaComponent
+    DeleteVillaComponent,
+    VillaDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { CustomerComponent } from './customer/customer.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AddEditVillaComponent } from './villa/add-edit-villa/add-edit-villa.component';
+import { VillaDetailsComponent } from './villa/villa-details/villa-details.component';
 import { VillaComponent } from './villa/villa.component';
 
 const routes: Routes = [
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: "customers/edit/:id", component: AddEditCustomerComponent },
 
   { path: "villas", component: VillaComponent },
-  // { path: "villas/details/:id", component: CustomerDetailsComponent },
+  { path: "villas/details/:id", component: VillaDetailsComponent },
   { path: "villas/create", component: AddEditVillaComponent },
   { path: "villas/edit/:id", component: AddEditVillaComponent },
 
