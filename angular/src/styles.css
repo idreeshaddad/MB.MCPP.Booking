@@ -25,4 +25,5 @@ body {
   right: 0;
   bottom: 0;
   background: white;
+  min-height: 150px;
 }
