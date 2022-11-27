@@ -9,57 +9,69 @@
 
 <form [formGroup]="villaForm" (ngSubmit)="submitForm()">
 
-  <div class="">
-    <mat-form-field appearance="outline" class="w-50">
-      <mat-label>Name</mat-label>
-      <input matInput formControlName="name" required>
-      <mat-error>Name is required</mat-error>
-      <mat-error *ngIf="villaNameExists">{{villaNameExistsMessage}}</mat-error>
-    </mat-form-field>
-  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" required>
+          <mat-error>Name is required</mat-error>
+          <mat-error *ngIf="villaNameExists">{{villaNameExistsMessage}}</mat-error>
+        </mat-form-field>
+      </div>
 
-  <div class="">
-    <mat-form-field appearance="outline" class="w-50">
-      <mat-label>Address</mat-label>
-      <input matInput formControlName="address" required>
-      <mat-error>Address is required</mat-error>
-    </mat-form-field>
-  </div>
+      <div class="">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="address" required>
+          <mat-error>Address is required</mat-error>
+        </mat-form-field>
+      </div>
 
-  <div class="">
-    <mat-form-field appearance="outline" class="w-50">
-      <mat-label>Rating</mat-label>
-      <input matInput formControlName="rating" required>
-      <mat-error>Rating is required</mat-error>
-    </mat-form-field>
-  </div>
+      <div class="">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Rating</mat-label>
+          <input matInput formControlName="rating" required>
+          <mat-error>Rating is required</mat-error>
+        </mat-form-field>
+      </div>
 
-  <div class="">
-    <mat-form-field appearance="outline" class="w-50">
-      <mat-label>Number of occupants</mat-label>
-      <input matInput formControlName="numberOfOccupants" required>
-      <mat-error>Number of occupants is required</mat-error>
-    </mat-form-field>
-  </div>
+      <div appearance="outline" class="w-100 mb-4">
+        <mat-slide-toggle color="primary" formControlName="vacant">Vacant</mat-slide-toggle>
+      </div>
 
-  <div class="">
-    <mat-form-field appearance="outline" class="w-50">
-      <mat-label>Price</mat-label>
-      <input matInput formControlName="price" required>
-      <mat-error>Price is required</mat-error>
-    </mat-form-field>
-  </div>
+    </div>
 
-  <div appearance="outline" class="w-50 mb-4">
-    <mat-slide-toggle color="primary" formControlName="vacant">Vacant</mat-slide-toggle>
-  </div>
 
-  <mat-form-field appearance="fill">
-    <mat-label>Add Ons</mat-label>
-    <mat-select formControlName="addOnIds" multiple>
-      <mat-option *ngFor="let addOn of addOnsLookup" [value]="addOn.id">{{addOn.name}}</mat-option>
-    </mat-select>
-  </mat-form-field>
+
+    <div class="col-md-6">
+
+      <div class="">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Number of occupants</mat-label>
+          <input matInput formControlName="numberOfOccupants" required>
+          <mat-error>Number of occupants is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Price</mat-label>
+          <input matInput formControlName="price" required>
+          <mat-error>Price is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Add Ons</mat-label>
+        <mat-select formControlName="addOnIds" multiple>
+          <mat-option *ngFor="let addOn of addOnsLookup" [value]="addOn.id">{{addOn.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+    </div>
+  </div>
 
   <div>
     <button class="me-2" [routerLink]="['/villas']" mat-stroked-button color="basic">Cancel</button>

@@ -4,6 +4,7 @@ using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.Entities;
 using AutoMapper;
 using MB.MCPP.BK.Dtos.AddOns;
+using MB.MCPP.BK.Dtos.Lookups;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -98,6 +99,22 @@ namespace MB.MCPP.BK.WebApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        #endregion
+
+        #region Lookups
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<LookupDto>>> GetLookup()
+        {
+            var addOnlookup = await _context
+                                        .AddOns
+                                        .Select(addon => _mapper.Map<LookupDto>(addon))
+                                        .ToListAsync();
+
+            return addOnlookup;
+            
         }
 
         #endregion

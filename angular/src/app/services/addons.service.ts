@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AddOn } from '../models/addon.model';
+import { Lookup } from '../models/lookup.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,11 @@ export class AddOnService {
   getAddOns(): Observable<AddOn[]> {
 
     return this.http.get<AddOn[]>(`${this.apiUrl}/GetAddOns`);
+  }
+
+  getAddOnLookup(): Observable<Lookup[]> {
+
+    return this.http.get<Lookup[]>(`${this.apiUrl}/GetLookup`);
   }
 
   getAddOn(id: number): Observable<AddOn> {

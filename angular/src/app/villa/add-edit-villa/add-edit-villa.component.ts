@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/enums/pageMode.enum';
-import { AddOn } from 'src/app/models/addon.model';
+import { Lookup } from 'src/app/models/lookup.model';
 import { Villa } from 'src/app/models/villa.model';
 import { AddOnService } from 'src/app/services/addons.service';
 import { VillaService } from 'src/app/services/villa.service';
@@ -20,7 +20,7 @@ export class AddEditVillaComponent implements OnInit {
   villaForm!: FormGroup;
   pageMode: PageMode = PageMode.Create;
   pageModeEnum = PageMode;
-  addOnsLookup: AddOn[] = [];
+  addOnsLookup: Lookup[] = [];
 
   villaNameExists: boolean = false;
   villaNameExistsMessage: string = 'Villa name already exists';
@@ -123,9 +123,9 @@ export class AddEditVillaComponent implements OnInit {
 
   private loadAddOnsLookup(): void {
 
-    this.addOnSvc.getAddOns().subscribe({
-      next: (addOnsFromApi) => {
-        this.addOnsLookup = addOnsFromApi;
+    this.addOnSvc.getAddOnLookup().subscribe({
+      next: (addOnLookupFromApi) => {
+        this.addOnsLookup = addOnLookupFromApi;
       }
     });
   }
