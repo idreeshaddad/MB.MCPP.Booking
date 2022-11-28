@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Villa } from 'src/app/models/villa.model';
 import { VillaService } from 'src/app/services/villa.service';
 
@@ -16,7 +16,8 @@ export class VillaDetailsComponent implements OnInit {
 
   constructor(
     private villaSvc: VillaService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit(): void {
 
@@ -35,6 +36,7 @@ export class VillaDetailsComponent implements OnInit {
         },
         error: (e: HttpErrorResponse) => {
           console.log(e.message);
+          this.router.navigate(['/not-found']);
         }
       });
     }

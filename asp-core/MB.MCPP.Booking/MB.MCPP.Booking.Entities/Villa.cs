@@ -13,7 +13,7 @@
         public double Rating { get; set; }
         public int NumberOfOccupants { get; set; }
         public double Price { get; set; }
-        public bool Vacant { get; set; }
+        public bool IsBooked { get; set; }
 
         public List<AddOn> AddOns { get; set; }
     }

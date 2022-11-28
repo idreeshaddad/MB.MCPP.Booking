@@ -116,7 +116,7 @@ export class AddEditVillaComponent implements OnInit {
       rating: ['', Validators.required],
       numberOfOccupants: ['', Validators.required],
       price: ['', Validators.required],
-      vacant: [false, Validators.required],
+      isBooked: [false, Validators.required],
       addOnIds: [[]]
     });
   }
@@ -139,7 +139,7 @@ export class AddEditVillaComponent implements OnInit {
       rating: villa.rating,
       numberOfOccupants: villa.numberOfOccupants,
       price: villa.price,
-      vacant: villa.vacant,
+      isBooked: villa.isBooked,
       addOnIds: villa.addOnIds
     });
   }

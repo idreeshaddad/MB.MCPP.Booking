@@ -11,7 +11,7 @@
         <th>Address</th>
         <th>Rating</th>
         <th>Price</th>
-        <th>Vacant</th>
+        <th>Is Booked</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -21,7 +21,7 @@
         <td>{{ villa.address }}</td>
         <td>{{ villa.rating }}</td>
         <td>{{ villa.price }}</td>
-        <td>{{ villa.vacant }}</td>
+        <td>{{ villa.isBooked }}</td>
         <td class="pb-0 mb-0">
           <a class="me-2 text-info" [routerLink]="['/villas/details', villa.id]">
             <mat-icon fontIcon="info_outline"></mat-icon>
