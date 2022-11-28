@@ -9,6 +9,8 @@ namespace MB.MCPP.BK.WebApi.AutoMapperProfiles
         public VillaAutoMapperProfile()
         {
             CreateMap<Villa, VillaDto>().ReverseMap();
+            CreateMap<Villa, VillaDetailsDto>();
+            CreateMap<Villa, VillaListDto>();
         }
     }
 }

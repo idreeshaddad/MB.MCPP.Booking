@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogData } from '../models/deleteDialogData.model';
-import { Villa } from '../models/villa.model';
+import { VillaList } from '../models/villas/villaList.model';
 import { VillaService } from '../services/villa.service';
 import { DeleteVillaComponent } from './dialogs/delete-villa/delete-villa.component';
 
@@ -13,7 +13,7 @@ import { DeleteVillaComponent } from './dialogs/delete-villa/delete-villa.compon
 })
 export class VillaComponent implements OnInit {
 
-  villas: Villa[] = [];
+  villas: VillaList[] = [];
   showSpinner: boolean = true;
 
   constructor(

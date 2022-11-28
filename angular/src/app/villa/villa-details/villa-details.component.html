@@ -32,3 +32,22 @@
   <button class="me-2" mat-raised-button color="basic" [routerLink]="['/villas']">Back</button>
   <button mat-raised-button color="primary" [routerLink]="['/villas/edit/', villaId]">Edit</button>
 </div>
+
+<hr class="mt-5">
+<h2>Villa Addons</h2>
+<table class="table table-stripped">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let addOn of villa.addOns">
+      <td>{{ addOn.id }}</td>
+      <td>{{ addOn.name }}</td>
+      <td>{{ addOn.price }}</td>
+    </tr>
+  </tbody>
+</table>

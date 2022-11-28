@@ -27,17 +27,17 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #region Services
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<VillaDto>>> GetVillas()
+        public async Task<ActionResult<IEnumerable<VillaListDto>>> GetVillas()
         {
             var villas = await _context.Villas.ToListAsync();
 
-            var villaDtos = _mapper.Map<List<VillaDto>>(villas);
+            var villaDtos = _mapper.Map<List<VillaListDto>>(villas);
 
             return villaDtos;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<VillaDto>> GetVilla(int id)
+        public async Task<ActionResult<VillaDetailsDto>> GetVilla(int id)
         {
             var villa = await _context
                                 .Villas
@@ -49,8 +49,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
                 return NotFound();
             }
 
-            var villaDto = _mapper.Map<VillaDto>(villa);
-            villaDto.AddOnIds = villa.AddOns.Select(o => o.Id).ToList();
+            var villaDto = _mapper.Map<VillaDetailsDto>(villa);
 
             return villaDto;
         }
