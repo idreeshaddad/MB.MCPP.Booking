@@ -1,45 +1,45 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AddOn } from '../models/addon.model';
+import { Addon } from '../models/addon.model';
 import { Lookup } from '../models/lookup.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AddOnService {
+export class AddonService {
 
-  apiUrl = 'https://localhost:44368/api/AddOns'
+  apiUrl = 'https://localhost:44368/api/Addons'
 
   constructor(private http: HttpClient) { }
 
-  getAddOns(): Observable<AddOn[]> {
+  getAddons(): Observable<Addon[]> {
 
-    return this.http.get<AddOn[]>(`${this.apiUrl}/GetAddOns`);
+    return this.http.get<Addon[]>(`${this.apiUrl}/GetAddons`);
   }
 
-  getAddOnLookup(): Observable<Lookup[]> {
+  getAddonLookup(): Observable<Lookup[]> {
 
     return this.http.get<Lookup[]>(`${this.apiUrl}/GetLookup`);
   }
 
-  getAddOn(id: number): Observable<AddOn> {
+  getAddon(id: number): Observable<Addon> {
 
-    return this.http.get<AddOn>(`${this.apiUrl}/GetAddOn/${id}`);
+    return this.http.get<Addon>(`${this.apiUrl}/GetAddon/${id}`);
   }
 
-  createAddOn(addon: AddOn): Observable<AddOn> {
+  createAddon(addon: Addon): Observable<Addon> {
 
-    return this.http.post<AddOn>(`${this.apiUrl}/CreateAddOn`, addon)
+    return this.http.post<Addon>(`${this.apiUrl}/CreateAddon`, addon)
   }
 
-  editAddOn(id: number, addon: AddOn): Observable<any> {
+  editAddon(id: number, addon: Addon): Observable<any> {
 
-    return this.http.put<AddOn>(`${this.apiUrl}/EditAddOn/${id}`, addon)
+    return this.http.put<Addon>(`${this.apiUrl}/EditAddon/${id}`, addon)
   }
 
-  deleteAddOn(id: number): Observable<any> {
+  deleteAddon(id: number): Observable<any> {
 
-    return this.http.delete<AddOn>(`${this.apiUrl}/DeleteAddOn/${id}`)
+    return this.http.delete<Addon>(`${this.apiUrl}/DeleteAddon/${id}`)
   }
 }

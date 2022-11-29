@@ -6,7 +6,7 @@ import { PageMode } from 'src/app/enums/pageMode.enum';
 import { Lookup } from 'src/app/models/lookup.model';
 import { Villa } from 'src/app/models/villas/villa.model';
 import { VillaDetails } from 'src/app/models/villas/villaDetails.model';
-import { AddOnService } from 'src/app/services/addons.service';
+import { AddonService } from 'src/app/services/addons.service';
 import { VillaService } from 'src/app/services/villa.service';
 
 @Component({
@@ -21,14 +21,14 @@ export class AddEditVillaComponent implements OnInit {
   villaForm!: FormGroup;
   pageMode: PageMode = PageMode.Create;
   pageModeEnum = PageMode;
-  addOnsLookup: Lookup[] = [];
+  addonsLookup: Lookup[] = [];
 
   villaNameExists: boolean = false;
   villaNameExistsMessage: string = 'Villa name already exists';
 
   constructor(
     private villaSvc: VillaService,
-    private addOnSvc: AddOnService,
+    private addonSvc: AddonService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder) { }
@@ -40,7 +40,7 @@ export class AddEditVillaComponent implements OnInit {
 
     this.buildForm();
 
-    this.loadAddOnsLookup();
+    this.loadAddonsLookup();
 
     if (this.pageMode == PageMode.Edit) {
 
@@ -118,15 +118,15 @@ export class AddEditVillaComponent implements OnInit {
       numberOfOccupants: ['', Validators.required],
       price: ['', Validators.required],
       isBooked: [false, Validators.required],
-      addOnIds: [[]]
+      addonIds: [[]]
     });
   }
 
-  private loadAddOnsLookup(): void {
+  private loadAddonsLookup(): void {
 
-    this.addOnSvc.getAddOnLookup().subscribe({
-      next: (addOnLookupFromApi) => {
-        this.addOnsLookup = addOnLookupFromApi;
+    this.addonSvc.getAddonLookup().subscribe({
+      next: (addonLookupFromApi) => {
+        this.addonsLookup = addonLookupFromApi;
       }
     });
   }
@@ -141,7 +141,7 @@ export class AddEditVillaComponent implements OnInit {
       numberOfOccupants: villa.numberOfOccupants,
       price: villa.price,
       isBooked: villa.isBooked,
-      addOnIds: villa.addOns.map(({ id }) => id)
+      addonIds: villa.addons.map(({ id }) => id)
     });
   }
 

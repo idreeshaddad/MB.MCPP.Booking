@@ -19,6 +19,9 @@ import { VillaComponent } from './villa/villa.component';
 import { AddEditVillaComponent } from './villa/add-edit-villa/add-edit-villa.component';
 import { DeleteVillaComponent } from './villa/dialogs/delete-villa/delete-villa.component';
 import { VillaDetailsComponent } from './villa/villa-details/villa-details.component';
+import { AddonComponent } from './addon/addon.component';
+import { DeleteAddonComponent } from './addon/dialogs/delete-addon/delete-addon.component';
+import { AddonDetailsComponent } from './addon/addon-details/addon-details.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,10 @@ import { VillaDetailsComponent } from './villa/villa-details/villa-details.compo
     VillaComponent,
     AddEditVillaComponent,
     DeleteVillaComponent,
-    VillaDetailsComponent
+    VillaDetailsComponent,
+    AddonComponent,
+    DeleteAddonComponent,
+    AddonDetailsComponent
   ],
   imports: [
     BrowserModule,

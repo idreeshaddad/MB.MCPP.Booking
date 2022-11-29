@@ -18,7 +18,7 @@ export class VillaComponent implements OnInit {
 
   constructor(
     private villaSvc: VillaService,
-    public dialog: MatDialog) { }
+    public dialogSvc: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -27,7 +27,7 @@ export class VillaComponent implements OnInit {
 
   deleteVilla(id: number, name: string): void {
 
-    const dialogRef = this.dialog.open(DeleteVillaComponent, {
+    const dialogRef = this.dialogSvc.open(DeleteVillaComponent, {
       data: {
         name: name
       } as DeleteDialogData

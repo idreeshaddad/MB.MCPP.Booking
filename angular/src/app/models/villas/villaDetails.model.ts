@@ -1,4 +1,4 @@
-import { AddOn } from "../addon.model";
+import { Addon } from "../addon.model";
 
 export interface VillaDetails {
   id: number;
@@ -8,5 +8,5 @@ export interface VillaDetails {
   numberOfOccupants: number;
   price: number;
   isBooked: boolean;
-  addOns: AddOn[];
+  addons: Addon[];
 }

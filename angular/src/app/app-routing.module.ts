@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddonDetailsComponent } from './addon/addon-details/addon-details.component';
+import { AddonComponent } from './addon/addon.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 import { CustomerDetailsComponent } from './customer/customer-details/customer-details.component';
 import { CustomerComponent } from './customer/customer.component';
@@ -21,6 +23,11 @@ const routes: Routes = [
   { path: "villas/details/:id", component: VillaDetailsComponent },
   { path: "villas/create", component: AddEditVillaComponent },
   { path: "villas/edit/:id", component: AddEditVillaComponent },
+
+  { path: "addons", component: AddonComponent },
+  { path: "addons/details/:id", component: AddonDetailsComponent },
+  // { path: "addons/create", component: AddEditAddonComponent },
+  // { path: "addons/edit/:id", component: AddEditAddonComponent },
 
   { path: "not-found", component: NotFoundComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
