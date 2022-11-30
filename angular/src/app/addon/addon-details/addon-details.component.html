@@ -1,1 +1,19 @@
-<p>addon-details works!</p>
+<h1>Addon: <span class="text-primary">{{addon?.name}}</span> details</h1>
+<hr>
+<div class="row">
+  <div class="col-md-2">Id</div>
+  <div class="col-md-10">{{addon?.id}}</div>
+</div>
+<div class="row mt-3">
+  <div class="col-md-2">Name</div>
+  <div class="col-md-10">{{addon?.name}}</div>
+</div>
+<div class="row mt-3">
+  <div class="col-md-2">Rating</div>
+  <div class="col-md-10">{{addon?.price}}</div>
+</div>
+
+<div class="mt-4">
+  <button class="me-2" mat-raised-button color="basic" [routerLink]="['/addons']">Back</button>
+  <button mat-raised-button color="primary" [routerLink]="['/addons/edit/', addonId]">Edit</button>
+</div>

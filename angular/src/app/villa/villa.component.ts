@@ -29,8 +29,9 @@ export class VillaComponent implements OnInit {
 
     const dialogRef = this.dialogSvc.open(DeleteVillaComponent, {
       data: {
-        name: name
-      } as DeleteDialogData
+        name: name,
+      } as DeleteDialogData,
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe({

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { DeleteDialogData } from 'src/app/models/deleteDialogData.model';
 
 @Component({
   selector: 'app-delete-addon',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeleteAddonComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DeleteDialogData) { }
 
   ngOnInit(): void {
+
+
   }
 
 }

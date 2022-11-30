@@ -22,6 +22,7 @@ import { VillaDetailsComponent } from './villa/villa-details/villa-details.compo
 import { AddonComponent } from './addon/addon.component';
 import { DeleteAddonComponent } from './addon/dialogs/delete-addon/delete-addon.component';
 import { AddonDetailsComponent } from './addon/addon-details/addon-details.component';
+import { AddEditAddonComponent } from './addon/add-edit-addon/add-edit-addon.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { AddonDetailsComponent } from './addon/addon-details/addon-details.compo
     VillaDetailsComponent,
     AddonComponent,
     DeleteAddonComponent,
-    AddonDetailsComponent
+    AddonDetailsComponent,
+    AddEditAddonComponent
   ],
   imports: [
     BrowserModule,

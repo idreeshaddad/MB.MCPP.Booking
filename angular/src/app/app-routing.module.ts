@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddEditAddonComponent } from './addon/add-edit-addon/add-edit-addon.component';
 import { AddonDetailsComponent } from './addon/addon-details/addon-details.component';
 import { AddonComponent } from './addon/addon.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
@@ -26,8 +27,8 @@ const routes: Routes = [
 
   { path: "addons", component: AddonComponent },
   { path: "addons/details/:id", component: AddonDetailsComponent },
-  // { path: "addons/create", component: AddEditAddonComponent },
-  // { path: "addons/edit/:id", component: AddEditAddonComponent },
+  { path: "addons/create", component: AddEditAddonComponent },
+  { path: "addons/edit/:id", component: AddEditAddonComponent },
 
   { path: "not-found", component: NotFoundComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },

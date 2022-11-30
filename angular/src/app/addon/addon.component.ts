@@ -31,7 +31,8 @@ export class AddonComponent implements OnInit {
     const dialogRef = this.dialogSvc.open(DeleteAddonComponent, {
       data: {
         name: name
-      } as DeleteDialogData
+      } as DeleteDialogData,
+      disableClose: true
     });
 
     dialogRef.afterClosed().subscribe({
@@ -46,9 +47,9 @@ export class AddonComponent implements OnInit {
             next: () => {
               this.loadAddons();
             },
-            error: (e: HttpErrorResponse) => {
-              alert(e.message);
-              console.log(e);
+            error: (err: HttpErrorResponse) => {
+              alert(err.message);
+              console.log(err);
             }
           });
         }
