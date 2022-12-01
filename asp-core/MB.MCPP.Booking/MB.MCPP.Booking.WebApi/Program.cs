@@ -4,6 +4,7 @@ using MB.MCPP.BK.Dtos.Customers;
 using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.WebApi.FluentValidations;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System;
 using System.Text.Json.Serialization;
 
@@ -14,6 +15,18 @@ namespace MB.MCPP.BK.WebApi
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+
+
+            var logger = new LoggerConfiguration()
+                          .ReadFrom.Configuration(builder.Configuration)
+                          .Enrich.FromLogContext()
+                          .CreateLogger();
+
+            builder.Logging.ClearProviders();
+            builder.Logging.AddSerilog(logger);
+
+
 
             builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
