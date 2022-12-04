@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/enums/pageMode.enum';
 import { Lookup } from 'src/app/models/lookup.model';
-import { Villa } from 'src/app/models/villas/villa.model';
 import { VillaDetails } from 'src/app/models/villas/villaDetails.model';
 import { AddonService } from 'src/app/services/addons.service';
 import { VillaService } from 'src/app/services/villa.service';

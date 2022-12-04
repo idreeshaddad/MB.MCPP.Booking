@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using MB.MCPP.BK.Dtos.AddOns;
+using MB.MCPP.BK.Dtos.Addons;
 using MB.MCPP.BK.Entities;
 
 namespace MB.MCPP.BK.WebApi.AutoMapperProfiles
 {
-    public class AddOnAutoMapperProfile : Profile
+    public class AddonAutoMapperProfile : Profile
     {
-        public AddOnAutoMapperProfile()
+        public AddonAutoMapperProfile()
         {
-            CreateMap<AddOn, AddOnDto>().ReverseMap();
+            CreateMap<Addon, AddonDto>().ReverseMap();
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace MB.MCPP.BK.Dtos.AddOns
+﻿namespace MB.MCPP.BK.Dtos.Addons
 {
-    public class AddOnDto
+    public class AddonDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

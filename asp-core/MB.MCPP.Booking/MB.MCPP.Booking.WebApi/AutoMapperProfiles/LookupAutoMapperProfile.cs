@@ -8,7 +8,7 @@ namespace MB.MCPP.BK.WebApi.AutoMapperProfiles
     {
         public LookupAutoMapperProfile()
         {
-            CreateMap<AddOn, LookupDto>();
+            CreateMap<Addon, LookupDto>();
         }
     }
 }

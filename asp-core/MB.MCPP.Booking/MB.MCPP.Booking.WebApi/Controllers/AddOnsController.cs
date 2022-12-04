@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.Entities;
 using AutoMapper;
-using MB.MCPP.BK.Dtos.AddOns;
+using MB.MCPP.BK.Dtos.Addons;
 using MB.MCPP.BK.Dtos.Lookups;
 
 namespace MB.MCPP.BK.WebApi.Controllers
@@ -28,17 +28,17 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #region Services
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AddOnDto>>> GetAddons()
+        public async Task<ActionResult<IEnumerable<AddonDto>>> GetAddons()
         {
-            var addOns = await _context.AddOns.ToListAsync();
-            var addOnDtos = _mapper.Map<List<AddOnDto>>(addOns);
-            return addOnDtos;
+            var addons = await _context.Addons.ToListAsync();
+            var addonDtos = _mapper.Map<List<AddonDto>>(addons);
+            return addonDtos;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AddOn>> GetAddon(int id)
+        public async Task<ActionResult<Addon>> GetAddon(int id)
         {
-            var addon = await _context.AddOns.FindAsync(id);
+            var addon = await _context.Addons.FindAsync(id);
 
             if (addon == null)
             {
@@ -49,7 +49,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditAddon(int id, AddOn addon)
+        public async Task<IActionResult> EditAddon(int id, Addon addon)
         {
             if (id != addon.Id)
             {
@@ -78,9 +78,9 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<AddOn>> CreateAddon(AddOn addon)
+        public async Task<ActionResult<Addon>> CreateAddon(Addon addon)
         {
-            _context.AddOns.Add(addon);
+            _context.Addons.Add(addon);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAddon", new { id = addon.Id }, addon);
@@ -89,13 +89,13 @@ namespace MB.MCPP.BK.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAddon(int id)
         {
-            var addon = await _context.AddOns.FindAsync(id);
+            var addon = await _context.Addons.FindAsync(id);
             if (addon == null)
             {
                 return NotFound();
             }
 
-            _context.AddOns.Remove(addon);
+            _context.Addons.Remove(addon);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -108,12 +108,12 @@ namespace MB.MCPP.BK.WebApi.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LookupDto>>> GetLookup()
         {
-            var addOnlookup = await _context
-                                        .AddOns
+            var addonlookup = await _context
+                                        .Addons
                                         .Select(addon => _mapper.Map<LookupDto>(addon))
                                         .ToListAsync();
 
-            return addOnlookup;
+            return addonlookup;
             
         }
 
@@ -122,7 +122,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #region Private
         private bool AddonExists(int id)
         {
-            return _context.AddOns.Any(e => e.Id == id);
+            return _context.Addons.Any(e => e.Id == id);
         }
 
         #endregion

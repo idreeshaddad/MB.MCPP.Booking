@@ -1,8 +1,8 @@
 ﻿namespace MB.MCPP.BK.Entities
 {
-    public class AddOn
+    public class Addon
     {
-        public AddOn()
+        public Addon()
         {
             Villas = new List<Villa>();
         }

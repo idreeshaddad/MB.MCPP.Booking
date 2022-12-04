@@ -1,4 +1,4 @@
-﻿using MB.MCPP.BK.Dtos.AddOns;
+﻿using MB.MCPP.BK.Dtos.Addons;
 
 namespace MB.MCPP.BK.Dtos.Villas
 {

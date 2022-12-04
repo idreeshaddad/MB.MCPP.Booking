@@ -1,4 +1,4 @@
-﻿using MB.MCPP.BK.Dtos.AddOns;
+﻿using MB.MCPP.BK.Dtos.Addons;
 
 namespace MB.MCPP.BK.Dtos.Villas
 {
@@ -6,7 +6,7 @@ namespace MB.MCPP.BK.Dtos.Villas
     {
         public VillaDto()
         {
-            AddOnIds = new List<int>();
+            AddonIds = new List<int>();
         }
 
         public int Id { get; set; }
@@ -17,6 +17,6 @@ namespace MB.MCPP.BK.Dtos.Villas
         public double Price { get; set; }
         public bool IsBooked { get; set; }
 
-        public List<int> AddOnIds { get; set; }
+        public List<int> AddonIds { get; set; }
     }
 }

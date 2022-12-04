@@ -4,7 +4,7 @@
     {
         public Villa()
         {
-            AddOns = new List<AddOn>();
+            Addons = new List<Addon>();
         }
 
         public int Id { get; set; }
@@ -15,6 +15,6 @@
         public double Price { get; set; }
         public bool IsBooked { get; set; }
 
-        public List<AddOn> AddOns { get; set; }
+        public List<Addon> Addons { get; set; }
     }
 }

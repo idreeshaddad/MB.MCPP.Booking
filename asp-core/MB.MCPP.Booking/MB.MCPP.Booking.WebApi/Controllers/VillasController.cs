@@ -41,7 +41,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         {
             var villa = await _context
                                 .Villas
-                                .Include(villa => villa.AddOns)
+                                .Include(villa => villa.Addons)
                                 .SingleAsync(villa => villa.Id == id);
 
             if (villa == null)
@@ -58,7 +58,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         public async Task<ActionResult> CreateVilla(VillaDto villaDto)
         {
             var villa = _mapper.Map<Villa>(villaDto);
-            await AddAddOnsToVilla(villaDto.AddOnIds, villa);
+            await AddAddonsToVilla(villaDto.AddonIds, villa);
 
             _context.Villas.Add(villa);
             await _context.SaveChangesAsync();
@@ -83,7 +83,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
             {
                 await _context.SaveChangesAsync();
 
-                await UpdateVillaAddOns(villaDto.AddOnIds, villaDto.Id);
+                await UpdateVillaAddons(villaDto.AddonIds, villaDto.Id);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -131,24 +131,24 @@ namespace MB.MCPP.BK.WebApi.Controllers
             return _context.Villas.Any(v => v.Name == villaName);
         }
 
-        private async Task AddAddOnsToVilla(List<int> addOnIds, Villa villa)
+        private async Task AddAddonsToVilla(List<int> addonIds, Villa villa)
         {
-            var addOns = await _context.AddOns.Where(a => addOnIds.Contains(a.Id)).ToListAsync();
-            if (addOns.Any())
+            var addons = await _context.Addons.Where(a => addonIds.Contains(a.Id)).ToListAsync();
+            if (addons.Any())
             {
-                villa.AddOns.AddRange(addOns);
+                villa.Addons.AddRange(addons);
             }
         }
 
-        private async Task UpdateVillaAddOns(List<int> addOnIds, int villaId)
+        private async Task UpdateVillaAddons(List<int> addonIds, int villaId)
         {
-            var villa = await _context.Villas.Include(v => v.AddOns).SingleAsync(v => v.Id == villaId);
-            villa.AddOns.Clear();
+            var villa = await _context.Villas.Include(v => v.Addons).SingleAsync(v => v.Id == villaId);
+            villa.Addons.Clear();
 
-            var addOns = await _context.AddOns.Where(a => addOnIds.Contains(a.Id)).ToListAsync();
-            if (addOns.Any())
+            var addons = await _context.Addons.Where(a => addonIds.Contains(a.Id)).ToListAsync();
+            if (addons.Any())
             {
-                villa.AddOns.AddRange(addOns);
+                villa.Addons.AddRange(addons);
             }
         }
 
