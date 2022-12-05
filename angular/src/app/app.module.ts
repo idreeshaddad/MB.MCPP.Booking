@@ -23,6 +23,7 @@ import { AddonComponent } from './addon/addon.component';
 import { DeleteAddonComponent } from './addon/dialogs/delete-addon/delete-addon.component';
 import { AddonDetailsComponent } from './addon/addon-details/addon-details.component';
 import { AddEditAddonComponent } from './addon/add-edit-addon/add-edit-addon.component';
+import { BookingComponent } from './booking/booking.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AddEditAddonComponent } from './addon/add-edit-addon/add-edit-addon.com
     AddonComponent,
     DeleteAddonComponent,
     AddonDetailsComponent,
-    AddEditAddonComponent
+    AddEditAddonComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,

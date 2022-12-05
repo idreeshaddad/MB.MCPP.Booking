@@ -1,6 +1,4 @@
-import { Addon } from "../addon.model";
-
-export interface VillaDetails {
+export interface Booking {
   id: number;
   name: string;
   address: string;
@@ -8,5 +6,5 @@ export interface VillaDetails {
   numberOfOccupants: number;
   price: number;
   isBooked: boolean;
-  addons: Addon[];
+  addonIds: number[];
 }

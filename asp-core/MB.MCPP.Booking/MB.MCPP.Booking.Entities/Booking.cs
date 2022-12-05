@@ -8,13 +8,6 @@ namespace MB.MCPP.BK.Entities
         public DateTime BookingStart { get; set; }
         public DateTime BookingEnd { get; set; }
         public double TotalPrice { get; set; }
-
-        public int VillaId { get; set; }
-        public Villa Villa { get; set; }
-
-        public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
-
         public int NumberOfOccupants { get; set; }
 
         [NotMapped]
@@ -25,5 +18,12 @@ namespace MB.MCPP.BK.Entities
                 return (BookingEnd - BookingStart).Days;
             }
         }
+
+
+        public int VillaId { get; set; }
+        public Villa Villa { get; set; }
+
+        public int CustomerId { get; set; }
+        public Customer Customer { get; set; }
     }
 }

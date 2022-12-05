@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Villa } from '../models/villas/villa.model';
-import { VillaDetails } from '../models/villas/villaDetails.model';
 import { VillaList } from '../models/villas/villaList.model';
 
 @Injectable({
@@ -19,9 +18,9 @@ export class VillaService {
     return this.http.get<VillaList[]>(`${this.apiUrl}/GetVillas`);
   }
 
-  getVilla(id: number): Observable<VillaDetails> {
+  getVilla(id: number): Observable<Villa> {
 
-    return this.http.get<VillaDetails>(`${this.apiUrl}/GetVilla/${id}`);
+    return this.http.get<Villa>(`${this.apiUrl}/GetVilla/${id}`);
   }
 
   createVilla(villa: Villa): Observable<Villa> {

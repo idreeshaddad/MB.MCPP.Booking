@@ -2,6 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.Entities;
+using MB.MCPP.BK.Dtos.Bookings;
+using AutoMapper;
+using System.Security.Policy;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -12,10 +15,12 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #region Data and Const
 
         private readonly BookingDbContext _context;
+        private readonly IMapper _mapper;
 
-        public BookingsController(BookingDbContext context)
+        public BookingsController(BookingDbContext context, IMapper mapper)
         {
             _context = context;
+            this._mapper = mapper;
         }
 
         #endregion
@@ -23,42 +28,64 @@ namespace MB.MCPP.BK.WebApi.Controllers
         #region Services
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
+        public async Task<ActionResult<IEnumerable<BookingListDto>>> GetBookings()
         {
-            return await _context.Bookings.ToListAsync();
+            var bookings = await _context
+                                    .Bookings
+                                    .Include(b => b.Villa)
+                                    .Include(b => b.Customer)
+                                    .ToListAsync();
+
+            var bookingDtos = _mapper.Map<List<BookingListDto>>(bookings);
+
+            return bookingDtos;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Booking>> GetBooking(int id)
+        public async Task<ActionResult<BookingDetailsDto>> GetBooking(int id)
         {
-            var booking = await _context.Bookings.FindAsync(id);
+            var booking = await _context
+                                    .Bookings
+                                    .Include(b => b.Villa)
+                                    .Include(b => b.Customer)
+                                    .SingleOrDefaultAsync(b => b.Id == id);
 
             if (booking == null)
             {
                 return NotFound();
             }
 
-            return booking;
+            var bookingDetailsDto = _mapper.Map<BookingDetailsDto>(booking);
+
+            return bookingDetailsDto;
         }
 
         [HttpPost]
-        public async Task<ActionResult<Booking>> CreateBooking(Booking booking)
+        public async Task<ActionResult> CreateBooking(BookingDto bookingDto)
         {
+            var booking = _mapper.Map<Booking>(bookingDto);
+
+            booking.TotalPrice = await GetBookingPrice(bookingDto.VillaId);
+
             _context.Bookings.Add(booking);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetBooking", new { id = booking.Id }, booking);
+            return Ok();
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditBooking(int id, Booking booking)
+        public async Task<IActionResult> EditBooking(int id, BookingDto bookingDto)
         {
-            if (id != booking.Id)
+            if (id != bookingDto.Id)
             {
                 return BadRequest();
             }
 
+            var booking = _mapper.Map<Booking>(bookingDto);
+            booking.TotalPrice = await GetBookingPrice(bookingDto.VillaId);
+
             _context.Entry(booking).State = EntityState.Modified;
+            // _context.Update(booking); those two do the same thing
 
             try
             {
@@ -101,7 +128,21 @@ namespace MB.MCPP.BK.WebApi.Controllers
         private bool BookingExists(int id)
         {
             return _context.Bookings.Any(e => e.Id == id);
-        } 
+        }
+
+        private async Task<double> GetBookingPrice(int villaId)
+        {
+            var villa = await _context
+                                .Villas
+                                .Include(v => v.Addons)
+                                .SingleAsync(v => v.Id == villaId);
+
+            var totalPrice = villa.Price;
+
+            totalPrice += villa.Addons.Sum(a => a.Price);
+
+            return totalPrice;
+        }
 
         #endregion
     }

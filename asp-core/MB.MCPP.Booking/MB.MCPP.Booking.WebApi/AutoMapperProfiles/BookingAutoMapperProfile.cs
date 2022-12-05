@@ -9,6 +9,7 @@ namespace MB.MCPP.BK.WebApi.AutoMapperProfiles
         public BookingAutoMapperProfile()
         {
             CreateMap<Booking, BookingListDto>();
+            CreateMap<Booking, BookingDetailsDto>();
             CreateMap<Booking, BookingDto>().ReverseMap();
         }
     }

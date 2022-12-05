@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VillaDetails } from 'src/app/models/villas/villaDetails.model';
+import { Villa } from 'src/app/models/villas/villa.model';
 import { VillaService } from 'src/app/services/villa.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { VillaService } from 'src/app/services/villa.service';
 export class VillaDetailsComponent implements OnInit {
 
   villaId!: number;
-  villa!: VillaDetails;
+  villa!: Villa;
 
   constructor(
     private villaSvc: VillaService,

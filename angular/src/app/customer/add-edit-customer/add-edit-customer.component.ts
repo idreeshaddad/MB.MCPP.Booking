@@ -76,7 +76,10 @@ export class AddEditCustomerComponent implements OnInit {
 
     this.customerForm = this.fb.group({
       id: [0],
-      name: ['', Validators.compose(
+      firstName: ['', Validators.compose(
+        [Validators.required, Validators.minLength(3), Validators.maxLength(16)]
+      )],
+      lastName: ['', Validators.compose(
         [Validators.required, Validators.minLength(3), Validators.maxLength(16)]
       )],
       gender: ['', Validators.required],
@@ -114,7 +117,8 @@ export class AddEditCustomerComponent implements OnInit {
 
     this.customerForm.patchValue({
       id: customerFromApi.id,
-      name: customerFromApi.name,
+      firstName: customerFromApi.firstName,
+      lastName: customerFromApi.lastName,
       gender: customerFromApi.gender,
       dob: customerFromApi.dob
     });

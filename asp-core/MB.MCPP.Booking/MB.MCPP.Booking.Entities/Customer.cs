@@ -6,7 +6,8 @@ namespace MB.MCPP.BK.Entities
     public class Customer
     {
         public int Id { get; set; }
-        public string Name { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public Gender Gender { get; set; }
         public DateTime DOB { get; set; }
 
@@ -17,6 +18,14 @@ namespace MB.MCPP.BK.Entities
             {
                 return DateTime.Now.Year - DOB.Year;
             }
+        }
+
+        [NotMapped]
+        public string FullName { 
+            get
+            {
+                return $"{FirstName} {LastName}";
+            } 
         }
     }
 }

@@ -1,3 +1,5 @@
+import { Addon } from "../addon.model";
+
 export interface Villa {
   id: number;
   name: string;
@@ -6,5 +8,5 @@ export interface Villa {
   numberOfOccupants: number;
   price: number;
   isBooked: boolean;
-  addonIds: number[];
+  addons: Addon[];
 }

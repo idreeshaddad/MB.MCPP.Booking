@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/enums/pageMode.enum';
 import { Lookup } from 'src/app/models/lookup.model';
-import { VillaDetails } from 'src/app/models/villas/villaDetails.model';
+import { Villa } from 'src/app/models/villas/villa.model';
 import { AddonService } from 'src/app/services/addons.service';
 import { VillaService } from 'src/app/services/villa.service';
 
@@ -16,7 +16,7 @@ import { VillaService } from 'src/app/services/villa.service';
 export class AddEditVillaComponent implements OnInit {
 
   villaId?: number;
-  villa?: VillaDetails;
+  villa?: Villa;
   villaForm!: FormGroup;
   pageMode: PageMode = PageMode.Create;
   pageModeEnum = PageMode;
@@ -130,7 +130,7 @@ export class AddEditVillaComponent implements OnInit {
     });
   }
 
-  private patchForm(villa: VillaDetails) {
+  private patchForm(villa: Villa) {
 
     this.villaForm.patchValue({
       id: villa.id,

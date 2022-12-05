@@ -2,9 +2,11 @@ import { Gender } from "../enums/gender.enum";
 
 export interface Customer {
   id: number;
-  name: string;
+  firstName: string;
+  lastName: string;
   gender: Gender;
   dob: string;
   age: number;
+  fullName: string;
 }
 

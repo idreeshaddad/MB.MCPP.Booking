@@ -8,7 +8,8 @@ namespace MB.MCPP.BK.WebApi.FluentValidations
     {
         public CustomerValidator() {
             RuleFor(x => x.Id).NotNull();
-            RuleFor(x => x.Name).NotNull().Length(3, 16);
+            RuleFor(x => x.FirstName).NotNull().Length(3, 16);
+            RuleFor(x => x.LastName).NotNull().Length(3, 16);
             RuleFor(x => x.Gender).NotNull();
             RuleFor(x => x.DOB).NotNull();
         }
