@@ -8,7 +8,11 @@ namespace MB.MCPP.BK.WebApi.AutoMapperProfiles
     {
         public VillaAutoMapperProfile()
         {
-            CreateMap<Villa, VillaDto>().ReverseMap();
+            CreateMap<Villa, VillaDto>()
+                .ForMember(dest => dest.AddonIds,
+                            opts => opts.MapFrom(src => src.Addons.Select(a => a.Id)));
+
+            CreateMap<VillaDto, Villa>();
             CreateMap<Villa, VillaDetailsDto>();
             CreateMap<Villa, VillaListDto>();
         }

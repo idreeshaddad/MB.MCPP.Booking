@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Delete Booking</h1>
+<div mat-dialog-content>
+  Are you sure you want to delete booking number:
+  <span class="fw-bold text-danger">{{ data.id }} </span>
+  for customer:
+  <span class="fw-bold text-danger">{{ data.customerFullName }}</span>
+  of the villa:
+  <span class="fw-bold text-danger">{{ data.villaName }}</span>?
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close cdkFocusInitial>No</button>
+  <button mat-button [mat-dialog-close]="true">Yes</button>
+</div>

@@ -42,7 +42,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
             var villa = await _context
                                 .Villas
                                 .Include(villa => villa.Addons)
-                                .SingleAsync(villa => villa.Id == id);
+                                .SingleOrDefaultAsync(villa => villa.Id == id);
 
             if (villa == null)
             {
@@ -66,6 +66,24 @@ namespace MB.MCPP.BK.WebApi.Controllers
             villaDto.Id = villa.Id;
 
             return CreatedAtAction("GetVilla", new { id = villa.Id }, villaDto);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<VillaDto>> GetEditVilla(int id)
+        {
+            var villa = await _context
+                                .Villas
+                                .Include(villa => villa.Addons)
+                                .SingleOrDefaultAsync(villa => villa.Id == id);
+
+            if (villa == null)
+            {
+                return NotFound();
+            }
+
+            var villaDto = _mapper.Map<VillaDto>(villa);
+
+            return villaDto;
         }
 
         [HttpPut("{id}")]

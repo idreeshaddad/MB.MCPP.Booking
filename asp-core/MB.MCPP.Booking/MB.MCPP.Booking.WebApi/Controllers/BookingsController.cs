@@ -20,7 +20,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         public BookingsController(BookingDbContext context, IMapper mapper)
         {
             _context = context;
-            this._mapper = mapper;
+            _mapper = mapper;
         }
 
         #endregion

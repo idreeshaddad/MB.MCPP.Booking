@@ -97,8 +97,9 @@ export class AddEditAddonComponent implements OnInit {
 
     this.addonSvc.getAddon(this.addonId!).subscribe({
       next: (addonFromApi) => {
+
         this.addon = addonFromApi;
-        this.patchForm(addonFromApi);
+        this.addonForm.patchValue(addonFromApi);
       },
       error: (err: HttpErrorResponse) => {
         console.log(err);
@@ -107,14 +108,6 @@ export class AddEditAddonComponent implements OnInit {
     });
   }
 
-  private patchForm(addonFromApi: Addon) {
-
-    this.addonForm.patchValue({
-      id: addonFromApi.id,
-      name: addonFromApi.name,
-      price: addonFromApi.price,
-    });
-  }
 
   //#endregion
 

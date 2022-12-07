@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Booking } from '../models/booking.model';
+import { Booking } from '../models/booking/booking.model';
+import { BookingList } from '../models/booking/bookingList.model';
 import { Lookup } from '../models/lookup.model';
 
 @Injectable({
@@ -13,9 +14,9 @@ export class BookingService {
 
   constructor(private http: HttpClient) { }
 
-  getBookings(): Observable<Booking[]> {
+  getBookings(): Observable<BookingList[]> {
 
-    return this.http.get<Booking[]>(`${this.apiUrl}/GetBookings`);
+    return this.http.get<BookingList[]>(`${this.apiUrl}/GetBookings`);
   }
 
   getBookingLookup(): Observable<Lookup[]> {

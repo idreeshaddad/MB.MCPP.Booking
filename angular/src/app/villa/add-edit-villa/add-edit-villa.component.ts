@@ -83,10 +83,10 @@ export class AddEditVillaComponent implements OnInit {
 
   private loadVilla() {
 
-    this.villaSvc.getVilla(this.villaId!).subscribe({
+    this.villaSvc.getEditVilla(this.villaId!).subscribe({
       next: (villaFromApi) => {
         this.villa = villaFromApi;
-        this.patchForm(villaFromApi);
+        this.villaForm.patchValue(villaFromApi);
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);
@@ -130,19 +130,20 @@ export class AddEditVillaComponent implements OnInit {
     });
   }
 
-  private patchForm(villa: Villa) {
+  // Obseleted(Not used anymore): for educational purposes only!
+  // private patchForm(villa: Villa) {
 
-    this.villaForm.patchValue({
-      id: villa.id,
-      name: villa.name,
-      address: villa.address,
-      rating: villa.rating,
-      numberOfOccupants: villa.numberOfOccupants,
-      price: villa.price,
-      isBooked: villa.isBooked,
-      addonIds: villa.addons.map(({ id }) => id)
-    });
-  }
+  //   this.villaForm.patchValue({
+  //     id: villa.id,
+  //     name: villa.name,
+  //     address: villa.address,
+  //     rating: villa.rating,
+  //     numberOfOccupants: villa.numberOfOccupants,
+  //     price: villa.price,
+  //     isBooked: villa.isBooked,
+  //     addonIds: villa.addons.map(({ id }) => id)
+  //   });
+  // }
 
   //#endregion
 
