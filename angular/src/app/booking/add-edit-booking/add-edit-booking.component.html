@@ -1,1 +1,81 @@
-<p>add-edit-booking works!</p>
+<h1>
+    <span *ngIf="pageMode == pageModeEnum.Create">Add Booking</span>
+    <span *ngIf="pageMode == pageModeEnum.Edit">
+        <span>Edit Booking </span>
+        <span class="text-primary">{{ booking?.id }} - {{ booking?.bookingStart }} - {{ booking?.bookingEnd }}</span>
+    </span>
+</h1>
+<hr>
+
+<form [formGroup]="bookingForm" (ngSubmit)="submitForm()">
+
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Start Date</mat-label>
+                    <input matInput [matDatepicker]="bookingStartPicker" formControlName="bookingStart">
+                    <mat-datepicker-toggle matIconSuffix [for]="bookingStartPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #bookingStartPicker></mat-datepicker>
+                    <mat-error>Booking start date is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Customer</mat-label>
+                    <mat-select formControlName="customerId">
+                        <mat-option *ngFor="let customer of customerLookup" [value]="customer.value">
+                            {{ customer.text }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Number of Occupants</mat-label>
+                    <input matInput formControlName="numberOfOccupants" required>
+                    <mat-error>Number of Occupants is required</mat-error>
+                </mat-form-field>
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>End Date</mat-label>
+                    <input matInput [matDatepicker]="bookingEndPicker" formControlName="bookingEnd">
+                    <mat-datepicker-toggle matIconSuffix [for]="bookingEndPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #bookingEndPicker></mat-datepicker>
+                    <mat-error>Booking end date is required</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="">
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Villa</mat-label>
+                    <mat-select formControlName="villaId">
+                        <mat-option *ngFor="let villa of villaLookup" [value]="villa.value">
+                            {{ villa.text }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+        </div>
+    </div>
+
+    <div>
+        <button class="me-2" [routerLink]="['/bookings']" mat-stroked-button color="basic">Cancel</button>
+        <button mat-flat-button color="primary" type="submit">
+            <span *ngIf="pageMode == pageModeEnum.Create">Create</span>
+            <span *ngIf="pageMode == pageModeEnum.Edit">Save</span>
+        </button>
+    </div>
+
+</form>

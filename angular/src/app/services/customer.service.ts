@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Customer } from '../models/customer.model';
+import { Lookup } from '../models/lookup.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +36,11 @@ export class CustomerService {
   deleteCustomer(id: number): Observable<any> {
 
     return this.http.delete<Customer>(`${this.apiUrl}/DeleteCustomer/${id}`)
+  }
+
+  getCustomerLookup(): Observable<Lookup[]> {
+
+    return this.http.get<Lookup[]>(`${this.apiUrl}/GetLookup`);
   }
 
 }

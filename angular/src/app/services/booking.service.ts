@@ -19,11 +19,6 @@ export class BookingService {
     return this.http.get<BookingList[]>(`${this.apiUrl}/GetBookings`);
   }
 
-  getBookingLookup(): Observable<Lookup[]> {
-
-    return this.http.get<Lookup[]>(`${this.apiUrl}/GetLookup`);
-  }
-
   getBooking(id: number): Observable<Booking> {
 
     return this.http.get<Booking>(`${this.apiUrl}/GetBooking/${id}`);

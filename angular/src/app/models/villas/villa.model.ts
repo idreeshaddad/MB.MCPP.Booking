@@ -1,5 +1,3 @@
-import { Addon } from "../addon.model";
-
 export interface Villa {
   id: number;
   name: string;

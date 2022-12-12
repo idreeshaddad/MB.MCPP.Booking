@@ -7,6 +7,7 @@ using MB.MCPP.BK.Dtos.Customers;
 using FluentValidation;
 using System;
 using FluentValidation.Results;
+using MB.MCPP.BK.Dtos.Lookups;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -114,6 +115,25 @@ namespace MB.MCPP.BK.WebApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        #endregion
+
+        #region Lookups
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<LookupDto>>> GetLookup()
+        {
+            var customerLookup = await _context
+                                        .Customers
+                                        .Select(customer => new LookupDto()
+                                        {
+                                            Value = customer.Id,
+                                            Text = customer.FullName
+                                        })
+                                        .ToListAsync();
+
+            return customerLookup;
         }
 
         #endregion

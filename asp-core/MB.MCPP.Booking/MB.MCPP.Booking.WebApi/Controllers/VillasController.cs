@@ -4,6 +4,7 @@ using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.Entities;
 using AutoMapper;
 using MB.MCPP.BK.Dtos.Villas;
+using MB.MCPP.BK.Dtos.Lookups;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -133,6 +134,25 @@ namespace MB.MCPP.BK.WebApi.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        #endregion
+
+        #region Lookups
+
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<LookupDto>>> GetLookup()
+        {
+            var villlookup = await _context
+                                        .Villas
+                                        .Select(villa => new LookupDto()
+                                        {
+                                            Value = villa.Id,
+                                            Text = villa.Name
+                                        })
+                                        .ToListAsync();
+
+            return villlookup;
         }
 
         #endregion

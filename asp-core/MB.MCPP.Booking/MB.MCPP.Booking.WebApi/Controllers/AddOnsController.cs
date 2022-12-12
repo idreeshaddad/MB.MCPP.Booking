@@ -110,11 +110,14 @@ namespace MB.MCPP.BK.WebApi.Controllers
         {
             var addonlookup = await _context
                                         .Addons
-                                        .Select(addon => _mapper.Map<LookupDto>(addon))
+                                        .Select(addon => new LookupDto()
+                                        {
+                                            Value = addon.Id,
+                                            Text = addon.Name
+                                        })
                                         .ToListAsync();
 
             return addonlookup;
-            
         }
 
         #endregion

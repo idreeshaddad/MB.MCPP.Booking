@@ -65,7 +65,7 @@
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Add Ons</mat-label>
         <mat-select formControlName="addonIds" multiple>
-          <mat-option *ngFor="let addon of addonsLookup" [value]="addon.id">{{addon.name}}</mat-option>
+          <mat-option *ngFor="let addon of addonsLookup" [value]="addon.value">{{addon.text}}</mat-option>
         </mat-select>
       </mat-form-field>
 

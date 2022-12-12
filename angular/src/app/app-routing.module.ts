@@ -3,6 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddEditAddonComponent } from './addon/add-edit-addon/add-edit-addon.component';
 import { AddonDetailsComponent } from './addon/addon-details/addon-details.component';
 import { AddonComponent } from './addon/addon.component';
+import { AddEditBookingComponent } from './booking/add-edit-booking/add-edit-booking.component';
+import { BookingDetailsComponent } from './booking/booking-details/booking-details.component';
 import { BookingComponent } from './booking/booking.component';
 import { AddEditCustomerComponent } from './customer/add-edit-customer/add-edit-customer.component';
 import { CustomerDetailsComponent } from './customer/customer-details/customer-details.component';
@@ -32,9 +34,9 @@ const routes: Routes = [
   { path: "addons/edit/:id", component: AddEditAddonComponent },
 
   { path: "bookings", component: BookingComponent },
-  // { path: "bookings/details/:id", component: BookingDetailsComponent },
-  // { path: "bookings/create", component: AddEditBookingComponent },
-  // { path: "bookings/edit/:id", component: AddEditBookingComponent },
+  { path: "bookings/details/:id", component: BookingDetailsComponent },
+  { path: "bookings/create", component: AddEditBookingComponent },
+  { path: "bookings/edit/:id", component: AddEditBookingComponent },
 
   { path: "not-found", component: NotFoundComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
