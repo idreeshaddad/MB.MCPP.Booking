@@ -4,10 +4,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PageMode } from 'src/app/enums/pageMode.enum';
 import { Booking } from 'src/app/models/booking/booking.model';
 import { Lookup } from 'src/app/models/lookup.model';
-import { Villa } from 'src/app/models/villas/villa.model';
 import { BookingService } from 'src/app/services/booking.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { VillaService } from 'src/app/services/villa.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-edit-booking',
@@ -41,6 +41,11 @@ export class AddEditBookingComponent implements OnInit {
     this.setPageMode();
     this.buildForm();
 
+    if (this.bookingId) {
+
+      this.loadBooking();
+    }
+
     this.loadVillaLookup();
     this.loadCustomerLookup();
 
@@ -48,7 +53,31 @@ export class AddEditBookingComponent implements OnInit {
 
   submitForm(): void {
 
-    throw new Error('Method not implemented.');
+    if (this.bookingForm.valid) {
+
+      if (this.pageMode == PageMode.Create) {
+
+        this.bookingSvc.createBooking(this.bookingForm.value).subscribe({
+          next: () => {
+            this.router.navigate(['/bookings']);
+          },
+          error: (err: HttpErrorResponse) => {
+            console.log(err.message);
+          }
+        });
+      }
+      else {
+
+        this.bookingSvc.editBooking(this.bookingId!, this.bookingForm.value).subscribe({
+          next: () => {
+            this.router.navigate(['/bookings']);
+          },
+          error: (err: HttpErrorResponse) => {
+            console.log(err.message);
+          }
+        });
+      }
+    }
   }
 
   //#region Private Methods
@@ -92,6 +121,19 @@ export class AddEditBookingComponent implements OnInit {
     this.customerSvc.getCustomerLookup().subscribe({
       next: (customerLookupFromApi) => {
         this.customerLookup = customerLookupFromApi;
+      }
+    });
+  }
+
+  private loadBooking() {
+
+    this.bookingSvc.getBooking(this.bookingId!).subscribe({
+      next: (bookingFromApi: Booking) => {
+        this.booking = bookingFromApi;
+        this.bookingForm.patchValue(bookingFromApi);
+      },
+      error: (err: HttpErrorResponse) => {
+        console.log(err.message);
       }
     });
   }

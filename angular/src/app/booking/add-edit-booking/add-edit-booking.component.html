@@ -2,7 +2,8 @@
     <span *ngIf="pageMode == pageModeEnum.Create">Add Booking</span>
     <span *ngIf="pageMode == pageModeEnum.Edit">
         <span>Edit Booking </span>
-        <span class="text-primary">{{ booking?.id }} - {{ booking?.bookingStart }} - {{ booking?.bookingEnd }}</span>
+        <span class="text-primary"> - {{ booking?.bookingStart | date: 'longDate' }} - {{
+            booking?.bookingEnd | date: 'longDate' }}</span>
     </span>
 </h1>
 <hr>
