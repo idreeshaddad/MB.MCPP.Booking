@@ -1,1 +1,45 @@
-<p>booking-details works!</p>
+<h1>Booking: <span class="text-primary">{{booking.id}} - {{booking.customerFullName}} - {{booking.villaName}}</span>
+    details</h1>
+<hr>
+<div class="row">
+    <div class="col-md-2">Id</div>
+    <div class="col-md-10">{{booking.id}}</div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-2">Customer Full Name</div>
+    <div class="col-md-10">{{booking.customerFullName}}</div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-2">Villa Name</div>
+    <div class="col-md-10">{{booking.villaName}}</div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-2">Number of Days</div>
+    <div class="col-md-10">{{booking.numberOfDays}}</div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-2">Number of Occupants</div>
+    <div class="col-md-10">{{booking.numberOfOccupants}}</div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-2">Booking Start</div>
+    <div class="col-md-10">{{booking.bookingStart | date: 'longDate'}}</div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-2">Booking End</div>
+    <div class="col-md-10">{{booking.bookingEnd | date: 'longDate'}}</div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-md-2">Total Price</div>
+    <div class="col-md-10">{{booking.totalPrice | currency}}</div>
+</div>
+
+<div class="mt-4">
+    <button class="me-2" mat-raised-button color="basic" [routerLink]="['/bookings']">Back</button>
+    <button mat-raised-button color="primary" [routerLink]="['/bookings/edit/', bookingId]">Edit</button>
+</div>

@@ -64,12 +64,31 @@ namespace MB.MCPP.BK.WebApi.Controllers
         {
             var booking = _mapper.Map<Booking>(bookingDto);
 
-            booking.TotalPrice = await GetBookingPrice(bookingDto.VillaId);
+            booking.TotalPrice = await GetBookingPrice(bookingDto.VillaId, booking.NumberOfDays);
 
             _context.Bookings.Add(booking);
             await _context.SaveChangesAsync();
 
             return Ok();
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<BookingDto>> GetEditBooking(int id)
+        {
+            var booking = await _context
+                                    .Bookings
+                                    .Include(b => b.Villa)
+                                    .Include(b => b.Customer)
+                                    .SingleOrDefaultAsync(b => b.Id == id);
+
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            var bookingDetailsDto = _mapper.Map<BookingDto>(booking);
+
+            return bookingDetailsDto;
         }
 
         [HttpPut("{id}")]
@@ -81,7 +100,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
             }
 
             var booking = _mapper.Map<Booking>(bookingDto);
-            booking.TotalPrice = await GetBookingPrice(bookingDto.VillaId);
+            booking.TotalPrice = await GetBookingPrice(bookingDto.VillaId, booking.NumberOfDays);
 
             _context.Entry(booking).State = EntityState.Modified;
             // _context.Update(booking); those two do the same thing
@@ -129,14 +148,14 @@ namespace MB.MCPP.BK.WebApi.Controllers
             return _context.Bookings.Any(e => e.Id == id);
         }
 
-        private async Task<double> GetBookingPrice(int villaId)
+        private async Task<double> GetBookingPrice(int villaId, int numberOfDays)
         {
             var villa = await _context
                                 .Villas
                                 .Include(v => v.Addons)
                                 .SingleAsync(v => v.Id == villaId);
 
-            var totalPrice = villa.Price;
+            var totalPrice = villa.Price * numberOfDays;
 
             totalPrice += villa.Addons.Sum(a => a.Price);
 

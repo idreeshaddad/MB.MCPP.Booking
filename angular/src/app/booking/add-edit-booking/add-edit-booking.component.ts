@@ -127,7 +127,7 @@ export class AddEditBookingComponent implements OnInit {
 
   private loadBooking() {
 
-    this.bookingSvc.getBooking(this.bookingId!).subscribe({
+    this.bookingSvc.getEditBooking(this.bookingId!).subscribe({
       next: (bookingFromApi: Booking) => {
         this.booking = bookingFromApi;
         this.bookingForm.patchValue(bookingFromApi);

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Booking } from '../models/booking/booking.model';
+import { BookingDetails } from '../models/booking/bookingDetails.model';
 import { BookingList } from '../models/booking/bookingList.model';
 
 @Injectable({
@@ -18,14 +19,19 @@ export class BookingService {
     return this.http.get<BookingList[]>(`${this.apiUrl}/GetBookings`);
   }
 
-  getBooking(id: number): Observable<Booking> {
+  getBooking(id: number): Observable<BookingDetails> {
 
-    return this.http.get<Booking>(`${this.apiUrl}/GetBooking/${id}`);
+    return this.http.get<BookingDetails>(`${this.apiUrl}/GetBooking/${id}`);
   }
 
   createBooking(booking: Booking): Observable<any> {
 
     return this.http.post<Booking>(`${this.apiUrl}/CreateBooking`, booking);
+  }
+
+  getEditBooking(id: number): Observable<Booking> {
+
+    return this.http.get<Booking>(`${this.apiUrl}/GetEditBooking/${id}`);
   }
 
   editBooking(id: number, booking: Booking): Observable<any> {
