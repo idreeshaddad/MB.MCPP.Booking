@@ -64,7 +64,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         {
             var booking = _mapper.Map<Booking>(bookingDto);
 
-            booking.TotalPrice = await GetBookingPrice(bookingDto.VillaId, booking.NumberOfDays);
+            booking.TotalPrice = await GetBookingPriceInternal(bookingDto.VillaId, booking.NumberOfDays);
 
             _context.Bookings.Add(booking);
             await _context.SaveChangesAsync();
@@ -100,7 +100,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
             }
 
             var booking = _mapper.Map<Booking>(bookingDto);
-            booking.TotalPrice = await GetBookingPrice(bookingDto.VillaId, booking.NumberOfDays);
+            booking.TotalPrice = await GetBookingPriceInternal(bookingDto.VillaId, booking.NumberOfDays);
 
             _context.Entry(booking).State = EntityState.Modified;
             // _context.Update(booking); those two do the same thing
@@ -139,6 +139,15 @@ namespace MB.MCPP.BK.WebApi.Controllers
             return NoContent();
         }
 
+        [HttpGet]
+        public async Task<ActionResult<double>> GetBookingPrice(int villaId, DateTime bookingStart, DateTime bookingEnd)
+        {
+            var numberOfDays = (bookingEnd - bookingStart).Days;
+            var price = await GetBookingPriceInternal(villaId, numberOfDays);
+
+            return price;
+        }
+
         #endregion
 
         #region Private
@@ -148,7 +157,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
             return _context.Bookings.Any(e => e.Id == id);
         }
 
-        private async Task<double> GetBookingPrice(int villaId, int numberOfDays)
+        private async Task<double> GetBookingPriceInternal(int villaId, int numberOfDays)
         {
             var villa = await _context
                                 .Villas

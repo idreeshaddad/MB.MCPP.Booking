@@ -60,7 +60,7 @@
             <div class="">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Villa</mat-label>
-                    <mat-select formControlName="villaId">
+                    <mat-select formControlName="villaId" (selectionChange)="updatePrice()">
                         <mat-option *ngFor="let villa of villaLookup" [value]="villa.value">
                             {{ villa.text }}
                         </mat-option>
@@ -71,7 +71,13 @@
         </div>
     </div>
 
-    <div>
+    <div class="my-2">
+        <h2>Total Price:
+            <span class="text-primary">{{totalPrice | currency}}</span>
+        </h2>
+    </div>
+
+    <div class="mt-4">
         <button class="me-2" [routerLink]="['/bookings']" mat-stroked-button color="basic">Cancel</button>
         <button mat-flat-button color="primary" type="submit">
             <span *ngIf="pageMode == pageModeEnum.Create">Create</span>

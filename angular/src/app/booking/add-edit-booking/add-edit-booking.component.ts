@@ -26,6 +26,8 @@ export class AddEditBookingComponent implements OnInit {
   villaLookup!: Lookup[];
   customerLookup!: Lookup[];
 
+  totalPrice: number = 0;
+
   constructor(
     private bookingSvc: BookingService,
     private activatedRoute: ActivatedRoute,
@@ -49,6 +51,31 @@ export class AddEditBookingComponent implements OnInit {
     this.loadVillaLookup();
     this.loadCustomerLookup();
 
+  }
+
+  get villaId(): number {
+
+    return Number(this.bookingForm.controls['villaId'].value);
+  }
+
+  get bookingStart(): Date {
+
+    return this.bookingForm.controls['bookingStart'].value;
+  }
+
+  get bookingEnd(): Date {
+
+    return this.bookingForm.controls['bookingEnd'].value;
+  }
+
+  updatePrice(): void {
+
+    this.bookingSvc.getBookingPrice(this.villaId, this.bookingStart, this.bookingEnd).subscribe({
+
+      next: (totalPriceFromApi: number) => {
+        this.totalPrice = totalPriceFromApi;
+      }
+    });
   }
 
   submitForm(): void {
