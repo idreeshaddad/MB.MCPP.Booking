@@ -44,7 +44,7 @@ export class BookingService {
     return this.http.delete<Booking>(`${this.apiUrl}/DeleteBooking/${id}`);
   }
 
-  getBookingPrice(villaId: number, bookingStart: Date, bookingEnd: Date): Observable<number> {
+  getBookingPrice(villaId: number, bookingStart: string, bookingEnd: string): Observable<number> {
 
     return this.http.get<number>(`${this.apiUrl}/GetBookingPrice?villaId=${villaId}&bookingStart=${bookingStart}&bookingEnd=${bookingEnd}`);
   }

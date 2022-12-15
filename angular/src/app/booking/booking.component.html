@@ -22,7 +22,7 @@
         <td>{{ booking.customerFullName }}</td>
         <td>{{ booking.villaName }}</td>
         <td>{{ booking.numberOfDays }}</td>
-        <td>{{ booking.totalPrice | currency}}</td>
+        <td>{{ booking.totalPrice | currency: "JOD ":"symbol"}}</td>
         <td>{{ booking.numberOfOccupants }}</td>
         <td class="pb-0 mb-0">
           <a class="me-2 text-info" [routerLink]="['/bookings/details', booking.id]">

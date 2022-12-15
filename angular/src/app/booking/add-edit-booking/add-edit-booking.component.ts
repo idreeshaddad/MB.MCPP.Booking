@@ -8,6 +8,7 @@ import { BookingService } from 'src/app/services/booking.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { VillaService } from 'src/app/services/villa.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-edit-booking',
@@ -58,24 +59,31 @@ export class AddEditBookingComponent implements OnInit {
     return Number(this.bookingForm.controls['villaId'].value);
   }
 
-  get bookingStart(): Date {
+  get bookingStart(): string {
 
-    return this.bookingForm.controls['bookingStart'].value;
+    return moment(this.bookingForm.controls['bookingStart'].value).toISOString();
+
   }
 
-  get bookingEnd(): Date {
+  get bookingEnd(): string {
 
-    return this.bookingForm.controls['bookingEnd'].value;
+    return moment(this.bookingForm.controls['bookingEnd'].value).toISOString();
   }
 
   updatePrice(): void {
 
-    this.bookingSvc.getBookingPrice(this.villaId, this.bookingStart, this.bookingEnd).subscribe({
 
-      next: (totalPriceFromApi: number) => {
-        this.totalPrice = totalPriceFromApi;
-      }
-    });
+    if (this.canUpdatePrice()) {
+
+      console.log("UpdatePrice Invoked");
+
+      this.bookingSvc.getBookingPrice(this.villaId, this.bookingStart, this.bookingEnd).subscribe({
+
+        next: (totalPriceFromApi: number) => {
+          this.totalPrice = totalPriceFromApi;
+        }
+      });
+    }
   }
 
   submitForm(): void {
@@ -158,11 +166,17 @@ export class AddEditBookingComponent implements OnInit {
       next: (bookingFromApi: Booking) => {
         this.booking = bookingFromApi;
         this.bookingForm.patchValue(bookingFromApi);
+        this.updatePrice();
       },
       error: (err: HttpErrorResponse) => {
         console.log(err.message);
       }
     });
+  }
+
+  private canUpdatePrice(): boolean {
+
+    return this.villaId != 0 && this.bookingStart != '' && this.bookingEnd != '';
   }
 
   //#endregion
