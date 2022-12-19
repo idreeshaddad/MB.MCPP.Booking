@@ -3,7 +3,9 @@ using FluentValidation.AspNetCore;
 using MB.MCPP.BK.Dtos.Customers;
 using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.WebApi.FluentValidations;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Serilog;
 using System;
 using System.Text.Json.Serialization;
@@ -54,6 +56,13 @@ namespace MB.MCPP.BK.WebApi
                 .AllowAnyHeader();
             }));
 
+            builder.Services.Configure<FormOptions>(o =>
+            {
+                o.ValueLengthLimit = int.MaxValue;
+                o.MultipartBodyLengthLimit = int.MaxValue;
+                o.MemoryBufferThreshold = int.MaxValue;
+            });
+
             //-------------------------------------------
 
             var app = builder.Build();
@@ -69,6 +78,13 @@ namespace MB.MCPP.BK.WebApi
             app.UseAuthorization();
 
             app.UseCors("corsapp");
+
+            app.UseStaticFiles();
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
+                RequestPath = new PathString("/Resources")
+            });
 
             app.MapControllers();
 

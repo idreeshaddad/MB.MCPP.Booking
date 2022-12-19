@@ -25,4 +25,8 @@
     <ProjectReference Include="..\MB.MCPP.Booking.Entities\MB.MCPP.BK.Entities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Resources\Images\" />
+  </ItemGroup>
+
 </Project>
