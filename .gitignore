@@ -396,4 +396,3 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-/asp-core/MB.MCPP.Booking/MB.MCPP.Booking.WebApi/Resources/Images/

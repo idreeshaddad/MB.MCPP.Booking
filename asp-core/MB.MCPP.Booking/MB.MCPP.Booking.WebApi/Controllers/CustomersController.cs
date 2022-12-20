@@ -8,6 +8,7 @@ using FluentValidation;
 using System;
 using FluentValidation.Results;
 using MB.MCPP.BK.Dtos.Lookups;
+using MB.MCPP.BK.WebApi.Helpers.FileUploader;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -19,13 +20,13 @@ namespace MB.MCPP.BK.WebApi.Controllers
 
         private readonly BookingDbContext _context;
         private readonly IMapper _mapper;
-        private readonly IValidator<CustomerDto> _validator;
+        private readonly IFileUploader _fileUploader;
 
-        public CustomersController(BookingDbContext context, IMapper mapper, IValidator<CustomerDto> validator)
+        public CustomersController(BookingDbContext context, IMapper mapper, IFileUploader fileUploader)
         {
             _context = context;
             _mapper = mapper;
-            _validator = validator;
+            _fileUploader = fileUploader;
         }
 
         #endregion
@@ -84,22 +85,20 @@ namespace MB.MCPP.BK.WebApi.Controllers
             return NoContent();
         }
 
-        [HttpPost]
-        public async Task<ActionResult> CreateCustomer(CustomerDto customerDto)
+        [HttpPost, DisableRequestSizeLimit]
+        public async Task<ActionResult> CreateCustomer([FromForm] CustomerDto customerDto)
         {
-            ValidationResult customerValidation = await _validator.ValidateAsync(customerDto);
+            var customer = _mapper.Map<Customer>(customerDto);
 
-            if (customerValidation.IsValid)
+            if (customerDto.File.Length > 0)
             {
-                var customer = _mapper.Map<Customer>(customerDto);
-
-                _context.Customers.Add(customer);
-                await _context.SaveChangesAsync();
-
-                return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
+                customer.ImageName = _fileUploader.Upload(customerDto.File);
             }
 
-            return BadRequest(customerValidation.Errors);
+            _context.Customers.Add(customer);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetCustomer", new { id = customer.Id }, customer);
         }
 
         [HttpDelete("{id}")]

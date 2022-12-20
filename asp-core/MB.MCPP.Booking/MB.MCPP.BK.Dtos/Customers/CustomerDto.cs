@@ -1,4 +1,5 @@
 ﻿using MB.MCPP.BK.Utils.Enums;
+using Microsoft.AspNetCore.Http;
 using System;
 namespace MB.MCPP.BK.Dtos.Customers
 {
@@ -9,5 +10,6 @@ namespace MB.MCPP.BK.Dtos.Customers
         public string LastName { get; set; }
         public Gender Gender { get; set; }
         public DateTime DOB { get; set; }
+        public IFormFile File { get; set; }
     }
 }
