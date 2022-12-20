@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Net.Http.Headers;
+﻿using MB.MCPP.BK.WebApi.Helpers.FileUploader;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -7,41 +7,27 @@ namespace MB.MCPP.BK.WebApi.Controllers
     [ApiController]
     public class UploadController : ControllerBase
     {
-        [HttpPost, DisableRequestSizeLimit]
-        public async Task<IActionResult> UploadAsync(IFormFile file)
+        private readonly IFileUploader _fileUploader;
+
+        public UploadController(IFileUploader fileUploader)
         {
-            try
+            _fileUploader = fileUploader;
+        }
+
+        [HttpPost, DisableRequestSizeLimit]
+        public IActionResult Upload(IFormFile file)
+        {
+            if (file.Length > 0)
             {
-                var folderName = Path.Combine("Resources", "Images");
+                _fileUploader.Upload(file);
                 
-                // ON MOL PC  =>  C:\users\gelno\repos\fileUpload\Resouces\Images
-                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName); 
-
-                if (file.Length > 0)
-                {
-                    var myFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    var fileExt = Path.GetExtension(myFileName);
-
-                    var fileNameGUID = $"{Guid.NewGuid()}{fileExt}";
-                    var fullPath = Path.Combine(pathToSave, fileNameGUID);
-                    var dbPath = Path.Combine(folderName, fileNameGUID);
-
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
-
-                    return Ok(new { dbPath });
-                }
-                else
-                {
-                    return BadRequest();
-                }
             }
-            catch (Exception ex)
+            else
             {
-                return StatusCode(500, $"Internal server error: {ex}");
+                return BadRequest();
             }
+
+            return Ok();
         }
     }
 }
