@@ -10,5 +10,6 @@ namespace MB.MCPP.BK.Dtos.Customers
         public Gender Gender { get; set; }
         public DateTime DOB { get; set; }
         public int Age { get; set; }
+        public string ImageName { get; set; }
     }
 }

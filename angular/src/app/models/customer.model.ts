@@ -8,5 +8,6 @@ export interface Customer {
   dob: string;
   age: number;
   fullName: string;
+  imageName: string;
 }
 

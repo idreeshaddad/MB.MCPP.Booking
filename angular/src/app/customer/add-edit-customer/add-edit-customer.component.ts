@@ -1,4 +1,3 @@
-import { validateHorizontalPosition } from '@angular/cdk/overlay';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -70,6 +69,13 @@ export class AddEditCustomerComponent implements OnInit {
     }
   }
 
+  uploadFinished(uploadEventBody: any) {
+
+    this.customerForm.patchValue({
+      imageName: uploadEventBody.imageName
+    });
+  }
+
   //#region Private Methods
 
   private buildForm() {
@@ -83,7 +89,8 @@ export class AddEditCustomerComponent implements OnInit {
         [Validators.required, Validators.minLength(3), Validators.maxLength(16)]
       )],
       gender: ['', Validators.required],
-      dob: ['', Validators.required]
+      dob: ['', Validators.required],
+      imageName: ['']
     });
   }
 
@@ -120,7 +127,8 @@ export class AddEditCustomerComponent implements OnInit {
       firstName: customerFromApi.firstName,
       lastName: customerFromApi.lastName,
       gender: customerFromApi.gender,
-      dob: customerFromApi.dob
+      dob: customerFromApi.dob,
+      imageName: customerFromApi.imageName
     });
   }
 

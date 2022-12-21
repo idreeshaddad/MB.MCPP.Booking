@@ -86,14 +86,9 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpPost, DisableRequestSizeLimit]
-        public async Task<ActionResult> CreateCustomer([FromForm] CustomerDto customerDto)
+        public async Task<ActionResult> CreateCustomer(CustomerDto customerDto)
         {
             var customer = _mapper.Map<Customer>(customerDto);
-
-            if (customerDto.File.Length > 0)
-            {
-                customer.ImageName = _fileUploader.Upload(customerDto.File);
-            }
 
             _context.Customers.Add(customer);
             await _context.SaveChangesAsync();

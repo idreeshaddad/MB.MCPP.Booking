@@ -7,6 +7,9 @@
 </h1>
 <hr>
 
+<app-customer-uploader (onUploadFinished)="uploadFinished($event)"></app-customer-uploader>
+
+
 <form [formGroup]="customerForm" (ngSubmit)="submitForm()">
 
   <div class="">

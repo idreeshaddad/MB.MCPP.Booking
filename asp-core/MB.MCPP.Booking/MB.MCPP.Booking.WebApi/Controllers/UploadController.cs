@@ -19,15 +19,13 @@ namespace MB.MCPP.BK.WebApi.Controllers
         {
             if (file.Length > 0)
             {
-                _fileUploader.Upload(file);
-                
+                var imageName = _fileUploader.Upload(file);
+                return Ok(new { imageName });
             }
             else
             {
                 return BadRequest();
             }
-
-            return Ok();
         }
     }
 }
