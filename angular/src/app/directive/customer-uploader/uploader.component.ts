@@ -1,15 +1,17 @@
 import { HttpClient, HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'app-customer-uploader',
-  templateUrl: './customer-uploader.component.html',
-  styleUrls: ['./customer-uploader.component.css']
+  selector: 'app-uploader',
+  templateUrl: './uploader.component.html',
+  styleUrls: ['./uploader.component.css']
 })
-export class CustomerUploaderComponent implements OnInit {
+export class UploaderComponent implements OnInit {
 
   progress!: number;
   message!: string;
+  imageSrc: string = '../../../assets/imgs/user.png';
 
   @Output() public onUploadFinished = new EventEmitter();
 
@@ -28,7 +30,7 @@ export class CustomerUploaderComponent implements OnInit {
     const formData = new FormData();
     formData.append('file', fileToUpload, fileToUpload.name);
 
-    this.http.post('https://localhost:44368/api/Upload', formData, { reportProgress: true, observe: 'events' })
+    this.http.post(environment.uploadUrl, formData, { reportProgress: true, observe: 'events' })
       .subscribe({
         next: (event) => {
           if (event.type === HttpEventType.UploadProgress) {
@@ -42,6 +44,8 @@ export class CustomerUploaderComponent implements OnInit {
 
             this.message = 'Upload success.';
             this.onUploadFinished.emit(event.body);
+
+            this.imageSrc = `${environment.imgStorageUrl}/${(event.body as any).imageName}`;
           }
         },
         error: (err: HttpErrorResponse) => console.log(err)

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Lookup } from '../models/lookup.model';
 import { Villa } from '../models/villas/villa.model';
 import { VillaDetails } from '../models/villas/villaDetails.model';
@@ -11,7 +12,7 @@ import { VillaList } from '../models/villas/villaList.model';
 })
 export class VillaService {
 
-  apiUrl = 'https://localhost:44368/api/Villas'
+  apiUrl = `${environment.apiUrl}/Villas`;
 
   constructor(private http: HttpClient) { }
 

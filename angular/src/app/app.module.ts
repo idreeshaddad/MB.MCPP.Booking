@@ -27,7 +27,7 @@ import { BookingComponent } from './booking/booking.component';
 import { DeleteBookingComponent } from './booking/dialogs/delete-booking/delete-booking.component';
 import { AddEditBookingComponent } from './booking/add-edit-booking/add-edit-booking.component';
 import { BookingDetailsComponent } from './booking/booking-details/booking-details.component';
-import { CustomerUploaderComponent } from './customer/customer-uploader/customer-uploader.component';
+import { UploaderComponent } from './directive/customer-uploader/uploader.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +51,7 @@ import { CustomerUploaderComponent } from './customer/customer-uploader/customer
     DeleteBookingComponent,
     AddEditBookingComponent,
     BookingDetailsComponent,
-    CustomerUploaderComponent
+    UploaderComponent
   ],
   imports: [
     BrowserModule,

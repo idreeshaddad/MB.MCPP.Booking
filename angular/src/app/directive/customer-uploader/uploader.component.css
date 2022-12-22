@@ -1,0 +1,12 @@
+.img {
+  width: 140px;
+  height: 140px;
+  margin: auto;
+}
+
+.img img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}

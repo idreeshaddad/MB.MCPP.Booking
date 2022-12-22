@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Addon } from '../models/addon.model';
 import { Lookup } from '../models/lookup.model';
 
@@ -9,7 +10,7 @@ import { Lookup } from '../models/lookup.model';
 })
 export class AddonService {
 
-  apiUrl = 'https://localhost:44368/api/Addons'
+  apiUrl = `${environment.apiUrl}/Addons`;
 
   constructor(private http: HttpClient) { }
 

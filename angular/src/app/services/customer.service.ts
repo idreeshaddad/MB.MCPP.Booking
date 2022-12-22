@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Customer } from '../models/customer.model';
 import { Lookup } from '../models/lookup.model';
 
@@ -9,7 +10,7 @@ import { Lookup } from '../models/lookup.model';
 })
 export class CustomerService {
 
-  apiUrl = 'https://localhost:44368/api/Customers'
+  apiUrl = `${environment.apiUrl}/Customers`;
 
   constructor(private http: HttpClient) { }
 

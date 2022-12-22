@@ -1,0 +1,15 @@
+<div class="img">
+  <img [src]="imageSrc" alt="Customer Profile Image" class="img-fluid" />
+</div>
+<div class="mt-2 text-center">
+  <input type="file" #file placeholder="Choose file" (change)="uploadFile(file.files)" style="display:none;">
+  <button mat-flat-button color="primary" (click)="file.click()">Upload File</button>
+</div>
+<div class="text-center mt-1">
+  <span class="upload" *ngIf="progress > 0">
+    {{progress}}%
+  </span>
+  <span class="upload" *ngIf="message">
+    {{message}}
+  </span>
+</div>
