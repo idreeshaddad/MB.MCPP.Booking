@@ -9,27 +9,38 @@
 
 <form [formGroup]="addonForm" (ngSubmit)="submitForm()">
 
-  <div class="">
-    <mat-form-field appearance="outline" class="w-50">
-      <mat-label>Name</mat-label>
-      <input matInput formControlName="name" required>
-      <mat-error>Name is required</mat-error>
-    </mat-form-field>
+  <div class="row">
+
+    <div class="col-md-6">
+      <div class="">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="name" required>
+          <mat-error>Name is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Price</mat-label>
+          <input matInput formControlName="price" required>
+          <mat-error>Price is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <button class="me-2" [routerLink]="['/addons']" mat-stroked-button color="basic">Cancel</button>
+        <button mat-flat-button color="primary" type="submit">
+          <span *ngIf="pageMode == pageModeEnum.Create">Create</span>
+          <span *ngIf="pageMode == pageModeEnum.Edit">Save</span>
+        </button>
+      </div>
+
+    </div>
+
+    <div class="col-md-6">
+      <app-uploader (onUploadFinished)="uploadFinished($event)"></app-uploader>
+    </div>
+
   </div>
 
-  <div class="">
-    <mat-form-field appearance="outline" class="w-50">
-      <mat-label>Price</mat-label>
-      <input matInput formControlName="price" required>
-      <mat-error>Price is required</mat-error>
-    </mat-form-field>
-  </div>
-
-  <div>
-    <button class="me-2" [routerLink]="['/addons']" mat-stroked-button color="basic">Cancel</button>
-    <button mat-flat-button color="primary" type="submit">
-      <span *ngIf="pageMode == pageModeEnum.Create">Create</span>
-      <span *ngIf="pageMode == pageModeEnum.Edit">Save</span>
-    </button>
-  </div>
 </form>

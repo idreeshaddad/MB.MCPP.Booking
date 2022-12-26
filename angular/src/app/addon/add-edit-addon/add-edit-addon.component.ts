@@ -69,6 +69,13 @@ export class AddEditAddonComponent implements OnInit {
     }
   }
 
+  uploadFinished(uploadEventBody: any) {
+
+    this.addonForm.patchValue({
+      imageName: uploadEventBody.imageName
+    });
+  }
+
   //#region Private Methods
 
   private buildForm() {
@@ -76,7 +83,8 @@ export class AddEditAddonComponent implements OnInit {
     this.addonForm = this.fb.group({
       id: [0],
       name: ['', Validators.required],
-      price: ['', Validators.required]
+      price: ['', Validators.required],
+      imageName: []
     });
   }
 
