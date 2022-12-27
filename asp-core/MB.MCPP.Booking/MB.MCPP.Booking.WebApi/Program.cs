@@ -4,6 +4,7 @@ using MB.MCPP.BK.Dtos.Customers;
 using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.WebApi.FluentValidations;
 using MB.MCPP.BK.WebApi.Helpers.FileUploader;
+using MB.MCPP.BK.WebApi.Helpers.ImageUploader;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -50,7 +51,7 @@ namespace MB.MCPP.BK.WebApi
             builder.Services.AddDbContext<BookingDbContext>(options =>
                     options.UseSqlServer(builder.Configuration.GetConnectionString("BookingAppConnection")));
 
-            builder.Services.AddTransient<IFileUploader, FileUploader>();
+            builder.Services.AddTransient<IImageUploader, ImageUploader>();
 
             builder.Services.AddCors(p => p.AddPolicy("corsapp", builder =>
             {

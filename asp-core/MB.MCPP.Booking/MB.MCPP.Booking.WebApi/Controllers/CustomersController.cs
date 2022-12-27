@@ -8,7 +8,7 @@ using FluentValidation;
 using System;
 using FluentValidation.Results;
 using MB.MCPP.BK.Dtos.Lookups;
-using MB.MCPP.BK.WebApi.Helpers.FileUploader;
+using MB.MCPP.BK.WebApi.Helpers.ImageUploader;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -20,9 +20,9 @@ namespace MB.MCPP.BK.WebApi.Controllers
 
         private readonly BookingDbContext _context;
         private readonly IMapper _mapper;
-        private readonly IFileUploader _fileUploader;
+        private readonly IImageUploader _fileUploader;
 
-        public CustomersController(BookingDbContext context, IMapper mapper, IFileUploader fileUploader)
+        public CustomersController(BookingDbContext context, IMapper mapper, IImageUploader fileUploader)
         {
             _context = context;
             _mapper = mapper;

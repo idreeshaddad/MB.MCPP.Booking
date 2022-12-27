@@ -1,5 +1,5 @@
 import { HttpClient, HttpEventType, HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -10,10 +10,10 @@ import { environment } from 'src/environments/environment';
 export class UploaderComponent implements OnInit {
 
   progress!: number;
-  message!: string;
   imageSrc: string = '../../../assets/imgs/user.png';
 
   @Output() public onUploadFinished = new EventEmitter();
+  @Input() public profileMode: boolean = true;
 
   constructor(private http: HttpClient) { }
 
@@ -42,7 +42,6 @@ export class UploaderComponent implements OnInit {
           }
           else if (event.type === HttpEventType.Response) {
 
-            this.message = 'Upload success.';
             this.onUploadFinished.emit(event.body);
 
             this.imageSrc = `${environment.imgStorageUrl}/${(event.body as any).imageName}`;
