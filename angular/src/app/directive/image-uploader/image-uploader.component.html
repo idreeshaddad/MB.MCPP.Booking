@@ -1,6 +1,6 @@
-<div class="text-center" [ngClass]="profileMode? 'profile-mode': 'normal-mode'">
+<div class="text-center" [ngClass]="config.mode == uploaderModeEnum.Profile ? 'profile-mode': 'normal-mode'">
   <div class="img">
-    <img [src]="imageSrc" alt="Customer Profile Image" class="img-fluid" />
+    <img [src]="imageSrc" alt="Image" class="img-fluid" />
   </div>
   <div class="progress mt-2" *ngIf="progress > 0 && progress < 100">
     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0"
@@ -9,6 +9,6 @@
   <div class="mt-2">
     <input accept="image/png, image/jpeg, image/jpg, image/gif" type="file" #file placeholder="Choose file"
       (change)="uploadFile(file.files)" style="display:none;">
-    <button mat-flat-button color="primary" (click)="file.click()" type="button">Upload File</button>
+    <button mat-flat-button color="primary" (click)="file.click()" type="button">Upload Image</button>
   </div>
 </div>

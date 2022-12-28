@@ -12,3 +12,7 @@
   width: 140px;
   margin: auto;
 }
+
+.normal-mode .img img {
+  max-height: 400px;
+}

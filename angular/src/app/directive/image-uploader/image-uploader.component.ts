@@ -1,23 +1,31 @@
 import { HttpClient, HttpEventType, HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
+import { ImageUploaderConfig } from './image-uploader.config';
+import { UploaderMode } from './uploaderMode.enum';
 
 @Component({
   selector: 'app-uploader',
-  templateUrl: './uploader.component.html',
-  styleUrls: ['./uploader.component.css']
+  templateUrl: './image-uploader.component.html',
+  styleUrls: ['./image-uploader.component.css']
 })
-export class UploaderComponent implements OnInit {
+export class ImageUploaderComponent implements OnInit {
 
   progress!: number;
-  imageSrc: string = '../../../assets/imgs/user.png';
+  imageSrc!: string;
+  uploaderModeEnum = UploaderMode;
 
   @Output() public onUploadFinished = new EventEmitter();
-  @Input() public profileMode: boolean = true;
+
+  @Input() public config: ImageUploaderConfig = {
+    mode: UploaderMode.Normal
+  };
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
+
+    this.setSilhouetteImage();
   }
 
   uploadFile(files: any) {
@@ -50,5 +58,19 @@ export class UploaderComponent implements OnInit {
         error: (err: HttpErrorResponse) => console.log(err)
       });
   }
+
+  //#region Private
+
+  private setSilhouetteImage() {
+
+    if (this.config.mode == UploaderMode.Normal) {
+      this.imageSrc = '../../../assets/imgs/item.png';
+    }
+    else {
+      this.imageSrc = '../../../assets/imgs/user.png';
+    }
+  }
+
+  //#endregion
 
 }

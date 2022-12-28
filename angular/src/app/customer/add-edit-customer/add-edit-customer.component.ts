@@ -2,6 +2,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ImageUploaderConfig } from 'src/app/directive/image-uploader/image-uploader.config';
+import { UploaderMode } from 'src/app/directive/image-uploader/uploaderMode.enum';
 import { Gender } from 'src/app/enums/gender.enum';
 import { PageMode } from 'src/app/enums/pageMode.enum';
 import { Customer } from 'src/app/models/customer.model';
@@ -20,6 +22,10 @@ export class AddEditCustomerComponent implements OnInit {
   genderEnum = Gender;
   pageMode: PageMode = PageMode.Create;
   pageModeEnum = PageMode;
+
+  uploaderConfig: ImageUploaderConfig = {
+    mode: UploaderMode.Profile
+  }
 
   constructor(
     private customerSvc: CustomerService,
