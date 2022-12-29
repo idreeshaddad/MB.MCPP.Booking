@@ -1,7 +1,6 @@
 ﻿using MB.MCPP.BK.WebApi.Attributes;
 using MB.MCPP.BK.WebApi.Helpers.ImageUploader;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -17,12 +16,12 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpPost, DisableRequestSizeLimit]
-        public IActionResult Upload([AllowedExtensions()]IFormFile file)
+        public IActionResult Upload([AllowedExtensions()]IFormFile[] files)
         {
-            if (file.Length > 0)
+            if (files.Length > 0)
             {
-                var imageName = _fileUploader.Upload(file);
-                return Ok(new { imageName });
+                var imagesNames = _fileUploader.Upload(files);
+                return Ok(new { imagesNames });
             }
             else
             {

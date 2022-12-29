@@ -67,6 +67,9 @@ namespace MB.MCPP.BK.WebApi
                 o.MemoryBufferThreshold = int.MaxValue;
             });
 
+            builder.Services.Configure<ImageUploaderConfig>(
+                builder.Configuration.GetSection(nameof(ImageUploaderConfig)));
+
             //-------------------------------------------
 
             var app = builder.Build();
@@ -83,11 +86,15 @@ namespace MB.MCPP.BK.WebApi
 
             app.UseCors("corsapp");
 
+
+
+            var imageUploaderConfig = builder.Configuration.Get<ImageUploaderConfig>();
+
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
-                RequestPath = new PathString("/Resources")
+                RequestPath = new PathString(imageUploaderConfig.FolderName)
             });
 
             app.MapControllers();

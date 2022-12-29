@@ -19,16 +19,32 @@ namespace MB.MCPP.BK.WebApi.Attributes
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            var file = value as IFormFile;
-            var extension = Path.GetExtension(file.FileName);
-            if (file != null)
+            var isValid = true;
+
+            var files = value as IFormFile[];
+
+            if (files.Any()) // Same as typing files.Length > 0 
             {
-                if (!_extensions.Contains(extension.ToLower()))
+                foreach (var file in files)
                 {
-                    return new ValidationResult(GetErrorMessage());
+                    var extension = Path.GetExtension(file.FileName);
+
+                    if (!_extensions.Contains(extension.ToLower()))
+                    {
+                        isValid = false;
+                        break;
+                    }
                 }
             }
-            return ValidationResult.Success;
+
+            if (isValid)
+            {
+                return ValidationResult.Success;
+            }
+            else
+            {
+                return new ValidationResult(GetErrorMessage());
+            }
         }
 
         public string GetErrorMessage()

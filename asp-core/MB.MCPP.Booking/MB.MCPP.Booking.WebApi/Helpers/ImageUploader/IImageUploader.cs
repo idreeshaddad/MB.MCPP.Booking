@@ -2,6 +2,6 @@
 {
     public interface IImageUploader
     {
-        public string Upload(IFormFile file);
+        public List<string> Upload(IFormFile[] files);
     }
 }
