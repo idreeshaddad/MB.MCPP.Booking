@@ -1,4 +1,4 @@
-import { HttpClient, HttpEventType, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpEventType, HttpErrorResponse, HttpResponse, HttpEvent } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ImageUploaderConfig } from './image-uploader.config';
@@ -28,15 +28,17 @@ export class ImageUploaderComponent implements OnInit {
     this.setSilhouetteImage();
   }
 
-  uploadFile(files: any) {
+  uploadFile(files: FileList | null) {
 
-    if (files.length === 0) {
+    if (files === null) {
       return;
     }
 
-    let fileToUpload = files[0];
     const formData = new FormData();
-    formData.append('file', fileToUpload, fileToUpload.name);
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append('files', files[i]);
+    }
 
     this.http.post(environment.uploadUrl, formData, { reportProgress: true, observe: 'events' })
       .subscribe({
@@ -52,7 +54,9 @@ export class ImageUploaderComponent implements OnInit {
 
             this.onUploadFinished.emit(event.body);
 
-            this.imageSrc = `${environment.imgStorageUrl}/${(event.body as any).imageName}`;
+            let imagesNames = this.getImagesNamesArray(event);
+
+            this.imageSrc = `${environment.imgStorageUrl}/${imagesNames[0]}`;
           }
         },
         error: (err: HttpErrorResponse) => console.log(err)
@@ -69,6 +73,11 @@ export class ImageUploaderComponent implements OnInit {
     else {
       this.imageSrc = '../../../assets/imgs/user.png';
     }
+  }
+
+  private getImagesNamesArray(event: HttpResponse<Object>): string[] {
+
+    return (event.body as any).imagesNames as string[];
   }
 
   //#endregion

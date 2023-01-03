@@ -87,14 +87,11 @@ namespace MB.MCPP.BK.WebApi
             app.UseCors("corsapp");
 
 
-
-            var imageUploaderConfig = builder.Configuration.Get<ImageUploaderConfig>();
-
             app.UseStaticFiles();
             app.UseStaticFiles(new StaticFileOptions()
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), @"Resources")),
-                RequestPath = new PathString(imageUploaderConfig.FolderName)
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Resources")),
+                RequestPath = new PathString("/Resources")
             });
 
             app.MapControllers();

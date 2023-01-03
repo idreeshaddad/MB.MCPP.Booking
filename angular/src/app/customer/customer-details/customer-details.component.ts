@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Gender } from 'src/app/enums/gender.enum';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-customer-details',
@@ -14,6 +15,7 @@ export class CustomerDetailsComponent implements OnInit {
 
   customer?: Customer;
   gender = Gender;
+  imagePath!: string;
 
   constructor(
     private CustomerSvc: CustomerService,
@@ -34,6 +36,7 @@ export class CustomerDetailsComponent implements OnInit {
       this.CustomerSvc.getCustomer(customerId).subscribe({
         next: (customerFromApi) => {
           this.customer = customerFromApi;
+          this.imagePath = `${environment.imgStorageUrl}/${customerFromApi.imageName}`;
         },
         error: (e: HttpErrorResponse) => {
           console.log(e);

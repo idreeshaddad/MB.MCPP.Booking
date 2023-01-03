@@ -21,6 +21,12 @@ public class ImageUploader : IImageUploader
     {
         var filesNames = new List<string>();
 
+        // TODO 
+        //if(UploasdFolderDoesNotExist)
+        //{
+        //    CreateUploaderImagesFolder();
+        //}
+
         foreach (var file in files)
         {
             string fileName = GetFileName(file);
