@@ -85,7 +85,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
             return NoContent();
         }
 
-        [HttpPost, DisableRequestSizeLimit]
+        [HttpPost]
         public async Task<ActionResult> CreateCustomer(CustomerDto customerDto)
         {
             var customer = _mapper.Map<Customer>(customerDto);

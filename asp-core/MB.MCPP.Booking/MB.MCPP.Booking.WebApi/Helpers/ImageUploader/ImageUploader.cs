@@ -48,7 +48,7 @@ public class ImageUploader : IImageUploader
 
     private string GetFileName(IFormFile file)
     {
-        var myFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+        var myFileName = file.FileName;
         var fileExt = Path.GetExtension(myFileName);
 
         return $"{Guid.NewGuid()}{fileExt}";

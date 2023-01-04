@@ -78,7 +78,7 @@ export class AddEditCustomerComponent implements OnInit {
   uploadFinished(uploadEventBody: any) {
 
     this.customerForm.patchValue({
-      imageName: uploadEventBody.imageName
+      imageName: uploadEventBody.imagesNames[0]
     });
   }
 
