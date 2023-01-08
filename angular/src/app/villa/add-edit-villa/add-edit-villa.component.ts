@@ -2,6 +2,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ImageUploaderConfig } from 'src/app/directive/image-uploader/image-uploader.config';
+import { UploaderImage } from 'src/app/directive/image-uploader/UploaderImage.data';
+import { UploaderMode } from 'src/app/directive/image-uploader/uploaderMode.enum';
 import { PageMode } from 'src/app/enums/pageMode.enum';
 import { Lookup } from 'src/app/models/lookup.model';
 import { Villa } from 'src/app/models/villas/villa.model';
@@ -24,6 +27,8 @@ export class AddEditVillaComponent implements OnInit {
 
   villaNameExists: boolean = false;
   villaNameExistsMessage: string = 'Villa name already exists';
+
+  uploaderConfig = new ImageUploaderConfig(UploaderMode.Normal, true);
 
   constructor(
     private villaSvc: VillaService,
@@ -79,6 +84,13 @@ export class AddEditVillaComponent implements OnInit {
     }
   }
 
+  uploadFinished(uploaderImages: UploaderImage[]) {
+    
+    this.villaForm.patchValue({
+      villaImages: uploaderImages
+    })
+  }
+
   //#region Private
 
   private loadVilla() {
@@ -117,7 +129,8 @@ export class AddEditVillaComponent implements OnInit {
       numberOfOccupants: ['', Validators.required],
       price: ['', Validators.required],
       isBooked: [false, Validators.required],
-      addonIds: [[]]
+      addonIds: [[]],
+      villaImages: []
     });
   }
 

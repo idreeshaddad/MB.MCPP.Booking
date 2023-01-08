@@ -1,4 +1,5 @@
 ﻿using MB.MCPP.BK.Dtos.Addons;
+using MB.MCPP.BK.Dtos.Uploaders;
 
 namespace MB.MCPP.BK.Dtos.Villas
 {
@@ -7,6 +8,7 @@ namespace MB.MCPP.BK.Dtos.Villas
         public VillaDetailsDto()
         {
             Addons = new List<AddonDto>();
+            VillaImages = new List<UploaderImageDto>();
         }
 
         public int Id { get; set; }
@@ -18,5 +20,6 @@ namespace MB.MCPP.BK.Dtos.Villas
         public bool IsBooked { get; set; }
 
         public List<AddonDto> Addons { get; set; }
+        public List<UploaderImageDto> VillaImages { get; set; }
     }
 }

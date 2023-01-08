@@ -1,6 +1,5 @@
 ﻿using MB.MCPP.BK.Entities;
 using Microsoft.EntityFrameworkCore;
-using System.Security.Principal;
 
 namespace MB.MCPP.BK.EfCore
 {
@@ -10,6 +9,7 @@ namespace MB.MCPP.BK.EfCore
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Villa> Villas { get; set; }
         public DbSet<Addon> Addons { get; set; }
+        public DbSet<VillaImage> VillaImages { get; set; }
 
 
         public BookingDbContext(DbContextOptions<BookingDbContext> options)
@@ -22,7 +22,10 @@ namespace MB.MCPP.BK.EfCore
             modelBuilder.Entity<Villa>()
                         .HasIndex(v => v.Name)
                         .IsUnique();
-        }
 
+            modelBuilder.Entity<VillaImage>()
+                        .HasIndex(v => v.Name)
+                        .IsUnique();
+        }
     }
 }

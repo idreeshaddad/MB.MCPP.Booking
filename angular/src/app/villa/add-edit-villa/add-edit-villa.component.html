@@ -9,6 +9,8 @@
 
 <form [formGroup]="villaForm" (ngSubmit)="submitForm()">
 
+  <app-image-uploader (onUploadFinished)="uploadFinished($event)" [config]="uploaderConfig"></app-image-uploader>
+
   <div class="row">
     <div class="col-md-6">
       <div class="">

@@ -4,6 +4,7 @@ using MB.MCPP.BK.EfCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MB.MCPP.BK.EfCore.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    partial class BookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230105171027_VillaImages_ImageName_unique")]
+    partial class VillaImages_ImageName_unique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -169,16 +171,16 @@ namespace MB.MCPP.BK.EfCore.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Name")
+                    b.Property<string>("ImageName")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("VillaId")
+                    b.Property<int?>("VillaId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Name")
+                    b.HasIndex("ImageName")
                         .IsUnique();
 
                     b.HasIndex("VillaId");
@@ -224,9 +226,7 @@ namespace MB.MCPP.BK.EfCore.Migrations
                 {
                     b.HasOne("MB.MCPP.BK.Entities.Villa", null)
                         .WithMany("VillaImages")
-                        .HasForeignKey("VillaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VillaId");
                 });
 
             modelBuilder.Entity("MB.MCPP.BK.Entities.Villa", b =>

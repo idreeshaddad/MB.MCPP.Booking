@@ -1,4 +1,5 @@
-﻿using MB.MCPP.BK.WebApi.Attributes;
+﻿using MB.MCPP.BK.Dtos.Uploaders;
+using MB.MCPP.BK.WebApi.Attributes;
 using MB.MCPP.BK.WebApi.Helpers.ImageUploader;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,12 +22,31 @@ namespace MB.MCPP.BK.WebApi.Controllers
             if (files.Length > 0)
             {
                 var imagesNames = _fileUploader.Upload(files);
-                return Ok(new { imagesNames });
+
+                var villaImages = GetVillaImages(imagesNames);
+
+                return Ok(villaImages);
             }
             else
             {
                 return BadRequest();
             }
+        }
+
+        private List<UploaderImageDto> GetVillaImages(List<string> imagesNames)
+        {
+            var imagesNamesDtos = new List<UploaderImageDto>();
+
+            foreach (var imageName in imagesNames)
+            {
+                var villaImage = new UploaderImageDto();
+                villaImage.Id = 0;
+                villaImage.Name = imageName;
+
+                imagesNamesDtos.Add(villaImage);
+            }
+
+            return imagesNamesDtos;
         }
     }
 }

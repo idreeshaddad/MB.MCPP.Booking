@@ -2,10 +2,11 @@ import { HttpClient, HttpEventType, HttpErrorResponse, HttpResponse, HttpEvent }
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ImageUploaderConfig } from './image-uploader.config';
+import { UploaderImage } from './UploaderImage.data';
 import { UploaderMode } from './uploaderMode.enum';
 
 @Component({
-  selector: 'app-uploader',
+  selector: 'app-image-uploader',
   templateUrl: './image-uploader.component.html',
   styleUrls: ['./image-uploader.component.css']
 })
@@ -17,9 +18,7 @@ export class ImageUploaderComponent implements OnInit {
 
   @Output() public onUploadFinished = new EventEmitter();
 
-  @Input() public config: ImageUploaderConfig = {
-    mode: UploaderMode.Normal
-  };
+  @Input() public config!: ImageUploaderConfig;
 
   constructor(private http: HttpClient) { }
 
@@ -52,11 +51,10 @@ export class ImageUploaderComponent implements OnInit {
           }
           else if (event.type === HttpEventType.Response) {
 
-            this.onUploadFinished.emit(event.body);
+            let uploaderImages = event.body as UploaderImage[];
+            this.onUploadFinished.emit(uploaderImages);
 
-            let imagesNames = this.getImagesNamesArray(event);
-
-            this.imageSrc = `${environment.imgStorageUrl}/${imagesNames[0]}`;
+            this.imageSrc = `${environment.imgStorageUrl}/${uploaderImages[0].name}`;
           }
         },
         error: (err: HttpErrorResponse) => console.log(err)
@@ -73,11 +71,6 @@ export class ImageUploaderComponent implements OnInit {
     else {
       this.imageSrc = '../../../assets/imgs/user.png';
     }
-  }
-
-  private getImagesNamesArray(event: HttpResponse<Object>): string[] {
-
-    return (event.body as any).imagesNames as string[];
   }
 
   //#endregion

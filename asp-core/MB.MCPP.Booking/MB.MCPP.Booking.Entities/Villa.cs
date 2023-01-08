@@ -5,6 +5,7 @@
         public Villa()
         {
             Addons = new List<Addon>();
+            VillaImages= new List<VillaImage>();
         }
 
         public int Id { get; set; }
@@ -16,5 +17,7 @@
         public bool IsBooked { get; set; }
 
         public List<Addon> Addons { get; set; }
+
+        public List<VillaImage> VillaImages { get; set; }
     }
 }

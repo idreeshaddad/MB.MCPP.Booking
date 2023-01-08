@@ -1,5 +1,12 @@
-import { UploaderMode } from "./uploaderMode.enum";
+import { UploaderMode } from './uploaderMode.enum';
 
-export interface ImageUploaderConfig {
+export class ImageUploaderConfig {
+  
   mode: UploaderMode;
+  multiple: boolean;
+
+  constructor(mode: UploaderMode, multiple: boolean = false) {
+    this.mode = mode;
+    this.multiple = multiple;
+  }
 }

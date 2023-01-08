@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MB.MCPP.BK.Dtos.Uploaders;
 using MB.MCPP.BK.Dtos.Villas;
 using MB.MCPP.BK.Entities;
 
@@ -15,6 +16,7 @@ namespace MB.MCPP.BK.WebApi.AutoMapperProfiles
             CreateMap<VillaDto, Villa>();
             CreateMap<Villa, VillaDetailsDto>();
             CreateMap<Villa, VillaListDto>();
+            CreateMap<VillaImage, UploaderImageDto>().ReverseMap();
         }
     }
 }

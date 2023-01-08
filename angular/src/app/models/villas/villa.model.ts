@@ -7,4 +7,5 @@ export interface Villa {
   price: number;
   isBooked: boolean;
   addonIds: number[];
+  villaImages: string[];
 }

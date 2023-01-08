@@ -9,4 +9,5 @@ export interface VillaDetails {
   price: number;
   isBooked: boolean;
   addons: Addon[];
+  villaImages: string[];
 }
