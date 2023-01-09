@@ -11,39 +11,42 @@ import { CustomerDetailsComponent } from './customer/customer-details/customer-d
 import { CustomerComponent } from './customer/customer.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { TestComponent } from './test/test.component';
 import { AddEditVillaComponent } from './villa/add-edit-villa/add-edit-villa.component';
 import { VillaDetailsComponent } from './villa/villa-details/villa-details.component';
 import { VillaComponent } from './villa/villa.component';
 
 const routes: Routes = [
-  { path: "home", component: HomeComponent },
+  { path: 'home', component: HomeComponent },
 
-  { path: "customers", component: CustomerComponent },
-  { path: "customers/details/:id", component: CustomerDetailsComponent },
-  { path: "customers/create", component: AddEditCustomerComponent },
-  { path: "customers/edit/:id", component: AddEditCustomerComponent },
+  { path: 'customers', component: CustomerComponent },
+  { path: 'customers/details/:id', component: CustomerDetailsComponent },
+  { path: 'customers/create', component: AddEditCustomerComponent },
+  { path: 'customers/edit/:id', component: AddEditCustomerComponent },
 
-  { path: "villas", component: VillaComponent },
-  { path: "villas/details/:id", component: VillaDetailsComponent },
-  { path: "villas/create", component: AddEditVillaComponent },
-  { path: "villas/edit/:id", component: AddEditVillaComponent },
+  { path: 'villas', component: VillaComponent },
+  { path: 'villas/details/:id', component: VillaDetailsComponent },
+  { path: 'villas/create', component: AddEditVillaComponent },
+  { path: 'villas/edit/:id', component: AddEditVillaComponent },
 
-  { path: "addons", component: AddonComponent },
-  { path: "addons/details/:id", component: AddonDetailsComponent },
-  { path: "addons/create", component: AddEditAddonComponent },
-  { path: "addons/edit/:id", component: AddEditAddonComponent },
+  { path: 'addons', component: AddonComponent },
+  { path: 'addons/details/:id', component: AddonDetailsComponent },
+  { path: 'addons/create', component: AddEditAddonComponent },
+  { path: 'addons/edit/:id', component: AddEditAddonComponent },
 
-  { path: "bookings", component: BookingComponent },
-  { path: "bookings/details/:id", component: BookingDetailsComponent },
-  { path: "bookings/create", component: AddEditBookingComponent },
-  { path: "bookings/edit/:id", component: AddEditBookingComponent },
+  { path: 'bookings', component: BookingComponent },
+  { path: 'bookings/details/:id', component: BookingDetailsComponent },
+  { path: 'bookings/create', component: AddEditBookingComponent },
+  { path: 'bookings/edit/:id', component: AddEditBookingComponent },
 
-  { path: "not-found", component: NotFoundComponent },
+  { path: 'test', component: TestComponent },
+
+  { path: 'not-found', component: NotFoundComponent },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CustomerComponent } from './customer/customer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CustomerDetailsComponent } from './customer/customer-details/customer-details.component';
@@ -28,6 +27,8 @@ import { DeleteBookingComponent } from './booking/dialogs/delete-booking/delete-
 import { AddEditBookingComponent } from './booking/add-edit-booking/add-edit-booking.component';
 import { BookingDetailsComponent } from './booking/booking-details/booking-details.component';
 import { ImageUploaderComponent } from './directive/image-uploader/image-uploader.component';
+import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -51,16 +52,17 @@ import { ImageUploaderComponent } from './directive/image-uploader/image-uploade
     DeleteBookingComponent,
     AddEditBookingComponent,
     BookingDetailsComponent,
-    ImageUploaderComponent
+    ImageUploaderComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    NgbModule,
     HttpClientModule,
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    SlickCarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent]
