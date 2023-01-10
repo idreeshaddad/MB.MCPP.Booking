@@ -27,3 +27,7 @@ body {
   background: white;
   min-height: 150px;
 }
+
+.slick-prev:before, .slick-next:before {
+  color: red;
+}

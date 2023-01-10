@@ -2,10 +2,16 @@
   <div class="img">
     <img *ngIf="imagesNames.length == 0" [src]="silhouetteImage" alt="Image" class="img-fluid" />
 
-    <div *ngIf="imagesNames.length > 0">
-      <img *ngFor="let img of imagesNames" [src]="getImageUrl(img)" alt="Uploaded Image" class="img-fluid" />
+    <img *ngIf="imagesNames.length == 1" [src]="getImageUrl(imagesNames[0])" alt="Image" class="img-fluid" />
+
+    <div *ngIf="imagesNames.length >= 2">
+      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+        <div ngxSlickItem *ngFor="let image of imagesNames" class="slide">
+          <img [src]="getImageUrl(image)" alt="" width="100%">
+        </div>
+      </ngx-slick-carousel>
     </div>
-  
+
   </div>
   <div class="progress mt-2" *ngIf="progress > 0 && progress < 100">
     <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0"

@@ -2,12 +2,11 @@ import {
   HttpClient,
   HttpEventType,
   HttpErrorResponse,
-  HttpResponse,
-  HttpEvent,
 } from '@angular/common/http';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ImageUploaderConfig } from './image-uploader.config';
+import { SlickSlide } from './SlickSlide.date';
 import { UploaderImage } from './UploaderImage.data';
 import { UploaderMode } from './uploaderMode.enum';
 
@@ -26,6 +25,11 @@ export class ImageUploaderComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
 
   @Input() public config!: ImageUploaderConfig;
+
+  slideConfig = { slidesToShow: 4, slidesToScroll: 4 };
+
+  //slides: {image: string}[] = [];
+  //slides: SlickSlide[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -62,26 +66,36 @@ export class ImageUploaderComponent implements OnInit {
             this.onUploadFinished.emit(uploaderImages);
 
             this.imagesNames = uploaderImages;
+
+            //this.setSlides();
           }
         },
         error: (err: HttpErrorResponse) => console.log(err),
       });
   }
 
-  getImageUrl(img: UploaderImage) : string {
-
+  getImageUrl(img: UploaderImage): string {
     return `${environment.imgStorageUrl}/${img.name}`;
   }
 
   //#region Private
 
   private setSilhouetteImage() {
+    
     if (this.config.mode == UploaderMode.Normal) {
       this.silhouetteImage = '../../../assets/imgs/item.png';
     } else {
       this.silhouetteImage = '../../../assets/imgs/user.png';
     }
   }
+
+  // private setSlides(): void {
+  //   this.slides = this.imagesNames.map((ig) => {
+  //     return <SlickSlide>{
+  //       img: `${environment.imgStorageUrl}/${ig.name}`,
+  //     };
+  //   });
+  // }
 
   //#endregion
 }
