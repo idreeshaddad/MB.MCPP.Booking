@@ -4,9 +4,6 @@ using MB.MCPP.BK.EfCore;
 using MB.MCPP.BK.Entities;
 using AutoMapper;
 using MB.MCPP.BK.Dtos.Customers;
-using FluentValidation;
-using System;
-using FluentValidation.Results;
 using MB.MCPP.BK.Dtos.Lookups;
 using MB.MCPP.BK.WebApi.Helpers.ImageUploader;
 
@@ -44,7 +41,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(int id)
+        public async Task<ActionResult<CustomerDetailsDto>> GetCustomer(int id)
         {
             var customer = await _context.Customers.FindAsync(id);
 
@@ -53,18 +50,23 @@ namespace MB.MCPP.BK.WebApi.Controllers
                 return NotFound();
             }
 
-            return customer;
+            var customerDto = _mapper.Map<CustomerDetailsDto>(customer);
+
+
+            return customerDto;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditCustomer(int id, Customer customer)
+        public async Task<IActionResult> EditCustomer(int id, CustomerDto customerDto)
         {
-            if (id != customer.Id)
+            if (id != customerDto.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
+            var customer = _mapper.Map<Customer>(customerDto);
+
+            _context.Entry(customerDto).State = EntityState.Modified;
 
             try
             {

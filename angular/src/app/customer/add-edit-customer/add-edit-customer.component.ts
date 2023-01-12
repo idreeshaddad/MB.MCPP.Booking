@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImageUploaderConfig } from 'src/app/directive/image-uploader/image-uploader.config';
 import { UploaderImage } from 'src/app/directive/image-uploader/UploaderImage.data';
-import { UploaderMode } from 'src/app/directive/image-uploader/uploaderMode.enum';
+import { UploaderMode, UploaderStyle, UploaderType } from 'src/app/directive/image-uploader/uploader.enums';
 import { Gender } from 'src/app/enums/gender.enum';
 import { PageMode } from 'src/app/enums/pageMode.enum';
 import { Customer } from 'src/app/models/customer.model';
@@ -24,7 +24,7 @@ export class AddEditCustomerComponent implements OnInit {
   pageMode: PageMode = PageMode.Create;
   pageModeEnum = PageMode;
 
-  uploaderConfig = new ImageUploaderConfig(UploaderMode.Profile);
+  uploaderConfig = new ImageUploaderConfig(UploaderStyle.Profile, UploaderMode.AddEdit, UploaderType.Single);
 
   constructor(
     private customerSvc: CustomerService,
@@ -77,7 +77,7 @@ export class AddEditCustomerComponent implements OnInit {
   uploadFinished(uploaderImages: UploaderImage[]) {
 
     this.customerForm.patchValue({
-      imageName: uploaderImages[0]
+      imageName: uploaderImages[0].name
     });
   }
 
@@ -95,7 +95,7 @@ export class AddEditCustomerComponent implements OnInit {
       )],
       gender: ['', Validators.required],
       dob: ['', Validators.required],
-      imageName: ['']
+      imageName: []
     });
   }
 

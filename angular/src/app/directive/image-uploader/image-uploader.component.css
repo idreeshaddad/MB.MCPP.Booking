@@ -2,17 +2,17 @@
   border: 1px solid #ccc;
 }
 
-.profile-mode .img img {
+.profile-style .img img {
   width: 140px;
   height: 140px;
   border-radius: 50%;
 }
 
-.profile-mode .progress {
+.profile-style .progress {
   width: 140px;
   margin: auto;
 }
 
-.normal-mode .img img {
+.normal-style .img img {
   max-height: 400px;
 }

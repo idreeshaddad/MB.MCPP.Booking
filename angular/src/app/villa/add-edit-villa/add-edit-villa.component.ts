@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImageUploaderConfig } from 'src/app/directive/image-uploader/image-uploader.config';
 import { UploaderImage } from 'src/app/directive/image-uploader/UploaderImage.data';
-import { UploaderMode } from 'src/app/directive/image-uploader/uploaderMode.enum';
+import { UploaderMode, UploaderStyle, UploaderType } from 'src/app/directive/image-uploader/uploader.enums';
 import { PageMode } from 'src/app/enums/pageMode.enum';
 import { Lookup } from 'src/app/models/lookup.model';
 import { Villa } from 'src/app/models/villas/villa.model';
@@ -28,7 +28,7 @@ export class AddEditVillaComponent implements OnInit {
   villaNameExists: boolean = false;
   villaNameExistsMessage: string = 'Villa name already exists';
 
-  uploaderConfig = new ImageUploaderConfig(UploaderMode.Normal, true);
+  uploaderConfig = new ImageUploaderConfig(UploaderStyle.Normal, UploaderMode.AddEdit, UploaderType.Multiple);
 
   constructor(
     private villaSvc: VillaService,

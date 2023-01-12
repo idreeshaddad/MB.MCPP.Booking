@@ -10,6 +10,6 @@ namespace MB.MCPP.BK.Dtos.Customers
         public string LastName { get; set; }
         public Gender Gender { get; set; }
         public DateTime DOB { get; set; }
-        public string ImageName { get; set; }
+        public string? ImageName { get; set; }
     }
 }

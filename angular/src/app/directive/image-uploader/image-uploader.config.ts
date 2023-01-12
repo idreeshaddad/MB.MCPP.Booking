@@ -1,12 +1,15 @@
-import { UploaderMode } from './uploaderMode.enum';
+import { UploaderMode, UploaderStyle, UploaderType } from './uploader.enums';
 
 export class ImageUploaderConfig {
   
+  style: UploaderStyle;
   mode: UploaderMode;
-  multiple: boolean;
+  type: UploaderType;
 
-  constructor(mode: UploaderMode, multiple: boolean = false) {
+  constructor(style: UploaderStyle, mode: UploaderMode, type: UploaderType) {
+    
+    this.style = style;
     this.mode = mode;
-    this.multiple = multiple;
+    this.type = type;
   }
 }

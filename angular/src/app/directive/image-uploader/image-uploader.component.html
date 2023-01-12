@@ -1,25 +1,43 @@
-<div class="text-center" [ngClass]="config.mode == uploaderModeEnum.Profile ? 'profile-mode': 'normal-mode'">
-  <div class="img">
+<div class="text-center" [ngClass]="config.style == uploaderStyleEnum.Profile ? 'profile-style': 'normal-style'">
+
+  <div *ngIf="config.mode == uploaderModeEnum.AddEdit" class="img">
     <img *ngIf="imagesNames.length == 0" [src]="silhouetteImage" alt="Image" class="img-fluid" />
 
-    <img *ngIf="imagesNames.length == 1" [src]="getImageUrl(imagesNames[0])" alt="Image" class="img-fluid" />
+    <img *ngIf="imagesNames.length == 1" [src]="getImageUrlFromUploaderImage(imagesNames[0])" alt="Image" class="img-fluid" />
 
     <div *ngIf="imagesNames.length >= 2">
       <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
         <div ngxSlickItem *ngFor="let image of imagesNames" class="slide">
-          <img [src]="getImageUrl(image)" alt="" width="100%">
+          <img [src]="getImageUrlFromUploaderImage(image)" alt="" width="100%">
         </div>
       </ngx-slick-carousel>
     </div>
 
   </div>
-  <div class="progress mt-2" *ngIf="progress > 0 && progress < 100">
-    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0"
-      aria-valuemax="100" [style.width.%]="progress">{{progress}}%</div>
+
+  <div *ngIf="config.mode == uploaderModeEnum.Details" class="img">
+    <img *ngIf="imagesNamesStrArr.length == 1" [src]="getImageUrlFromString(imagesNamesStrArr[0])" alt="Image" class="img-fluid" />
+
+    <div *ngIf="imagesNamesStrArr.length >= 2">
+      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+        <div ngxSlickItem *ngFor="let imgName of imagesNamesStrArr" class="slide">
+          <img [src]="getImageUrlFromString(imgName)" alt="" width="100%">
+        </div>
+      </ngx-slick-carousel>
+    </div>
+
   </div>
-  <div class="mt-2">
-    <input accept="image/png, image/jpeg, image/jpg, image/gif" type="file" #file placeholder="Choose file"
-      (change)="uploadFile(file.files)" style="display:none;" [multiple]="config.multiple">
-    <button mat-flat-button color="primary" (click)="file.click()" type="button">Upload Image</button>
+
+  <div *ngIf="config.mode == uploaderModeEnum.AddEdit">
+    <div class="progress mt-2" *ngIf="progress > 0 && progress < 100">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0"
+        aria-valuemax="100" [style.width.%]="progress">{{progress}}%</div>
+    </div>
+    <div class="mt-2">
+      <input accept="image/png, image/jpeg, image/jpg, image/gif" type="file" #file placeholder="Choose file"
+        (change)="uploadFile(file.files)" style="display:none;" [multiple]="config.type == uploaderTypeEnum.Multiple">
+      <button mat-flat-button color="primary" (click)="file.click()" type="button">Upload Image</button>
+    </div>
   </div>
+
 </div>

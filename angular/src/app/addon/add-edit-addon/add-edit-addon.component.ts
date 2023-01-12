@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImageUploaderConfig } from 'src/app/directive/image-uploader/image-uploader.config';
 import { UploaderImage } from 'src/app/directive/image-uploader/UploaderImage.data';
-import { UploaderMode } from 'src/app/directive/image-uploader/uploaderMode.enum';
+import { UploaderMode, UploaderStyle, UploaderType } from 'src/app/directive/image-uploader/uploader.enums';
 import { PageMode } from 'src/app/enums/pageMode.enum';
 import { Addon } from 'src/app/models/addon.model';
 import { AddonService } from 'src/app/services/addons.service';
@@ -21,7 +21,7 @@ export class AddEditAddonComponent implements OnInit {
   pageMode: PageMode = PageMode.Create;
   pageModeEnum = PageMode;
 
-  uploaderConfig = new ImageUploaderConfig(UploaderMode.Normal);
+  uploaderConfig = new ImageUploaderConfig(UploaderStyle.Normal, UploaderMode.AddEdit, UploaderType.Single);
 
   constructor(
     private addonSvc: AddonService,
@@ -70,7 +70,7 @@ export class AddEditAddonComponent implements OnInit {
   uploadFinished(uploaderImages: UploaderImage[]) {
 
     this.addonForm.patchValue({
-      imageName: uploaderImages[0]
+      imageName: uploaderImages[0].name
     });
   }
 

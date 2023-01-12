@@ -36,7 +36,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Addon>> GetAddon(int id)
+        public async Task<ActionResult<AddonDto>> GetAddon(int id)
         {
             var addon = await _context.Addons.FindAsync(id);
 
@@ -45,16 +45,20 @@ namespace MB.MCPP.BK.WebApi.Controllers
                 return NotFound();
             }
 
-            return addon;
+            var addonDto = _mapper.Map<AddonDto>(addon);
+
+            return addonDto;
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> EditAddon(int id, Addon addon)
+        public async Task<IActionResult> EditAddon(int id, AddonDto addonDto)
         {
-            if (id != addon.Id)
+            if (id != addonDto.Id)
             {
                 return BadRequest();
             }
+
+            var addon = _mapper.Map<Addon>(addonDto);
 
             _context.Entry(addon).State = EntityState.Modified;
 
@@ -78,12 +82,14 @@ namespace MB.MCPP.BK.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Addon>> CreateAddon(Addon addon)
+        public async Task<ActionResult<AddonDto>> CreateAddon(AddonDto addonDto)
         {
+            var addon = _mapper.Map<Addon>(addonDto);
+
             _context.Addons.Add(addon);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAddon", new { id = addon.Id }, addon);
+            return CreatedAtAction("GetAddon", new { id = addonDto.Id }, addonDto);
         }
 
         [HttpDelete("{id}")]

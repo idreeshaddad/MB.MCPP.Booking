@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Addon } from 'src/app/models/addon.model';
 import { AddonService } from 'src/app/services/addons.service';
+import { ImageUploaderConfig } from 'src/app/directive/image-uploader/image-uploader.config';
+import { UploaderMode, UploaderStyle, UploaderType } from 'src/app/directive/image-uploader/uploader.enums';
 
 @Component({
   selector: 'app-addon-details',
@@ -13,6 +15,10 @@ export class AddonDetailsComponent implements OnInit {
 
   addonId!: number;
   addon!: Addon;
+
+  imageNames: string[] = [];
+
+  uploaderConfig = new ImageUploaderConfig(UploaderStyle.Normal, UploaderMode.Details, UploaderType.Single);
 
   constructor(
     private addonSvc: AddonService,
@@ -33,6 +39,10 @@ export class AddonDetailsComponent implements OnInit {
       this.addonSvc.getAddon(this.addonId).subscribe({
         next: (addonFromApi) => {
           this.addon = addonFromApi;
+          
+          if(addonFromApi.imageName) {
+            this.imageNames.push(addonFromApi.imageName);
+          }
         },
         error: (err: HttpErrorResponse) => {
           console.log(err);

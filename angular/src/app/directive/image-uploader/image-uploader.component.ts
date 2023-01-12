@@ -6,9 +6,8 @@ import {
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { ImageUploaderConfig } from './image-uploader.config';
-import { SlickSlide } from './SlickSlide.date';
 import { UploaderImage } from './UploaderImage.data';
-import { UploaderMode } from './uploaderMode.enum';
+import { UploaderMode, UploaderStyle, UploaderType } from './uploader.enums';
 
 @Component({
   selector: 'app-image-uploader',
@@ -16,24 +15,27 @@ import { UploaderMode } from './uploaderMode.enum';
   styleUrls: ['./image-uploader.component.css'],
 })
 export class ImageUploaderComponent implements OnInit {
+  
   progress!: number;
   silhouetteImage!: string;
+
+  uploaderStyleEnum = UploaderStyle;
   uploaderModeEnum = UploaderMode;
+  uploaderTypeEnum = UploaderType;
 
   imagesNames: UploaderImage[] = [];
 
   @Output() public onUploadFinished = new EventEmitter();
 
   @Input() public config!: ImageUploaderConfig;
+  @Input() public imagesNamesStrArr: string[] = [];
 
   slideConfig = { slidesToShow: 4, slidesToScroll: 4 };
-
-  //slides: {image: string}[] = [];
-  //slides: SlickSlide[] = [];
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
+    
     this.setSilhouetteImage();
   }
 
@@ -66,36 +68,30 @@ export class ImageUploaderComponent implements OnInit {
             this.onUploadFinished.emit(uploaderImages);
 
             this.imagesNames = uploaderImages;
-
-            //this.setSlides();
           }
         },
         error: (err: HttpErrorResponse) => console.log(err),
       });
   }
 
-  getImageUrl(img: UploaderImage): string {
+  getImageUrlFromUploaderImage(img: UploaderImage): string {
     return `${environment.imgStorageUrl}/${img.name}`;
+  }
+
+  getImageUrlFromString(imgName: string): string {
+    return `${environment.imgStorageUrl}/${imgName}`;
   }
 
   //#region Private
 
   private setSilhouetteImage() {
     
-    if (this.config.mode == UploaderMode.Normal) {
+    if (this.config.style == UploaderStyle.Normal) {
       this.silhouetteImage = '../../../assets/imgs/item.png';
     } else {
       this.silhouetteImage = '../../../assets/imgs/user.png';
     }
   }
-
-  // private setSlides(): void {
-  //   this.slides = this.imagesNames.map((ig) => {
-  //     return <SlickSlide>{
-  //       img: `${environment.imgStorageUrl}/${ig.name}`,
-  //     };
-  //   });
-  // }
 
   //#endregion
 }
