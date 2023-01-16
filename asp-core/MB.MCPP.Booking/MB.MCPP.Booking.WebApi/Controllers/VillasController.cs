@@ -43,6 +43,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
             var villa = await _context
                                 .Villas
                                 .Include(villa => villa.Addons)
+                                .Include(villa => villa.VillaImages)
                                 .SingleOrDefaultAsync(villa => villa.Id == id);
 
             if (villa == null)

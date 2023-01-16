@@ -1,9 +1,10 @@
 <div class="text-center" [ngClass]="config.style == uploaderStyleEnum.Profile ? 'profile-style': 'normal-style'">
 
-  <div *ngIf="config.mode == uploaderModeEnum.AddEdit" class="img">
+  <div class="img">
     <img *ngIf="imagesNames.length == 0" [src]="silhouetteImage" alt="Image" class="img-fluid" />
 
-    <img *ngIf="imagesNames.length == 1" [src]="getImageUrlFromUploaderImage(imagesNames[0])" alt="Image" class="img-fluid" />
+    <img *ngIf="imagesNames.length == 1" [src]="getImageUrlFromUploaderImage(imagesNames[0])" alt="Image"
+      class="img-fluid" />
 
     <div *ngIf="imagesNames.length >= 2">
       <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
@@ -15,8 +16,9 @@
 
   </div>
 
-  <div *ngIf="config.mode == uploaderModeEnum.Details" class="img">
-    <img *ngIf="imagesNamesStrArr.length == 1" [src]="getImageUrlFromString(imagesNamesStrArr[0])" alt="Image" class="img-fluid" />
+  <div class="img">
+    <img *ngIf="imagesNamesStrArr.length == 1" [src]="getImageUrlFromString(imagesNamesStrArr[0])" alt="Image"
+      class="img-fluid" />
 
     <div *ngIf="imagesNamesStrArr.length >= 2">
       <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">

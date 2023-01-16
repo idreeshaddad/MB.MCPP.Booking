@@ -11,5 +11,6 @@ namespace MB.MCPP.BK.Dtos.Customers
         public DateTime DOB { get; set; }
         public int Age { get; set; }
         public string ImageName { get; set; }
+        public string FullName { get; set; }
     }
 }

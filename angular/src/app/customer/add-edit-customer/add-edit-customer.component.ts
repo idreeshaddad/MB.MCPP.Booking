@@ -24,6 +24,8 @@ export class AddEditCustomerComponent implements OnInit {
   pageMode: PageMode = PageMode.Create;
   pageModeEnum = PageMode;
 
+  imageNames: string[] = [];
+
   uploaderConfig = new ImageUploaderConfig(UploaderStyle.Profile, UploaderMode.AddEdit, UploaderType.Single);
 
   constructor(
@@ -118,6 +120,10 @@ export class AddEditCustomerComponent implements OnInit {
       next: (customerFromApi) => {
         this.customer = customerFromApi;
         this.patchForm(customerFromApi);
+
+        if(customerFromApi.imageName) {
+          this.imageNames.push(customerFromApi.imageName);
+        }
       },
       error: (error: HttpErrorResponse) => {
         console.log(error);

@@ -17,7 +17,8 @@ export class CustomerDetailsComponent implements OnInit {
 
   customer?: Customer;
   gender = Gender;
-  imagePath!: string;
+
+  imageNames: string[] = [];
 
   uploaderConfig = new ImageUploaderConfig(UploaderStyle.Profile, UploaderMode.Details, UploaderType.Single);
 
@@ -40,7 +41,10 @@ export class CustomerDetailsComponent implements OnInit {
       this.CustomerSvc.getCustomer(customerId).subscribe({
         next: (customerFromApi) => {
           this.customer = customerFromApi;
-          this.imagePath = `${environment.imgStorageUrl}/${customerFromApi.imageName}`;
+          
+          if(customerFromApi.imageName) {
+            this.imageNames.push(customerFromApi.imageName);
+          }
         },
         error: (e: HttpErrorResponse) => {
           console.log(e);
