@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MB.MCPP.BK.Dtos.Addons;
-using MB.MCPP.BK.Entities;
+using MB.MCPP.BK.Entities.Addons;
 
 namespace MB.MCPP.BK.WebApi.AutoMapperProfiles
 {

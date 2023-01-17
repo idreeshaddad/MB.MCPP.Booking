@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MB.MCPP.BK.EfCore;
-using MB.MCPP.BK.Entities;
 using AutoMapper;
 using MB.MCPP.BK.Dtos.Villas;
 using MB.MCPP.BK.Dtos.Lookups;
+using MB.MCPP.BK.Entities.Villas;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -43,7 +43,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
             var villa = await _context
                                 .Villas
                                 .Include(villa => villa.Addons)
-                                .Include(villa => villa.VillaImages)
+                                .Include(villa => villa.Images)
                                 .SingleOrDefaultAsync(villa => villa.Id == id);
 
             if (villa == null)

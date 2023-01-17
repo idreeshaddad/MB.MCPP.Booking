@@ -17,10 +17,12 @@ namespace MB.MCPP.BK.EfCore.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "7.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.HasSequence("UploaderImageSequence");
 
             modelBuilder.Entity("AddonVilla", b =>
                 {
@@ -37,16 +39,13 @@ namespace MB.MCPP.BK.EfCore.Migrations
                     b.ToTable("AddonVilla");
                 });
 
-            modelBuilder.Entity("MB.MCPP.BK.Entities.Addon", b =>
+            modelBuilder.Entity("MB.MCPP.BK.Entities.Addons.Addon", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("ImageName")
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -66,7 +65,7 @@ namespace MB.MCPP.BK.EfCore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("BookingEnd")
                         .HasColumnType("datetime2");
@@ -95,13 +94,13 @@ namespace MB.MCPP.BK.EfCore.Migrations
                     b.ToTable("Bookings");
                 });
 
-            modelBuilder.Entity("MB.MCPP.BK.Entities.Customer", b =>
+            modelBuilder.Entity("MB.MCPP.BK.Entities.Customers.Customer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DOB")
                         .HasColumnType("datetime2");
@@ -113,10 +112,11 @@ namespace MB.MCPP.BK.EfCore.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
-                    b.Property<string>("ImageName")
+                    b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LastName")
+                    b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -125,13 +125,33 @@ namespace MB.MCPP.BK.EfCore.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("MB.MCPP.BK.Entities.Villa", b =>
+            modelBuilder.Entity("MB.MCPP.BK.Entities.UploaderImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValueSql("NEXT VALUE FOR [UploaderImageSequence]");
+
+                    SqlServerPropertyBuilderExtensions.UseSequence(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UploaderImages", (string)null);
+
+                    b.UseTpcMappingStrategy();
+                });
+
+            modelBuilder.Entity("MB.MCPP.BK.Entities.Villas.Villa", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
                         .IsRequired()
@@ -161,40 +181,54 @@ namespace MB.MCPP.BK.EfCore.Migrations
                     b.ToTable("Villas");
                 });
 
-            modelBuilder.Entity("MB.MCPP.BK.Entities.VillaImage", b =>
+            modelBuilder.Entity("MB.MCPP.BK.Entities.Addons.AddonImage", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.HasBaseType("MB.MCPP.BK.Entities.UploaderImage");
+
+                    b.Property<int>("AddonId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.HasIndex("AddonId");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.ToTable("AddonImages", (string)null);
+                });
 
-                    b.Property<int>("VillaId")
+            modelBuilder.Entity("MB.MCPP.BK.Entities.Customers.CustomerImage", b =>
+                {
+                    b.HasBaseType("MB.MCPP.BK.Entities.UploaderImage");
+
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("Name")
                         .IsUnique();
 
+                    b.ToTable("CustomerImages", (string)null);
+                });
+
+            modelBuilder.Entity("MB.MCPP.BK.Entities.Villas.VillaImage", b =>
+                {
+                    b.HasBaseType("MB.MCPP.BK.Entities.UploaderImage");
+
+                    b.Property<int>("VillaId")
+                        .HasColumnType("int");
+
                     b.HasIndex("VillaId");
 
-                    b.ToTable("VillaImages");
+                    b.ToTable("VillaImages", (string)null);
                 });
 
             modelBuilder.Entity("AddonVilla", b =>
                 {
-                    b.HasOne("MB.MCPP.BK.Entities.Addon", null)
+                    b.HasOne("MB.MCPP.BK.Entities.Addons.Addon", null)
                         .WithMany()
                         .HasForeignKey("AddonsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MB.MCPP.BK.Entities.Villa", null)
+                    b.HasOne("MB.MCPP.BK.Entities.Villas.Villa", null)
                         .WithMany()
                         .HasForeignKey("VillasId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -203,13 +237,13 @@ namespace MB.MCPP.BK.EfCore.Migrations
 
             modelBuilder.Entity("MB.MCPP.BK.Entities.Booking", b =>
                 {
-                    b.HasOne("MB.MCPP.BK.Entities.Customer", "Customer")
+                    b.HasOne("MB.MCPP.BK.Entities.Customers.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MB.MCPP.BK.Entities.Villa", "Villa")
+                    b.HasOne("MB.MCPP.BK.Entities.Villas.Villa", "Villa")
                         .WithMany()
                         .HasForeignKey("VillaId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -220,18 +254,46 @@ namespace MB.MCPP.BK.EfCore.Migrations
                     b.Navigation("Villa");
                 });
 
-            modelBuilder.Entity("MB.MCPP.BK.Entities.VillaImage", b =>
+            modelBuilder.Entity("MB.MCPP.BK.Entities.Addons.AddonImage", b =>
                 {
-                    b.HasOne("MB.MCPP.BK.Entities.Villa", null)
-                        .WithMany("VillaImages")
+                    b.HasOne("MB.MCPP.BK.Entities.Addons.Addon", null)
+                        .WithMany("Images")
+                        .HasForeignKey("AddonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MB.MCPP.BK.Entities.Customers.CustomerImage", b =>
+                {
+                    b.HasOne("MB.MCPP.BK.Entities.Customers.Customer", null)
+                        .WithMany("Images")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MB.MCPP.BK.Entities.Villas.VillaImage", b =>
+                {
+                    b.HasOne("MB.MCPP.BK.Entities.Villas.Villa", null)
+                        .WithMany("Images")
                         .HasForeignKey("VillaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("MB.MCPP.BK.Entities.Villa", b =>
+            modelBuilder.Entity("MB.MCPP.BK.Entities.Addons.Addon", b =>
                 {
-                    b.Navigation("VillaImages");
+                    b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("MB.MCPP.BK.Entities.Customers.Customer", b =>
+                {
+                    b.Navigation("Images");
+                });
+
+            modelBuilder.Entity("MB.MCPP.BK.Entities.Villas.Villa", b =>
+                {
+                    b.Navigation("Images");
                 });
 #pragma warning restore 612, 618
         }

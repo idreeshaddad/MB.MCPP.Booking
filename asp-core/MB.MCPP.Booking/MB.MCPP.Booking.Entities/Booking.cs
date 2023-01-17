@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using MB.MCPP.BK.Entities.Customers;
+using MB.MCPP.BK.Entities.Villas;
 
 namespace MB.MCPP.BK.Entities
 {

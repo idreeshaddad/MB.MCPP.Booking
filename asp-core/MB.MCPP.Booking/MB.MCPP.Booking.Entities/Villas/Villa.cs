@@ -1,11 +1,13 @@
-﻿namespace MB.MCPP.BK.Entities
+﻿using MB.MCPP.BK.Entities.Addons;
+
+namespace MB.MCPP.BK.Entities.Villas
 {
     public class Villa
     {
         public Villa()
         {
             Addons = new List<Addon>();
-            VillaImages= new List<VillaImage>();
+            Images = new List<VillaImage>();
         }
 
         public int Id { get; set; }
@@ -18,6 +20,6 @@
 
         public List<Addon> Addons { get; set; }
 
-        public List<VillaImage> VillaImages { get; set; }
+        public List<VillaImage> Images { get; set; }
     }
 }

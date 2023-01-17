@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MB.MCPP.BK.EfCore;
-using MB.MCPP.BK.Entities;
 using AutoMapper;
 using MB.MCPP.BK.Dtos.Addons;
 using MB.MCPP.BK.Dtos.Lookups;
+using MB.MCPP.BK.Entities.Addons;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {

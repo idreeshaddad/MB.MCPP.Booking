@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MB.MCPP.BK.EfCore;
-using MB.MCPP.BK.Entities;
 using AutoMapper;
 using MB.MCPP.BK.Dtos.Customers;
 using MB.MCPP.BK.Dtos.Lookups;
 using MB.MCPP.BK.WebApi.Helpers.ImageUploader;
+using MB.MCPP.BK.Entities.Customers;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
