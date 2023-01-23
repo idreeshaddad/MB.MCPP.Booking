@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MB.MCPP.BK.EfCore;
-using MB.MCPP.BK.Entities;
 using AutoMapper;
 using MB.MCPP.BK.Dtos.Customers;
 using MB.MCPP.BK.Dtos.Lookups;
 using MB.MCPP.BK.WebApi.Helpers.ImageUploader;
+using MB.MCPP.BK.Entities.Customers;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -43,15 +43,16 @@ namespace MB.MCPP.BK.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CustomerDetailsDto>> GetCustomer(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-
+            var customer = await _context
+                                    .Customers
+                                    .Include(customer => customer.Images)
+                                    .SingleOrDefaultAsync(customer => customer.Id == id);
             if (customer == null)
             {
                 return NotFound();
             }
 
             var customerDto = _mapper.Map<CustomerDetailsDto>(customer);
-
 
             return customerDto;
         }

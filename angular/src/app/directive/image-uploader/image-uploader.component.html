@@ -16,20 +16,6 @@
 
   </div>
 
-  <div class="img">
-    <img *ngIf="imagesNamesStrArr.length == 1" [src]="getImageUrlFromString(imagesNamesStrArr[0])" alt="Image"
-      class="img-fluid" />
-
-    <div *ngIf="imagesNamesStrArr.length >= 2">
-      <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-        <div ngxSlickItem *ngFor="let imgName of imagesNamesStrArr" class="slide">
-          <img [src]="getImageUrlFromString(imgName)" alt="" width="100%">
-        </div>
-      </ngx-slick-carousel>
-    </div>
-
-  </div>
-
   <div *ngIf="config.mode == uploaderModeEnum.AddEdit">
     <div class="progress mt-2" *ngIf="progress > 0 && progress < 100">
       <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuemin="0"

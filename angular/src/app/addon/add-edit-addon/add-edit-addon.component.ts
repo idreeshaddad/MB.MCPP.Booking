@@ -15,11 +15,14 @@ import { AddonService } from 'src/app/services/addons.service';
   styleUrls: ['./add-edit-addon.component.css'],
 })
 export class AddEditAddonComponent implements OnInit {
+  
   addonId?: number;
   addon?: Addon;
   addonForm!: FormGroup;
   pageMode: PageMode = PageMode.Create;
   pageModeEnum = PageMode;
+
+  images: UploaderImage[] = [];
 
   uploaderConfig = new ImageUploaderConfig(UploaderStyle.Normal, UploaderMode.AddEdit, UploaderType.Single);
 
@@ -70,7 +73,7 @@ export class AddEditAddonComponent implements OnInit {
   uploadFinished(uploaderImages: UploaderImage[]) {
 
     this.addonForm.patchValue({
-      imageName: uploaderImages[0].name
+      images: uploaderImages
     });
   }
 
@@ -81,7 +84,7 @@ export class AddEditAddonComponent implements OnInit {
       id: [0],
       name: ['', Validators.required],
       price: ['', Validators.required],
-      imageName: [],
+      images: [],
     });
   }
 

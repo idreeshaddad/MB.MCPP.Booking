@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MB.MCPP.BK.EfCore;
-using MB.MCPP.BK.Entities;
 using AutoMapper;
 using MB.MCPP.BK.Dtos.Villas;
 using MB.MCPP.BK.Dtos.Lookups;
+using MB.MCPP.BK.Entities.Villas;
+using MB.MCPP.BK.Dtos.Uploaders;
+using NuGet.Packaging;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -43,7 +45,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
             var villa = await _context
                                 .Villas
                                 .Include(villa => villa.Addons)
-                                .Include(villa => villa.VillaImages)
+                                .Include(villa => villa.Images)
                                 .SingleOrDefaultAsync(villa => villa.Id == id);
 
             if (villa == null)
@@ -76,6 +78,7 @@ namespace MB.MCPP.BK.WebApi.Controllers
             var villa = await _context
                                 .Villas
                                 .Include(villa => villa.Addons)
+                                .Include(villa => villa.Images)
                                 .SingleOrDefaultAsync(villa => villa.Id == id);
 
             if (villa == null)
@@ -102,6 +105,8 @@ namespace MB.MCPP.BK.WebApi.Controllers
             try
             {
                 await _context.SaveChangesAsync();
+
+                await UpdateVillaImages(villaDto.Images, villaDto.Id);
 
                 await UpdateVillaAddons(villaDto.AddonIds, villaDto.Id);
                 await _context.SaveChangesAsync();
@@ -191,6 +196,13 @@ namespace MB.MCPP.BK.WebApi.Controllers
             }
         }
 
+        private async Task UpdateVillaImages(List<UploaderImageDto> images, int id)
+        {
+            var villa = await _context.Villas.Include(v => v.Images).SingleAsync(v => v.Id == id);
+            villa.Images.Clear();
+
+            villa.Images.AddRange(images);
+        }
 
         #endregion
     }

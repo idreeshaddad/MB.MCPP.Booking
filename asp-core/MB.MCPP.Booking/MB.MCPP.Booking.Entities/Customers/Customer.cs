@@ -1,17 +1,23 @@
 ﻿using MB.MCPP.BK.Utils.Enums;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MB.MCPP.BK.Entities
+namespace MB.MCPP.BK.Entities.Customers
 {
     public class Customer
     {
+        public Customer()
+        {
+            Images = new List<CustomerImage>();
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string PhoneNumber { get; set; }
         public Gender Gender { get; set; }
         public DateTime DOB { get; set; }
-        public string? ImageName { get; set; }
+        public string PhoneNumber { get; set; }
+        public List<CustomerImage> Images { get; set; }
 
         [NotMapped]
         public int Age
@@ -23,11 +29,12 @@ namespace MB.MCPP.BK.Entities
         }
 
         [NotMapped]
-        public string FullName { 
+        public string FullName
+        {
             get
             {
                 return $"{FirstName} {LastName}";
-            } 
+            }
         }
     }
 }

@@ -24,7 +24,7 @@ export class AddEditCustomerComponent implements OnInit {
   pageMode: PageMode = PageMode.Create;
   pageModeEnum = PageMode;
 
-  imageNames: string[] = [];
+  images: UploaderImage[] = [];
 
   uploaderConfig = new ImageUploaderConfig(UploaderStyle.Profile, UploaderMode.AddEdit, UploaderType.Single);
 
@@ -79,7 +79,7 @@ export class AddEditCustomerComponent implements OnInit {
   uploadFinished(uploaderImages: UploaderImage[]) {
 
     this.customerForm.patchValue({
-      imageName: uploaderImages[0].name
+      images: uploaderImages
     });
   }
 
@@ -97,7 +97,8 @@ export class AddEditCustomerComponent implements OnInit {
       )],
       gender: ['', Validators.required],
       dob: ['', Validators.required],
-      imageName: []
+      images: [],
+      phoneNumber: []
     });
   }
 
@@ -117,12 +118,12 @@ export class AddEditCustomerComponent implements OnInit {
   private loadCustomer() {
 
     this.customerSvc.getCustomer(this.customerId!).subscribe({
-      next: (customerFromApi) => {
+      next: (customerFromApi : Customer) => {
         this.customer = customerFromApi;
         this.patchForm(customerFromApi);
 
-        if(customerFromApi.imageName) {
-          this.imageNames.push(customerFromApi.imageName);
+        if(customerFromApi.images) {
+          this.images = customerFromApi.images;
         }
       },
       error: (error: HttpErrorResponse) => {
@@ -139,7 +140,8 @@ export class AddEditCustomerComponent implements OnInit {
       lastName: customerFromApi.lastName,
       gender: customerFromApi.gender,
       dob: customerFromApi.dob,
-      imageName: customerFromApi.imageName
+      images: customerFromApi.images,
+      phoneNumber: customerFromApi.phoneNumber
     });
   }
 

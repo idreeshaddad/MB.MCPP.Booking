@@ -1,4 +1,6 @@
-﻿namespace MB.MCPP.BK.Dtos.Addons
+﻿using MB.MCPP.BK.Dtos.Uploaders;
+
+namespace MB.MCPP.BK.Dtos.Addons
 {
     public class AddonDto
     {
@@ -6,6 +8,6 @@
         public string Name { get; set; }
         public double Price { get; set; }
 
-        public string? ImageName { get; set; }
+        public List<UploaderImageDto> Images { get; set; }
     }
 }

@@ -18,6 +18,6 @@ namespace MB.MCPP.BK.Dtos.Villas
         public bool IsBooked { get; set; }
 
         public List<int> AddonIds { get; set; }
-        public List<UploaderImageDto> VillaImages { get; set; }
+        public List<UploaderImageDto> Images { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MB.MCPP.BK.Utils.Enums;
+﻿using MB.MCPP.BK.Dtos.Uploaders;
+using MB.MCPP.BK.Utils.Enums;
 
 namespace MB.MCPP.BK.Dtos.Customers
 {
@@ -9,6 +10,5 @@ namespace MB.MCPP.BK.Dtos.Customers
         public string LastName { get; set; }
         public Gender Gender { get; set; }
         public int Age { get; set; }
-        public string ImageName { get; set; }
     }
 }

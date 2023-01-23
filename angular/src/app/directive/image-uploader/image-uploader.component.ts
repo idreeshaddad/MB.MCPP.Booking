@@ -23,12 +23,10 @@ export class ImageUploaderComponent implements OnInit {
   uploaderModeEnum = UploaderMode;
   uploaderTypeEnum = UploaderType;
 
-  imagesNames: UploaderImage[] = [];
-
   @Output() public onUploadFinished = new EventEmitter();
-
+  
   @Input() public config!: ImageUploaderConfig;
-  @Input() public imagesNamesStrArr: string[] = [];
+  @Input() public imagesNames: UploaderImage[] = [];
 
   slideConfig = { slidesToShow: 4, slidesToScroll: 4 };
 
