@@ -1,3 +1,4 @@
+import { UploaderImage } from "../directive/image-uploader/UploaderImage.data";
 import { Gender } from "../enums/gender.enum";
 
 export interface Customer {
@@ -8,6 +9,7 @@ export interface Customer {
   dob: string;
   age: number;
   fullName: string;
-  imageName: string;
+  images: UploaderImage[];
+  phoneNumber: string;
 }
 

@@ -43,15 +43,16 @@ namespace MB.MCPP.BK.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CustomerDetailsDto>> GetCustomer(int id)
         {
-            var customer = await _context.Customers.FindAsync(id);
-
+            var customer = await _context
+                                    .Customers
+                                    .Include(customer => customer.Images)
+                                    .SingleOrDefaultAsync(customer => customer.Id == id);
             if (customer == null)
             {
                 return NotFound();
             }
 
             var customerDto = _mapper.Map<CustomerDetailsDto>(customer);
-
 
             return customerDto;
         }

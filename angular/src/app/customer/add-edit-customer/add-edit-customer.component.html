@@ -39,6 +39,14 @@
 
       <div class="">
         <mat-form-field appearance="outline" class="w-100">
+          <mat-label>PhoneNumber</mat-label>
+          <input matInput formControlName="phoneNumber" required>
+          <mat-error>Phone number is required</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="">
+        <mat-form-field appearance="outline" class="w-100">
           <mat-label>Gender</mat-label>
           <mat-select formControlName="gender">
             <mat-option *ngFor="let gender of genderEnum | enumToArray" [value]="gender.index">
@@ -67,8 +75,7 @@
   </div>
   <div class="col-md-6">
     <div class="mt-5">
-      <app-image-uploader (onUploadFinished)="uploadFinished($event)" [config]="uploaderConfig"
-        [imagesNamesStrArr]="imageNames"></app-image-uploader>
+      <app-image-uploader (onUploadFinished)="uploadFinished($event)" [config]="uploaderConfig"></app-image-uploader>
     </div>
   </div>
 </div>

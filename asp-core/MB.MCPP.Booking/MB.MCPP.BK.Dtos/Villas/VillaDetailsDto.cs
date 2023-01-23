@@ -8,7 +8,7 @@ namespace MB.MCPP.BK.Dtos.Villas
         public VillaDetailsDto()
         {
             Addons = new List<AddonDto>();
-            VillaImages = new List<UploaderImageDto>();
+            Images = new List<UploaderImageDto>();
         }
 
         public int Id { get; set; }
@@ -20,6 +20,6 @@ namespace MB.MCPP.BK.Dtos.Villas
         public bool IsBooked { get; set; }
 
         public List<AddonDto> Addons { get; set; }
-        public List<UploaderImageDto> VillaImages { get; set; }
+        public List<UploaderImageDto> Images { get; set; }
     }
 }

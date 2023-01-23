@@ -2,14 +2,14 @@
   <span *ngIf="pageMode == pageModeEnum.Create">Add Villa</span>
   <span *ngIf="pageMode == pageModeEnum.Edit">
     <span>Edit Villa </span>
-    <span class="text-primary">{{ villa?.name }}</span>
+    <span class="text-primary">{{ villa.name }}</span>
   </span>
 </h1>
 <hr>
 
 <form [formGroup]="villaForm" (ngSubmit)="submitForm()">
 
-  <app-image-uploader (onUploadFinished)="uploadFinished($event)" [config]="uploaderConfig"></app-image-uploader>
+  <app-image-uploader (onUploadFinished)="uploadFinished($event)" [config]="uploaderConfig" [imagesNames]="villa.images"></app-image-uploader>
   
   <div class="row mt-3">
     <div class="col-md-6">

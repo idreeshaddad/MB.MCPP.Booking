@@ -1,6 +1,5 @@
-﻿using MB.MCPP.BK.Utils.Enums;
-using Microsoft.AspNetCore.Http;
-using System;
+﻿using MB.MCPP.BK.Dtos.Uploaders;
+using MB.MCPP.BK.Utils.Enums;
 namespace MB.MCPP.BK.Dtos.Customers
 {
     public class CustomerDto
@@ -10,6 +9,7 @@ namespace MB.MCPP.BK.Dtos.Customers
         public string LastName { get; set; }
         public Gender Gender { get; set; }
         public DateTime DOB { get; set; }
-        public string? ImageName { get; set; }
+        public string PhoneNumber { get; set; }
+        public List<UploaderImageDto> Images { get; set; }
     }
 }

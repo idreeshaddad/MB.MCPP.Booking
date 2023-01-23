@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImageUploaderConfig } from 'src/app/directive/image-uploader/image-uploader.config';
 import { UploaderMode, UploaderStyle, UploaderType } from 'src/app/directive/image-uploader/uploader.enums';
+import { UploaderImage } from 'src/app/directive/image-uploader/UploaderImage.data';
 import { Gender } from 'src/app/enums/gender.enum';
 import { Customer } from 'src/app/models/customer.model';
 import { CustomerService } from 'src/app/services/customer.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-customer-details',
@@ -18,7 +18,7 @@ export class CustomerDetailsComponent implements OnInit {
   customer?: Customer;
   gender = Gender;
 
-  imageNames: string[] = [];
+  images: UploaderImage[] = [];
 
   uploaderConfig = new ImageUploaderConfig(UploaderStyle.Profile, UploaderMode.Details, UploaderType.Single);
 
@@ -42,8 +42,8 @@ export class CustomerDetailsComponent implements OnInit {
         next: (customerFromApi) => {
           this.customer = customerFromApi;
           
-          if(customerFromApi.imageName) {
-            this.imageNames.push(customerFromApi.imageName);
+          if(customerFromApi.images) {
+            this.images = customerFromApi.images;
           }
         },
         error: (e: HttpErrorResponse) => {

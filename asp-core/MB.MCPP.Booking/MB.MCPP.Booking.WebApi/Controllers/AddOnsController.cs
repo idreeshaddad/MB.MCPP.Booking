@@ -38,7 +38,10 @@ namespace MB.MCPP.BK.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AddonDto>> GetAddon(int id)
         {
-            var addon = await _context.Addons.FindAsync(id);
+            var addon = await _context
+                                .Addons
+                                .Include(addons => addons.Images)
+                                .SingleOrDefaultAsync(addons => addons.Id == id);
 
             if (addon == null)
             {

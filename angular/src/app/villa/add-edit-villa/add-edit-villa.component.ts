@@ -19,7 +19,7 @@ import { VillaService } from 'src/app/services/villa.service';
 export class AddEditVillaComponent implements OnInit {
 
   villaId?: number;
-  villa?: Villa;
+  villa: Villa = new Villa();
   villaForm!: FormGroup;
   pageMode: PageMode = PageMode.Create;
   pageModeEnum = PageMode;
@@ -87,7 +87,7 @@ export class AddEditVillaComponent implements OnInit {
   uploadFinished(uploaderImages: UploaderImage[]) {
     
     this.villaForm.patchValue({
-      villaImages: uploaderImages
+      images: uploaderImages
     })
   }
 
@@ -96,7 +96,7 @@ export class AddEditVillaComponent implements OnInit {
   private loadVilla() {
 
     this.villaSvc.getEditVilla(this.villaId!).subscribe({
-      next: (villaFromApi) => {
+      next: (villaFromApi: Villa) => {
         this.villa = villaFromApi;
         this.villaForm.patchValue(villaFromApi);
       },
@@ -130,7 +130,7 @@ export class AddEditVillaComponent implements OnInit {
       price: ['', Validators.required],
       isBooked: [false, Validators.required],
       addonIds: [[]],
-      villaImages: []
+      images: []
     });
   }
 
