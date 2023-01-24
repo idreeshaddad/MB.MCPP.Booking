@@ -16,7 +16,6 @@ namespace MB.MCPP.BK.Entities.Customers
         public string PhoneNumber { get; set; }
         public Gender Gender { get; set; }
         public DateTime DOB { get; set; }
-        public string PhoneNumber { get; set; }
         public List<CustomerImage> Images { get; set; }
 
         [NotMapped]

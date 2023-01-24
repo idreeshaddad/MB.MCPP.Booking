@@ -7,6 +7,8 @@ using MB.MCPP.BK.Dtos.Lookups;
 using MB.MCPP.BK.Entities.Villas;
 using MB.MCPP.BK.Dtos.Uploaders;
 using NuGet.Packaging;
+using System.Collections.Generic;
+using MB.MCPP.BK.Entities;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -201,7 +203,9 @@ namespace MB.MCPP.BK.WebApi.Controllers
             var villa = await _context.Villas.Include(v => v.Images).SingleAsync(v => v.Id == id);
             villa.Images.Clear();
 
-            villa.Images.AddRange(images);
+            var villaImages = _mapper.Map<List<UploaderImageDto>, List <VillaImage>>(images);
+
+            villa.Images.AddRange(villaImages);
         }
 
         #endregion
