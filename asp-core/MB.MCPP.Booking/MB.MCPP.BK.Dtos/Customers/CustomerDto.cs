@@ -4,6 +4,11 @@ namespace MB.MCPP.BK.Dtos.Customers
 {
     public class CustomerDto
     {
+        public CustomerDto()
+        {
+            Images = new List<UploaderImageDto>();
+        }
+
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

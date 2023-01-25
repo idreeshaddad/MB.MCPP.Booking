@@ -1,3 +1,4 @@
+import { UploaderImage } from "src/app/directive/image-uploader/UploaderImage.data";
 import { Addon } from "../addon.model";
 
 export interface VillaDetails {
@@ -9,5 +10,5 @@ export interface VillaDetails {
   price: number;
   isBooked: boolean;
   addons: Addon[];
-  villaImages: string[];
+  images: UploaderImage[];
 }

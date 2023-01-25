@@ -28,6 +28,10 @@
   </div>
 </div>
 
+<div class="row mt-3">
+  <app-image-uploader [config]="uploaderConfig" [imagesNames]="images"></app-image-uploader>
+</div>
+
 <div class="mt-4">
   <button class="me-2" mat-raised-button color="basic" [routerLink]="['/villas']">Back</button>
   <button mat-raised-button color="primary" [routerLink]="['/villas/edit/', villaId]">Edit</button>

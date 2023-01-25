@@ -5,6 +5,10 @@ using AutoMapper;
 using MB.MCPP.BK.Dtos.Addons;
 using MB.MCPP.BK.Dtos.Lookups;
 using MB.MCPP.BK.Entities.Addons;
+using MB.MCPP.BK.Dtos.Customers;
+using MB.MCPP.BK.Dtos.Uploaders;
+using MB.MCPP.BK.Entities.Customers;
+using NuGet.Packaging;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -62,6 +66,8 @@ namespace MB.MCPP.BK.WebApi.Controllers
             }
 
             var addon = _mapper.Map<Addon>(addonDto);
+
+            UpdateAddonImage(addonDto.Images, id);
 
             _context.Entry(addon).State = EntityState.Modified;
 
@@ -135,6 +141,16 @@ namespace MB.MCPP.BK.WebApi.Controllers
         private bool AddonExists(int id)
         {
             return _context.Addons.Any(e => e.Id == id);
+        }
+
+        private async Task UpdateAddonImage(List<UploaderImageDto> images, int id)
+        {
+            var addon = await _context.Addons.Include(a => a.Images).SingleAsync(a => a.Id == id);
+            addon.Images.Clear();
+
+            var addonImages = _mapper.Map<List<UploaderImageDto>, List<AddonImage>>(images);
+
+            addon.Images.AddRange(addonImages);
         }
 
         #endregion

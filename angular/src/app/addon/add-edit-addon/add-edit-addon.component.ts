@@ -84,7 +84,7 @@ export class AddEditAddonComponent implements OnInit {
       id: [0],
       name: ['', Validators.required],
       price: ['', Validators.required],
-      images: [],
+      images: [[]],
     });
   }
 
@@ -103,6 +103,7 @@ export class AddEditAddonComponent implements OnInit {
       next: (addonFromApi) => {
         this.addon = addonFromApi;
         this.addonForm.patchValue(addonFromApi);
+        this.images = addonFromApi.images;
       },
       error: (err: HttpErrorResponse) => {
         console.log(err);

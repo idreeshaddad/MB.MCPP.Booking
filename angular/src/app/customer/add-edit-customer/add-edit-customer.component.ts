@@ -97,7 +97,7 @@ export class AddEditCustomerComponent implements OnInit {
       )],
       gender: ['', Validators.required],
       dob: ['', Validators.required],
-      images: [],
+      images: [[]],
       phoneNumber: []
     });
   }

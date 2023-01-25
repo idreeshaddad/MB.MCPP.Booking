@@ -6,6 +6,9 @@ using MB.MCPP.BK.Dtos.Customers;
 using MB.MCPP.BK.Dtos.Lookups;
 using MB.MCPP.BK.WebApi.Helpers.ImageUploader;
 using MB.MCPP.BK.Entities.Customers;
+using MB.MCPP.BK.Dtos.Uploaders;
+using MB.MCPP.BK.Entities.Villas;
+using NuGet.Packaging;
 
 namespace MB.MCPP.BK.WebApi.Controllers
 {
@@ -66,8 +69,9 @@ namespace MB.MCPP.BK.WebApi.Controllers
             }
 
             var customer = _mapper.Map<Customer>(customerDto);
+            UpdateCustomerImage(customerDto.Images, id);
 
-            _context.Entry(customerDto).State = EntityState.Modified;
+            _context.Entry(customer).State = EntityState.Modified;
 
             try
             {
@@ -139,6 +143,16 @@ namespace MB.MCPP.BK.WebApi.Controllers
         private bool CustomerExists(int id)
         {
             return _context.Customers.Any(e => e.Id == id);
+        }
+
+        private async Task UpdateCustomerImage(List<UploaderImageDto> images, int id)
+        {
+            var customer = await _context.Customers.Include(c => c.Images).SingleAsync(c => c.Id == id);
+            customer.Images.Clear();
+
+            var customerImages = _mapper.Map<List<UploaderImageDto>, List<CustomerImage>>(images);
+
+            customer.Images.AddRange(customerImages);
         }
 
         #endregion

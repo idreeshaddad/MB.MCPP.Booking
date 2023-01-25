@@ -5,6 +5,7 @@ import { Addon } from 'src/app/models/addon.model';
 import { AddonService } from 'src/app/services/addons.service';
 import { ImageUploaderConfig } from 'src/app/directive/image-uploader/image-uploader.config';
 import { UploaderMode, UploaderStyle, UploaderType } from 'src/app/directive/image-uploader/uploader.enums';
+import { UploaderImage } from 'src/app/directive/image-uploader/UploaderImage.data';
 
 @Component({
   selector: 'app-addon-details',
@@ -16,7 +17,7 @@ export class AddonDetailsComponent implements OnInit {
   addonId!: number;
   addon!: Addon;
 
-  imageNames: string[] = [];
+  images: UploaderImage[] = [];
 
   uploaderConfig = new ImageUploaderConfig(UploaderStyle.Normal, UploaderMode.Details, UploaderType.Single);
 
@@ -37,11 +38,11 @@ export class AddonDetailsComponent implements OnInit {
     if (this.addonId) {
 
       this.addonSvc.getAddon(this.addonId).subscribe({
-        next: (addonFromApi) => {
+        next: (addonFromApi : Addon) => {
           this.addon = addonFromApi;
           
-          if(addonFromApi.imageName) {
-            this.imageNames.push(addonFromApi.imageName);
+          if(addonFromApi.images) {
+            this.images = addonFromApi.images;
           }
         },
         error: (err: HttpErrorResponse) => {

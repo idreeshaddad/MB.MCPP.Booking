@@ -85,9 +85,9 @@ export class ImageUploaderComponent implements OnInit {
   private setSilhouetteImage() {
     
     if (this.config.style == UploaderStyle.Normal) {
-      this.silhouetteImage = '../../../assets/imgs/item.png';
+      this.silhouetteImage = '/assets/imgs/item.png';
     } else {
-      this.silhouetteImage = '../../../assets/imgs/user.png';
+      this.silhouetteImage = '/assets/imgs/user.png';
     }
   }
 
